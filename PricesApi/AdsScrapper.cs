@@ -14,14 +14,18 @@ namespace PricesApi
 
             document.LoadHtml(html);
 
-            var adsTitles = document.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("pad-hrz-xs")).ToList();
+            var adsTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
 
             foreach (var adTitle in adsTitles)
             {
-                var title = adTitle.Descendants("a").Where(node => node.GetAttributeValue("data-zone", "").Equals("title")).FirstOrDefault();
+                var title = adTitle.Attributes["href"].Value.Trim();
 
-                AdSpecs.AdTitle += $"{title.InnerText}\n";
+                var hyperlink = adTitle.InnerText.Trim();
 
+                AdSpecs.AdTitle += $"{title}\n";
+
+                AdSpecs.AdHyperlink += $"{hyperlink}\n";
+               
             }
 
             var adsPrices = document.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("card-v2-pricing")).ToList();
@@ -33,7 +37,7 @@ namespace PricesApi
                 AdSpecs.AdPrice += $"{price.InnerText}\n";
             }
 
-            return $"{AdSpecs.AdTitle}{AdSpecs.AdPrice}";
+            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}";
 
 
         }
