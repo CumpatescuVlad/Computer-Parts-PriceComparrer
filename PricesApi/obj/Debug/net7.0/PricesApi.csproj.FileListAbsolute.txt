@@ -31,3 +31,6 @@ E:\CODE REPOS\PriceComparrerDemo\PricesApi\obj\Debug\net7.0\refint\PricesApi.dll
 E:\CODE REPOS\PriceComparrerDemo\PricesApi\obj\Debug\net7.0\PricesApi.pdb
 E:\CODE REPOS\PriceComparrerDemo\PricesApi\obj\Debug\net7.0\PricesApi.genruntimeconfig.cache
 E:\CODE REPOS\PriceComparrerDemo\PricesApi\obj\Debug\net7.0\ref\PricesApi.dll
+E:\CODE REPOS\PriceComparrerDemo\PricesApi\bin\Debug\net7.0\HtmlAgilityPack.dll
+E:\CODE REPOS\PriceComparrerDemo\PricesApi\bin\Debug\net7.0\AutoMapper.dll
+E:\CODE REPOS\PriceComparrerDemo\PricesApi\bin\Debug\net7.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
