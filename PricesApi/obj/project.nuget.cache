@@ -1,8 +1,16 @@
 {
   "version": 2,
-  "dgSpecHash": "dUuSE5ADET2v3RmQKGxVYEBbWgA3l+RC4vOr5kS9BhhEt0N35UtlG6by9wUShSuCWivAkp/Kx94zKv7nmfUtFw==",
+  "dgSpecHash": "FeJ4a+Tu1qab9UjPmWaEyG4ItodJgPaIvEvwgSnGjEgrH8J94jIuoY7gEPXc7sUNIzC5cFVMAaUjkX+ibAsZ3g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Vlad\\Documents\\Repos\\PricesApi\\PricesApi.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Vlad\\Documents\\Repos\\PRiceComparrerWinforms\\DataScrapper\\DataScrapper.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Vlad\\.nuget\\packages\\htmlagilitypack\\1.11.46\\htmlagilitypack.1.11.46.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\Vlad\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
   "logs": []
 }

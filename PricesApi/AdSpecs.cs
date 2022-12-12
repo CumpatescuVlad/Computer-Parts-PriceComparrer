@@ -1,4 +1,4 @@
-﻿namespace PricesApi
+﻿namespace DataScrapper
 {
     public static class AdSpecs
     {
@@ -6,6 +6,6 @@
 
         public static string? AdPrice { get; set; }
 
-        public string? AdHyperlink { get; set; }
+        public static string AdHyperlink { get; set; }
     }
 }
