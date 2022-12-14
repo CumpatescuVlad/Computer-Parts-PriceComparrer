@@ -38,7 +38,9 @@ namespace DataScrapper
             return $"{AdSpecs.AdPrice}{AdSpecs.AdHyperlink}{AdSpecs.AdTitle}";
 
         }
+
         #region !Working
+
 
         //public string EvomagResults(string searchItem)
         //{
@@ -46,21 +48,13 @@ namespace DataScrapper
 
         //    document.LoadHtml(htmlPage);
 
-        //    //var adsTitles = document.DocumentNode.SelectNodes("//div[@class='npi_name']/a");
-
-        //    var adsTitles = document.DocumentNode.Descendants("div").Where(node => node.GetAttributeValue("class", "").Equals("npi_name")).ToList();
+        //    var adsTitles = document.DocumentNode.SelectNodes("//div[@class='npi_name']/a");
 
         //    foreach (var adTitle in adsTitles)
         //    {
-        //        // var aElement = adTitle.SelectSingleNode("a");
-        //        //AdSpecs.AdHyperlink += $"{aElement.Attributes["href"].Value}\n";
-        //        //AdSpecs.AdTitle += $"{aElement.InnerText}\n";
+        //        AdSpecs.AdTitle += $"{adTitle.InnerText.Trim()}\n";
 
-        //        var variable = adTitle.SelectSingleNode("//a");
-
-        //        AdSpecs.AdTitle += $"{variable.InnerText}";
-
-        //        AdSpecs.AdHyperlink += $"{variable.Attributes["href"].Value}";
+        //        AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
         //    }
 
         //    //var adsPrices = document.DocumentNode.SelectNodes("//span[@class='real_price']");
@@ -98,18 +92,35 @@ namespace DataScrapper
 
         //    document.LoadHtml(htmlPage);
 
-        //    var adsTitles = document.DocumentNode.SelectNodes("//a[@class='shop-card__title']");
+        //    var adsTitles = document.DocumentNode.SelectNodes("//a[@class='shop-card__overlay-link']");
 
         //    foreach (var adTitle in adsTitles)
         //    {
-
-        //        AdSpecs.AdHyperlink += $"{adTitle.InnerText.Trim()}\n";
+        //        AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
+        //        AdSpecs.AdTitle += $"{adTitle.InnerText.Trim()}\n";
 
         //    }
 
         //    return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}";
         //}
 
+        //public string DwinResults(string searchItem)
+        //{
+        //    var htmlPage = client.GetStringAsync($"https://www.dwyn.ro/?sn.q={searchItem}").Result;
+
+        //    document.LoadHtml(htmlPage);
+
+        //    var adsTitles = document.DocumentNode.SelectNodes("//div[@class='grid-full col-xs-6 col-sm-5 col-md-4']/h5[@class='name margin-bottom-xs']/a");
+
+        //    foreach (var adTitle in adsTitles)
+        //    {
+        //        //AdSpecs.AdTitle += $"{adTitle.Attributes["title"].Value.Trim()}\n";
+
+        //        AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
+        //    }
+
+        //    return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}";
+        //}
 
         #endregion
 
@@ -196,10 +207,93 @@ namespace DataScrapper
                 AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
             }
 
-            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}";
+            var adsPrices = document.DocumentNode.SelectNodes("//div[@class='']/strong");
+
+            foreach (var adPrice in adsPrices)
+            {
+                AdSpecs.AdPrice += $"{adPrice.InnerText}\n";
+            }
+
+            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}{AdSpecs.AdPrice}";
         }
 
-       
+        public string FlaxResuls(string searchItem)
+        {
+            var htmlPage = client.GetStringAsync($"https://www.flax.ro/produse?term={searchItem}").Result;
+
+            document.LoadHtml(htmlPage);
+
+            var adsTitles = document.DocumentNode.SelectNodes("//h2[@class='product-title']/a");
+
+            foreach (var adTtile in adsTitles)
+            {
+                AdSpecs.AdTitle += $"{adTtile.Attributes["title"].Value}\n";
+                AdSpecs.AdHyperlink += $"{adTtile.Attributes["href"].Value}\n";
+                
+            }
+
+            var adsPrices = document.DocumentNode.SelectNodes("//div[@class='price']");
+
+            foreach (var adPrice in adsPrices)
+            {
+                AdSpecs.AdPrice += $"{adPrice.InnerText.Trim()}\n";
+            }
+
+            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}{AdSpecs.AdPrice}";
+        }
+
+
+        public string PcConeResuls(string searchItem)
+        {
+            var htmlPage = client.GetStringAsync($"https://www.pcone.ro/search/?q={searchItem}").Result;
+
+            document.LoadHtml(htmlPage);
+
+            var adsTitles = document.DocumentNode.SelectNodes("//h2[@class='name']/a[@data-ecproduct='true']");
+
+
+            foreach (var adTitle in adsTitles)
+            {
+                AdSpecs.AdTitle += $"{adTitle.Attributes["title"].Value.Trim()}\n";
+                AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
+            }
+
+            var adsPrices = document.DocumentNode.SelectNodes("//div[@class='pull-left ']/strong");
+
+            foreach (var adPrice in adsPrices)
+            {
+                AdSpecs.AdPrice += $"{adPrice.InnerText.Trim()}\n";
+            }
+
+            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}{AdSpecs.AdPrice}";
+        }
+
+        public string PcBitResutls(string searchItem)
+        {
+            var htmlPage = client.GetStringAsync($"https://www.pcbit.ro/cauta?q={searchItem}").Result;
+
+            document.LoadHtml(htmlPage);
+
+            var adsTitles = document.DocumentNode.SelectNodes("//article[@class='product']/a ");
+
+            foreach (var adTitle in adsTitles)
+            {
+                AdSpecs.AdTitle += $"{adTitle.InnerText.Trim()}\n";
+                AdSpecs.AdHyperlink += $"{adTitle.Attributes["href"].Value.Trim()}\n";
+            }
+
+            var adsPrices = document.DocumentNode.SelectNodes("//article[@class='product']/em");
+
+            foreach (var adPrice in adsPrices)
+            {
+                AdSpecs.AdPrice += $"{adPrice.InnerText.Trim()}\n";
+
+            }
+
+            return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}{AdSpecs.AdPrice}";
+        }
+
+
     }
 }
 

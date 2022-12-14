@@ -7,13 +7,8 @@ namespace DataScrapper
     {
         private readonly AdsScrapper _scapper = new();
 
-        [Route("api/EmagResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string ReadEmagAds(string searchItem) => $"{_scapper.EmagResults(searchItem)}";
-
         #region !Working
+
         //[Route("api/EvomagResults/{searchItem}")]
 
         //[HttpGet]
@@ -32,13 +27,27 @@ namespace DataScrapper
 
         //public string VexioAds(string searchItem) => $"{_scapper.VexioResults(searchItem)}";
 
-        //[Route("api/VexioResults/{searchItem}")]
+        //[Route("api/IponResults/{searchItem}")]
 
         //[HttpGet]
 
-        //public string IPon(string searchItem) => $"{_scapper.IPonResults(searchItem)}";
+        //public string IPonAds(string searchItem) => $"{_scapper.IPonResults(searchItem)}";
+
+        //[Route("api/DwinResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string DwinAds(string searchItem) => $"{_scapper.DwinResults(searchItem)}";
 
         #endregion
+
+
+        [Route("api/EmagResults/{searchItem}")]
+
+        [HttpGet]
+
+        public string ReadEmagAds(string searchItem) => $"{_scapper.EmagResults(searchItem)}";
+
 
         [Route("api/ForITResults/{searchItem}")]
 
@@ -58,5 +67,25 @@ namespace DataScrapper
 
         public string ItGalaxyAds(string searchItem) => $"{_scapper.ItGalaxyResults(searchItem)}";
 
+
+        [Route("api/FlaxResults/{searchItem}")]
+
+        [HttpGet]
+
+        public string FlaxAds(string searchItem) => $"{_scapper.FlaxResuls(searchItem)}";
+
+        [Route("api/PcConeResults/{searchItem}")]
+
+        [HttpGet]
+
+        public string PcConeAds(string searchItem) => $"{_scapper.PcConeResuls(searchItem)}";
+
+
+        [Route("api/PcBitResults/{searchItem}")]
+
+        [HttpGet]
+
+        public string PcBitAds(string searchItem) => $"{_scapper.PcBitResutls(searchItem)}";
+       
     }
 }
