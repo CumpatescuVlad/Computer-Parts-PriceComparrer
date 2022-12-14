@@ -15,12 +15,6 @@ namespace DataScrapper
 
         //public string ReadEvomagAds(string searchItem) => $"{_scapper.EvomagResults(searchItem)}";
 
-        //[Route("api/ITarenaResults/{searchItem}")]
-
-        //[HttpGet]
-
-        //public string ITarenaResults(string searchItem) => $"{_scapper.ITArenaResults(searchItem)}";
-
         //[Route("api/VexioResults/{searchItem}")]
 
         //[HttpGet]
@@ -86,6 +80,12 @@ namespace DataScrapper
         [HttpGet]
 
         public string PcBitAds(string searchItem) => $"{_scapper.PcBitResutls(searchItem)}";
-       
+
+
+        //[Route("api/ITarenaResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string ITarenaResults(string searchItem) => $"{_scapper.ITArenaResults(searchItem)}";
     }
 }

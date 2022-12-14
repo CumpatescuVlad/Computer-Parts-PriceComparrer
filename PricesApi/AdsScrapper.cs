@@ -41,7 +41,6 @@ namespace DataScrapper
 
         #region !Working
 
-
         //public string EvomagResults(string searchItem)
         //{
         //    var htmlPage = client.GetStringAsync($"https://www.evomag.ro/?sn.q={searchItem}").Result;
@@ -65,25 +64,6 @@ namespace DataScrapper
         //    //}
 
         //    return $"{AdSpecs.AdHyperlink}{AdSpecs.AdTitle}";
-        //}
-
-        //public string ITArenaResults(string searchItem)
-        //{
-        //    var htmlPage = client.GetStringAsync($"https://www.itarena.ro/?sn.q={searchItem}").Result;
-
-        //    document.LoadHtml(htmlPage);
-
-        //    var adsTitles = document.DocumentNode.Descendants("h4").Where(node=>node.GetAttributeValue("class","").Equals("product-title")).ToList();
-
-        //    foreach (var adTitle in adsTitles) 
-        //    {
-        //        var title = adTitle.Descendants("a").FirstOrDefault();
-
-        //        AdSpecs.AdTitle += $"{title.InnerText}\n";
-
-        //    }  
-
-        //    return $"{AdSpecs.AdTitle}";
         //}
 
         //public string IPonResults(string searchItem)
@@ -120,6 +100,26 @@ namespace DataScrapper
         //    }
 
         //    return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}";
+        //}
+
+
+        //public string ITArenaResults(string searchItem)
+        //{
+        //    var htmlPage = client.GetStringAsync($"https://www.itarena.ro/?sn.q={searchItem}").Result;
+
+        //    document.LoadHtml(htmlPage);
+
+        //    var adsTitles = document.DocumentNode.SelectNodes("//h4[@class='product-title']/a  ");
+
+        //    foreach (var adTitle in adsTitles)
+        //    {
+        //        AdSpecs.AdTitle += $"{adTitle.InnerText.Trim()}\n";
+
+        //        // AdSpecs.AdTitle += $"{title.InnerText}\n";
+
+        //    }
+
+        //    return $"{AdSpecs.AdTitle}";
         //}
 
         #endregion
@@ -292,6 +292,9 @@ namespace DataScrapper
 
             return $"{AdSpecs.AdTitle}{AdSpecs.AdHyperlink}{AdSpecs.AdPrice}";
         }
+
+        
+
 
 
     }
