@@ -1,6 +1,6 @@
 ﻿namespace DataScrapper
 {
-    public static class AdSpecs
+    public static class Ads
     {
         public static string? AdTitle { get; set; }
 

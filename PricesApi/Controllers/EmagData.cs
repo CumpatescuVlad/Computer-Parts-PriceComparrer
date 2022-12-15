@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.ObjectPool;
+using Microsoft.Extensions.Primitives;
+
 namespace DataScrapper
 {
     [ApiController]
@@ -35,57 +38,78 @@ namespace DataScrapper
 
         #endregion
 
+        #region !Nedd
 
-        [Route("api/EmagResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string ReadEmagAds(string searchItem) => $"{_scapper.EmagResults(searchItem)}";
-
-
-        [Route("api/ForITResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string ForITAds(string searchItem) => $"{_scapper.ForITResults(searchItem)}";
-
-        [Route("api/PcOneResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string PcOneAds(string searchItem) => $"{_scapper.PcOneResults(searchItem)}";
-
-        [Route("api/ItGalaxyResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string ItGalaxyAds(string searchItem) => $"{_scapper.ItGalaxyResults(searchItem)}";
-
-
-        [Route("api/FlaxResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string FlaxAds(string searchItem) => $"{_scapper.FlaxResuls(searchItem)}";
-
-        [Route("api/PcConeResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string PcConeAds(string searchItem) => $"{_scapper.PcConeResuls(searchItem)}";
-
-
-        [Route("api/PcBitResults/{searchItem}")]
-
-        [HttpGet]
-
-        public string PcBitAds(string searchItem) => $"{_scapper.PcBitResutls(searchItem)}";
-
-
-        //[Route("api/ITarenaResults/{searchItem}")]
+        //[Route("api/EmagResults/{searchItem}")]
 
         //[HttpGet]
 
-        //public string ITarenaResults(string searchItem) => $"{_scapper.ITArenaResults(searchItem)}";
+        //public string ReadEmagAds(string searchItem) => $"{_scapper.EmagResults(searchItem)}";
+
+
+        //[Route("api/ForITResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string ForITAds(string searchItem) => $"{_scapper.ForITResults(searchItem)}";
+
+        //[Route("api/PcOneResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string PcOneAds(string searchItem) => $"{_scapper.PcOneResults(searchItem)}";
+
+        //[Route("api/ItGalaxyResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string ItGalaxyAds(string searchItem) => $"{_scapper.ItGalaxyResults(searchItem)}";
+
+
+        //[Route("api/FlaxResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string FlaxAds(string searchItem) => $"{_scapper.FlaxResuls(searchItem)}";
+
+        //[Route("api/PcConeResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string PcConeAds(string searchItem) => $"{_scapper.PcConeResuls(searchItem)}";
+
+
+        //[Route("api/PcBitResults/{searchItem}")]
+
+        //[HttpGet]
+
+        //public string PcBitAds(string searchItem) => $"{_scapper.PcBitResutls(searchItem)}";
+
+
+        ////[Route("api/ITarenaResults/{searchItem}")]
+
+        ////[HttpGet]
+
+        ////public string ITarenaResults(string searchItem) => $"{_scapper.ITArenaResults(searchItem)}";
+        #endregion
+
+        [Route("api/Emag/{pageCount}")]
+
+        [HttpGet]
+
+        public string EmagAds(string pageCount) => $"{_scapper.AllEmagResuls(pageCount)}";
+
+
+        [Route("api/EvoMag/{pageCount}")]
+
+        [HttpGet]
+
+        public string EvomagAds(string pageCount) => $"{_scapper.EvomagResults(pageCount)}";
+
+        [Route("api/Ipon/{pageCount}")]
+
+        [HttpGet]
+
+        public string IponAds(string pageCount) => $"{_scapper.IponResults(pageCount)}";
     }
 }
