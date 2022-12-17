@@ -16,3 +16,16 @@ E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\ref
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.pdb
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.genruntimeconfig.cache
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\ref\PriceComparrerDemo.dll
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.Properties.Resources.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.CaseTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.CoolerTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.GenericTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.hardDiskTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.HomePage.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.M2Tab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.MotherboardTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.PowerSupply.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.ProcessorTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.RamMemoryTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.UIComponents.SSDTab.resources
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerDemo.VideoCardsTab.resources

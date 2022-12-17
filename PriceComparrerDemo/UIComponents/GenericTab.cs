@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace PriceComparrerDemo
+namespace PriceComparrerDemo.UIComponents
 {
-    public partial class ProcessorTab : UserControl
+    public partial class GenericTab : UserControl
     {
-        public ProcessorTab()
+        public GenericTab()
         {
             InitializeComponent();
         }

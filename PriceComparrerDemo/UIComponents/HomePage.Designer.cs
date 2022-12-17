@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomePage));
-            this.label1 = new System.Windows.Forms.Label();
+            this.chooseComponentLbl = new System.Windows.Forms.Label();
             this.processorBtnTab = new System.Windows.Forms.Button();
             this.videoCardsBtnTab = new System.Windows.Forms.Button();
             this.motherboardBtnTab = new System.Windows.Forms.Button();
@@ -40,17 +40,21 @@
             this.M2BtnTab = new System.Windows.Forms.Button();
             this.hddBtnTab = new System.Windows.Forms.Button();
             this.powerSupplyBtnTab = new System.Windows.Forms.Button();
+            this.searchBox = new System.Windows.Forms.TextBox();
+            this.searchBtn = new System.Windows.Forms.Button();
+            this.searchLbl = new System.Windows.Forms.Label();
+            this.homeBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // label1
+            // chooseComponentLbl
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.Location = new System.Drawing.Point(298, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(320, 41);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Choose Computer Part";
+            this.chooseComponentLbl.AutoSize = true;
+            this.chooseComponentLbl.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.chooseComponentLbl.Location = new System.Drawing.Point(298, 0);
+            this.chooseComponentLbl.Name = "chooseComponentLbl";
+            this.chooseComponentLbl.Size = new System.Drawing.Size(320, 41);
+            this.chooseComponentLbl.TabIndex = 0;
+            this.chooseComponentLbl.Text = "Choose Computer Part";
             // 
             // processorBtnTab
             // 
@@ -65,6 +69,7 @@
             this.processorBtnTab.Text = "Procesoare";
             this.processorBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.processorBtnTab.UseVisualStyleBackColor = true;
+            this.processorBtnTab.Click += new System.EventHandler(this.processorBtnTab_Click);
             // 
             // videoCardsBtnTab
             // 
@@ -79,6 +84,7 @@
             this.videoCardsBtnTab.Text = "Placi Video";
             this.videoCardsBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.videoCardsBtnTab.UseVisualStyleBackColor = true;
+            this.videoCardsBtnTab.Click += new System.EventHandler(this.videoCardsBtnTab_Click);
             // 
             // motherboardBtnTab
             // 
@@ -93,6 +99,7 @@
             this.motherboardBtnTab.Text = "Placi De Baza";
             this.motherboardBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.motherboardBtnTab.UseVisualStyleBackColor = true;
+            this.motherboardBtnTab.Click += new System.EventHandler(this.motherboardBtnTab_Click);
             // 
             // ramBtnTab
             // 
@@ -108,6 +115,7 @@
             this.ramBtnTab.Text = "Memorii Ram";
             this.ramBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ramBtnTab.UseVisualStyleBackColor = false;
+            this.ramBtnTab.Click += new System.EventHandler(this.ramBtnTab_Click);
             // 
             // coolerBtnTab
             // 
@@ -116,13 +124,14 @@
             this.coolerBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.coolerBtnTab.Image = ((System.Drawing.Image)(resources.GetObject("coolerBtnTab.Image")));
             this.coolerBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.coolerBtnTab.Location = new System.Drawing.Point(568, 58);
+            this.coolerBtnTab.Location = new System.Drawing.Point(668, 58);
             this.coolerBtnTab.Name = "coolerBtnTab";
             this.coolerBtnTab.Size = new System.Drawing.Size(109, 136);
             this.coolerBtnTab.TabIndex = 5;
             this.coolerBtnTab.Text = "Coolere";
             this.coolerBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.coolerBtnTab.UseVisualStyleBackColor = false;
+            this.coolerBtnTab.Click += new System.EventHandler(this.coolerBtnTab_Click);
             // 
             // caseBtnTab
             // 
@@ -131,13 +140,14 @@
             this.caseBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.caseBtnTab.Image = ((System.Drawing.Image)(resources.GetObject("caseBtnTab.Image")));
             this.caseBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.caseBtnTab.Location = new System.Drawing.Point(706, 58);
+            this.caseBtnTab.Location = new System.Drawing.Point(792, 58);
             this.caseBtnTab.Name = "caseBtnTab";
             this.caseBtnTab.Size = new System.Drawing.Size(109, 136);
             this.caseBtnTab.TabIndex = 6;
             this.caseBtnTab.Text = "Carcasa PC";
             this.caseBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.caseBtnTab.UseVisualStyleBackColor = false;
+            this.caseBtnTab.Click += new System.EventHandler(this.caseBtnTab_Click);
             // 
             // ssdBtnTab
             // 
@@ -146,13 +156,14 @@
             this.ssdBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.ssdBtnTab.Image = ((System.Drawing.Image)(resources.GetObject("ssdBtnTab.Image")));
             this.ssdBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.ssdBtnTab.Location = new System.Drawing.Point(856, 58);
+            this.ssdBtnTab.Location = new System.Drawing.Point(923, 58);
             this.ssdBtnTab.Name = "ssdBtnTab";
             this.ssdBtnTab.Size = new System.Drawing.Size(109, 136);
             this.ssdBtnTab.TabIndex = 7;
             this.ssdBtnTab.Text = "SSD";
             this.ssdBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.ssdBtnTab.UseVisualStyleBackColor = false;
+            this.ssdBtnTab.Click += new System.EventHandler(this.ssdBtnTab_Click);
             // 
             // M2BtnTab
             // 
@@ -161,13 +172,14 @@
             this.M2BtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.M2BtnTab.Image = ((System.Drawing.Image)(resources.GetObject("M2BtnTab.Image")));
             this.M2BtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.M2BtnTab.Location = new System.Drawing.Point(284, 211);
+            this.M2BtnTab.Location = new System.Drawing.Point(148, 211);
             this.M2BtnTab.Name = "M2BtnTab";
             this.M2BtnTab.Size = new System.Drawing.Size(109, 136);
             this.M2BtnTab.TabIndex = 8;
             this.M2BtnTab.Text = "SSD M2";
             this.M2BtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.M2BtnTab.UseVisualStyleBackColor = false;
+            this.M2BtnTab.Click += new System.EventHandler(this.M2BtnTab_Click);
             // 
             // hddBtnTab
             // 
@@ -176,13 +188,14 @@
             this.hddBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.hddBtnTab.Image = ((System.Drawing.Image)(resources.GetObject("hddBtnTab.Image")));
             this.hddBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.hddBtnTab.Location = new System.Drawing.Point(142, 211);
+            this.hddBtnTab.Location = new System.Drawing.Point(20, 211);
             this.hddBtnTab.Name = "hddBtnTab";
             this.hddBtnTab.Size = new System.Drawing.Size(100, 136);
             this.hddBtnTab.TabIndex = 9;
             this.hddBtnTab.Text = "HDD";
             this.hddBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.hddBtnTab.UseVisualStyleBackColor = false;
+            this.hddBtnTab.Click += new System.EventHandler(this.hddBtnTab_Click);
             // 
             // powerSupplyBtnTab
             // 
@@ -191,18 +204,64 @@
             this.powerSupplyBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
             this.powerSupplyBtnTab.Image = ((System.Drawing.Image)(resources.GetObject("powerSupplyBtnTab.Image")));
             this.powerSupplyBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.powerSupplyBtnTab.Location = new System.Drawing.Point(20, 211);
+            this.powerSupplyBtnTab.Location = new System.Drawing.Point(549, 58);
             this.powerSupplyBtnTab.Name = "powerSupplyBtnTab";
             this.powerSupplyBtnTab.Size = new System.Drawing.Size(100, 136);
             this.powerSupplyBtnTab.TabIndex = 10;
             this.powerSupplyBtnTab.Text = "Surse PC";
             this.powerSupplyBtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.powerSupplyBtnTab.UseVisualStyleBackColor = false;
+            this.powerSupplyBtnTab.Click += new System.EventHandler(this.powerSupplyBtnTab_Click);
+            // 
+            // searchBox
+            // 
+            this.searchBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchBox.Location = new System.Drawing.Point(254, 115);
+            this.searchBox.Name = "searchBox";
+            this.searchBox.Size = new System.Drawing.Size(374, 39);
+            this.searchBox.TabIndex = 20;
+            // 
+            // searchBtn
+            // 
+            this.searchBtn.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchBtn.Location = new System.Drawing.Point(634, 115);
+            this.searchBtn.Name = "searchBtn";
+            this.searchBtn.Size = new System.Drawing.Size(158, 39);
+            this.searchBtn.TabIndex = 19;
+            this.searchBtn.Text = "Search";
+            this.searchBtn.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.searchBtn.UseVisualStyleBackColor = true;
+            this.searchBtn.Click += new System.EventHandler(this.searchBtn_Click);
+            // 
+            // searchLbl
+            // 
+            this.searchLbl.AutoSize = true;
+            this.searchLbl.Font = new System.Drawing.Font("Segoe UI", 22F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchLbl.Location = new System.Drawing.Point(284, 0);
+            this.searchLbl.Name = "searchLbl";
+            this.searchLbl.Size = new System.Drawing.Size(540, 41);
+            this.searchLbl.TabIndex = 18;
+            this.searchLbl.Text = "Search {nameOfTheComponent} Model";
+            // 
+            // homeBtn
+            // 
+            this.homeBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.homeBtn.Location = new System.Drawing.Point(20, 376);
+            this.homeBtn.Name = "homeBtn";
+            this.homeBtn.Size = new System.Drawing.Size(111, 38);
+            this.homeBtn.TabIndex = 21;
+            this.homeBtn.Text = "Home";
+            this.homeBtn.UseVisualStyleBackColor = true;
+            this.homeBtn.Click += new System.EventHandler(this.button1_Click);
             // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.homeBtn);
+            this.Controls.Add(this.searchBox);
+            this.Controls.Add(this.searchBtn);
+            this.Controls.Add(this.searchLbl);
             this.Controls.Add(this.powerSupplyBtnTab);
             this.Controls.Add(this.hddBtnTab);
             this.Controls.Add(this.M2BtnTab);
@@ -213,9 +272,10 @@
             this.Controls.Add(this.motherboardBtnTab);
             this.Controls.Add(this.videoCardsBtnTab);
             this.Controls.Add(this.processorBtnTab);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.chooseComponentLbl);
             this.Name = "HomePage";
-            this.Size = new System.Drawing.Size(984, 428);
+            this.Size = new System.Drawing.Size(1048, 428);
+            this.Load += new System.EventHandler(this.HomePage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,7 +283,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label chooseComponentLbl;
         private Button processorBtnTab;
         private Button videoCardsBtnTab;
         private Button motherboardBtnTab;
@@ -234,5 +294,9 @@
         private Button M2BtnTab;
         private Button hddBtnTab;
         private Button powerSupplyBtnTab;
+        private TextBox searchBox;
+        private Button searchBtn;
+        private Label searchLbl;
+        private Button homeBtn;
     }
 }
