@@ -15,6 +15,15 @@ namespace PriceComparrerDemo
         public HomePage()
         {
             InitializeComponent();
+            searchBox.KeyDown += SearchBox_KeyDown;
+        }
+
+        private void SearchBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode is Keys.Enter)
+            {
+                MessageBox.Show($"Now THhe search method will be executed whe nkey is {e.KeyCode}");
+            }
         }
 
         private void processorBtnTab_Click(object sender, EventArgs e)
@@ -78,6 +87,13 @@ namespace PriceComparrerDemo
         private void searchBtn_Click(object sender, EventArgs e)
         {
             //Make a Separate Class Called Data Validator 
+
+            if (String.IsNullOrEmpty(searchBox.Text))
+            {
+                MessageBox.Show("value Cannot be null ");
+
+                return;
+            }
 
             #region SearchLblContents
             if (searchLbl.Text.Contains("Processor"))

@@ -4,9 +4,6 @@
     <Compile Update="UIComponents\Form1.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="UIComponents\GenericTab.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Update="UIComponents\HomePage.cs">
       <SubType>UserControl</SubType>
     </Compile>
