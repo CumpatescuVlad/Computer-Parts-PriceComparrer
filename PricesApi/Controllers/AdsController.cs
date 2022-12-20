@@ -9,13 +9,19 @@ namespace DataScrapper.Controllers
     public class AdsController : ControllerBase
     {
         private readonly EmagAdsData emag = new();
-
-        [Route("api/Processor/{searchModel}/{pageCount}")]
+        
+        [Route("api/Processor/{pageCount}")]
 
         [HttpGet]
 
-        public string EmagAds(string pageCount, string searchModel) =>$"{emag.ReadProcessorData(pageCount,searchModel)}";
-       
+        public string ReadEmagAds(string pageCount, string searchModel) =>$"{emag.InsertProcessorData(pageCount,searchModel)}";
+
+
+        [Route("api/ProcessorModel/{processorModel}")]
+
+        [HttpGet]
+
+        public string ReadProcessorModel(string processorModel) =>emag.ReadProcessorAds(processorModel);
 
     }
 }

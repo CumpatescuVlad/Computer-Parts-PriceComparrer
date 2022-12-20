@@ -37,7 +37,6 @@
             this.coolerBtnTab = new System.Windows.Forms.Button();
             this.caseBtnTab = new System.Windows.Forms.Button();
             this.ssdBtnTab = new System.Windows.Forms.Button();
-            this.M2BtnTab = new System.Windows.Forms.Button();
             this.hddBtnTab = new System.Windows.Forms.Button();
             this.powerSupplyBtnTab = new System.Windows.Forms.Button();
             this.searchBox = new System.Windows.Forms.TextBox();
@@ -165,22 +164,6 @@
             this.ssdBtnTab.UseVisualStyleBackColor = false;
             this.ssdBtnTab.Click += new System.EventHandler(this.ssdBtnTab_Click);
             // 
-            // M2BtnTab
-            // 
-            this.M2BtnTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.M2BtnTab.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.M2BtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.M2BtnTab.Image = ((System.Drawing.Image)(resources.GetObject("M2BtnTab.Image")));
-            this.M2BtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.M2BtnTab.Location = new System.Drawing.Point(148, 211);
-            this.M2BtnTab.Name = "M2BtnTab";
-            this.M2BtnTab.Size = new System.Drawing.Size(109, 136);
-            this.M2BtnTab.TabIndex = 8;
-            this.M2BtnTab.Text = "SSD M2";
-            this.M2BtnTab.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.M2BtnTab.UseVisualStyleBackColor = false;
-            this.M2BtnTab.Click += new System.EventHandler(this.M2BtnTab_Click);
-            // 
             // hddBtnTab
             // 
             this.hddBtnTab.BackColor = System.Drawing.SystemColors.ControlLightLight;
@@ -264,7 +247,6 @@
             this.Controls.Add(this.searchLbl);
             this.Controls.Add(this.powerSupplyBtnTab);
             this.Controls.Add(this.hddBtnTab);
-            this.Controls.Add(this.M2BtnTab);
             this.Controls.Add(this.ssdBtnTab);
             this.Controls.Add(this.caseBtnTab);
             this.Controls.Add(this.coolerBtnTab);
@@ -291,7 +273,6 @@
         private Button coolerBtnTab;
         private Button caseBtnTab;
         private Button ssdBtnTab;
-        private Button M2BtnTab;
         private Button hddBtnTab;
         private Button powerSupplyBtnTab;
         private TextBox searchBox;

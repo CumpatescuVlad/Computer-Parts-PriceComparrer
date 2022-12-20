@@ -28,6 +28,9 @@ namespace PriceComparrerDemo
 
         private void processorBtnTab_Click(object sender, EventArgs e)
         {
+            //search for the processors on varous webSites 
+
+
             #region HideElements
             processorBtnTab.Hide();
             videoCardsBtnTab.Hide();
@@ -39,7 +42,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -149,10 +151,7 @@ namespace PriceComparrerDemo
 
                 MessageBox.Show("THdd Tahb is here ");
             }
-            else if (searchLbl.Text.Contains("M2"))
-            {
-                MessageBox.Show("M2 is here ");
-            }
+            
             #endregion
 
         }
@@ -170,7 +169,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -195,7 +193,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -219,7 +216,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -243,7 +239,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -267,7 +262,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -291,7 +285,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -315,7 +308,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -339,7 +331,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Hide();
             hddBtnTab.Hide();
             ssdBtnTab.Hide();
-            M2BtnTab.Hide();
             chooseComponentLbl.Hide();
             searchBox.Show();
             searchBtn.Show();
@@ -349,31 +340,6 @@ namespace PriceComparrerDemo
             #endregion
 
         }
-
-        private void M2BtnTab_Click(object sender, EventArgs e)
-        {
-            #region HideElements
-            processorBtnTab.Hide();
-            videoCardsBtnTab.Hide();
-            motherboardBtnTab.Hide();
-            ramBtnTab.Hide();
-            powerSupplyBtnTab.Hide();
-            coolerBtnTab.Hide();
-            caseBtnTab.Hide();
-            ssdBtnTab.Hide();
-            hddBtnTab.Hide();
-            ssdBtnTab.Hide();
-            M2BtnTab.Hide();
-            chooseComponentLbl.Hide();
-            searchBox.Show();
-            searchBtn.Show();
-            searchLbl.Show();
-            searchLbl.Text = "Search M2 Model";
-            homeBtn.Show();
-            #endregion
-
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             #region ShowElements
@@ -387,7 +353,6 @@ namespace PriceComparrerDemo
             ssdBtnTab.Show();
             hddBtnTab.Show();
             ssdBtnTab.Show();
-            M2BtnTab.Show();
             chooseComponentLbl.Show();
             searchBox.Hide();
             searchBtn.Hide();
