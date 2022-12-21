@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33122.133
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceComparrerDemo", "PriceComparrerDemo\PriceComparrerDemo.csproj", "{0B2C947D-C7C6-47BD-9099-F61733A57A3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PriceComparrerWinforms", "PriceComparrerDemo\PriceComparrerWinforms.csproj", "{0B2C947D-C7C6-47BD-9099-F61733A57A3D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataScrapper", "PricesApi\DataScrapper.csproj", "{C011E550-C9D7-4E04-87DE-44DE5FF420B6}"
 EndProject

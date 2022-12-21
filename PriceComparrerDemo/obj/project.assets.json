@@ -14,9 +14,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CODE REPOS\\PriceComparrerDemo\\PriceComparrerDemo\\PriceComparrerDemo.csproj",
-      "projectName": "PriceComparrerDemo",
-      "projectPath": "E:\\CODE REPOS\\PriceComparrerDemo\\PriceComparrerDemo\\PriceComparrerDemo.csproj",
+      "projectUniqueName": "E:\\CODE REPOS\\PriceComparrerDemo\\PriceComparrerDemo\\PriceComparrerWinforms.csproj",
+      "projectName": "PriceComparrerWinforms",
+      "projectPath": "E:\\CODE REPOS\\PriceComparrerDemo\\PriceComparrerDemo\\PriceComparrerWinforms.csproj",
       "packagesPath": "C:\\Users\\VLAD\\.nuget\\packages\\",
       "outputPath": "E:\\CODE REPOS\\PriceComparrerDemo\\PriceComparrerDemo\\obj\\",
       "projectStyle": "PackageReference",

@@ -6,9 +6,9 @@
 
         public static string ConnectionString { get=>_connectionString;}
 
-        public static  string InsertProcessorTitles(string webSiteName,string titles, string hyperlinks) => $"Insert into ProcessorTable (WebSiteName,ComponentTitle,ComponentHyperlink) values ('{webSiteName}','{titles}','{hyperlinks}') ";
+        public static  string InsertProcessorData(string webSiteName,string titles, string hyperlinks ,string prices) => $"Insert into ProcessorTable (WebSiteName,ComponentTitle,ComponentHyperlink,ComponentPrice) values ('{webSiteName}','{titles}','{hyperlinks}','{prices}') ";
 
-        public static string InsertProcessorPrices(string webSiteName,string price) => $"Insert into ProcessorTable  (ComponentPrices) values  ('{price}')  Where WebSiteName ='{webSiteName}' ";
+        public static string InsertProcessorPrices(string price) => $"Insert into ProcessorTable (ComponentPrice) values ('{price}') ";
 
 
 	}

@@ -59,7 +59,7 @@
             // 
             this.processorBtnTab.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.processorBtnTab.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.processorBtnTab.Image = global::PriceComparrerDemo.Properties.Resources.Procesor_100x110;
+            this.processorBtnTab.Image = global::PriceComparrerWinforms.Properties.Resources.Procesor_100x110;
             this.processorBtnTab.ImageAlign = System.Drawing.ContentAlignment.TopCenter;
             this.processorBtnTab.Location = new System.Drawing.Point(20, 58);
             this.processorBtnTab.Name = "processorBtnTab";

@@ -12,50 +12,81 @@ namespace DataScrapper.src
         private readonly HtmlDocument document = new();
         private readonly SqlConnection connection = new(InsertData.ConnectionString);
 
-        public async Task<string> InsertProcessorData(string pageCount, string searchModel)
+        public string ReadProcessorTitle(HtmlDocument document)
         {
-            var HtmlPage = client.GetStringAsync($"https://www.emag.ro/procesoare/p{pageCount}/c").Result;
-
-            document.LoadHtml(HtmlPage);
-
             var processorTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
-
-            connection.Open();
 
             foreach (var processorTitle in processorTitles)
             {
-                var insertTitlesAndHyperlinks = new SqlCommand(InsertData.InsertProcessorTitles("Emag", processorTitle.InnerText, processorTitle.Attributes["href"].Value), connection);
-
-                var adapter = new SqlDataAdapter(insertTitlesAndHyperlinks);
-
-                adapter.InsertCommand = insertTitlesAndHyperlinks;
-
-                adapter.InsertCommand.ExecuteNonQuery();
-
-               
+                Ads.AdTitle += $"{processorTitle.InnerText}\n";
+                Ads.AdHyperlink += $"{processorTitle.Attributes["href"].Value}\n";
             }
-            
-            var processorPrices = document.DocumentNode.SelectNodes("//div[@class='card-v2-pricing']/p[@class='product-new-price']");
 
-            foreach (var processorPrice in processorPrices)
+            var processorsPrices = document.DocumentNode.SelectNodes("//div[@class='card-v2-pricing']/p[@class='product-new-price']");
+
+            foreach (var processorPrice in processorsPrices)
             {
-                var insertTitlesAndHyperlinks = new SqlCommand(InsertData.InsertProcessorPrices("Emag", processorPrice.InnerText), connection);
-
-                var adapter = new SqlDataAdapter(insertTitlesAndHyperlinks);
-
-                adapter.InsertCommand = insertTitlesAndHyperlinks;
-
-                adapter.InsertCommand.ExecuteNonQuery();
-                File.WriteAllText($@"C:Users\Vlad\Documents\Prices.txt", processorPrice.InnerText);
+                Ads.AdPrice += $"{processorPrice.InnerText}\n";
 
             }
-           
+
+            var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag", Ads.AdTitle, Ads.AdHyperlink, Ads.AdPrice), connection);
+
+            connection.Open();
+
+            var adapter = new SqlDataAdapter(insertCommand);
+
+            adapter.InsertCommand = insertCommand;
+
+            adapter.InsertCommand.ExecuteNonQuery();
+
             connection.Close();
 
-            string returnMessage = $"I Wrote Prices In DataBase.";
-
-            return returnMessage;
+            return Ads.AdTitle;
         }
+
+        public string ReadProcessorHyperlink(HtmlDocument document)
+        {
+            var processorTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
+
+            foreach (var processorTitle in processorTitles)
+            {
+                Ads.AdHyperlink += $"{processorTitle.Attributes["href"].Value}\n";
+
+            }
+            return Ads.AdHyperlink;
+        }
+
+        public string ReadProcessorPrices(HtmlDocument document)
+        {
+            var processorsPrices = document.DocumentNode.SelectNodes("//div[@class='card-v2-pricing']/p[@class='product-new-price']");
+
+            foreach (var processorPrice in processorsPrices)
+            {
+                Ads.AdPrice += $"{processorPrice.InnerText}\n";
+
+            }
+
+            return Ads.AdPrice;
+
+        }
+
+        public void InsertProcessorData(string processorTitle,string processorHyperlink,string processorPrice)
+        {
+            var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag",processorTitle,processorHyperlink,processorPrice),connection);
+
+            connection.Open();
+
+            var adapter = new SqlDataAdapter(insertCommand);
+
+            adapter.InsertCommand= insertCommand;
+
+            adapter.InsertCommand.ExecuteNonQuery();
+
+            connection.Close();
+
+        }
+
 
         public string ReadProcessorAds(string processorModel)
         {

@@ -1,4 +1,4 @@
-﻿namespace DataScrapper
+﻿namespace DataScrapper.src
 {
     public static class Ads
     {
