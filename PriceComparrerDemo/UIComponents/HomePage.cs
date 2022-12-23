@@ -1,21 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using Newtonsoft.Json;
+using PriceComparrerWinforms.src;
+using System.Diagnostics;
+using System.Net;
 
 namespace PriceComparrerDemo
 {
     public partial class HomePage : UserControl
     {
+        private readonly WebClient client = new();
+
         public HomePage()
         {
             InitializeComponent();
             searchBox.KeyDown += SearchBox_KeyDown;
+            richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
+        }
+
+        private void RichTextBox1_LinkClicked(object? sender, LinkClickedEventArgs e)
+        {
+            ProcessStartInfo processInfo = new()
+            {
+                FileName = e.LinkText,
+                UseShellExecute = true
+            };
+
+            Process.Start(processInfo);
+
+
         }
 
         private void SearchBox_KeyDown(object? sender, KeyEventArgs e)
@@ -30,6 +41,7 @@ namespace PriceComparrerDemo
         {
             //search for the processors on varous webSites 
 
+            // https://localhost:7210/api/Processor/1
 
             #region HideElements
             processorBtnTab.Hide();
@@ -48,6 +60,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Processor Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -84,6 +98,9 @@ namespace PriceComparrerDemo
             searchBtn.Hide();
             searchLbl.Hide();
             homeBtn.Hide();
+            richTextBox1.Hide();
+            componentNameLbl.Hide();
+
         }
 
         private void searchBtn_Click(object sender, EventArgs e)
@@ -97,11 +114,22 @@ namespace PriceComparrerDemo
                 return;
             }
 
+           
             #region SearchLblContents
             if (searchLbl.Text.Contains("Processor"))
             {
                 //search processsor prices 
                 //null exceptions
+
+                Stream stream = client.OpenRead($"https://localhost:7210/api/ReadProcessorPrice/{searchBox.Text}");
+
+                var reader = new StreamReader(stream);
+
+                AdsModel _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
+
+                componentNameLbl.Text = _ads.AdTitle;
+                componentPriceLbl.Text = _ads.AdPrice;
+                richTextBox1.Text = _ads.AdHyperlink;
 
                 MessageBox.Show("This is the processor Tab");
             }
@@ -151,13 +179,16 @@ namespace PriceComparrerDemo
 
                 MessageBox.Show("THdd Tahb is here ");
             }
-            
+
             #endregion
 
         }
 
         private void videoCardsBtnTab_Click(object sender, EventArgs e)
         {
+            //client.OpenRead($"https://localhost:7210/api/ReadProcessorPrice/i7/{linkBox}");
+
+
             #region HideElements
             processorBtnTab.Hide();
             videoCardsBtnTab.Hide();
@@ -175,6 +206,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Video Card Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
 
@@ -199,6 +232,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Motherboard Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -222,6 +257,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Ram Memory Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -245,6 +282,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Power Supply Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -268,6 +307,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Cooler Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -291,6 +332,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Computer Case Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -314,6 +357,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search SSD Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -337,6 +382,8 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search HDD Model";
             homeBtn.Show();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
         }
@@ -359,8 +406,15 @@ namespace PriceComparrerDemo
             searchLbl.Hide();
             homeBtn.Show();
             homeBtn.Hide();
+            richTextBox1.Show();
+            componentNameLbl.Show();
             #endregion
 
+
+        }
+
+        private void linkBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

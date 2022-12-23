@@ -43,6 +43,10 @@
             this.searchBtn = new System.Windows.Forms.Button();
             this.searchLbl = new System.Windows.Forms.Label();
             this.homeBtn = new System.Windows.Forms.Button();
+            this.componentNameLbl = new System.Windows.Forms.Label();
+            this.componentPriceLbl = new System.Windows.Forms.Label();
+            this.link = new System.Windows.Forms.Label();
+            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // chooseComponentLbl
@@ -237,10 +241,49 @@
             this.homeBtn.UseVisualStyleBackColor = true;
             this.homeBtn.Click += new System.EventHandler(this.button1_Click);
             // 
+            // componentNameLbl
+            // 
+            this.componentNameLbl.AutoSize = true;
+            this.componentNameLbl.Location = new System.Drawing.Point(81, 175);
+            this.componentNameLbl.Name = "componentNameLbl";
+            this.componentNameLbl.Size = new System.Drawing.Size(39, 15);
+            this.componentNameLbl.TabIndex = 22;
+            this.componentNameLbl.Text = "Name";
+            // 
+            // componentPriceLbl
+            // 
+            this.componentPriceLbl.AutoSize = true;
+            this.componentPriceLbl.Location = new System.Drawing.Point(863, 179);
+            this.componentPriceLbl.Name = "componentPriceLbl";
+            this.componentPriceLbl.Size = new System.Drawing.Size(38, 15);
+            this.componentPriceLbl.TabIndex = 24;
+            this.componentPriceLbl.Text = "Prices";
+            // 
+            // link
+            // 
+            this.link.AutoSize = true;
+            this.link.Location = new System.Drawing.Point(81, 332);
+            this.link.Name = "link";
+            this.link.Size = new System.Drawing.Size(39, 15);
+            this.link.TabIndex = 25;
+            this.link.Text = "Name";
+            // 
+            // richTextBox1
+            // 
+            this.richTextBox1.Location = new System.Drawing.Point(81, 261);
+            this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.Size = new System.Drawing.Size(951, 118);
+            this.richTextBox1.TabIndex = 26;
+            this.richTextBox1.Text = "";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.richTextBox1);
+            this.Controls.Add(this.link);
+            this.Controls.Add(this.componentPriceLbl);
+            this.Controls.Add(this.componentNameLbl);
             this.Controls.Add(this.homeBtn);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.searchBtn);
@@ -279,5 +322,9 @@
         private Button searchBtn;
         private Label searchLbl;
         private Button homeBtn;
+        private Label componentNameLbl;
+        private Label componentPriceLbl;
+        private Label link;
+        private RichTextBox richTextBox1;
     }
 }

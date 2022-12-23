@@ -17,3 +17,5 @@ E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\ref
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerWinforms.pdb
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerWinforms.genruntimeconfig.cache
 E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\ref\PriceComparrerWinforms.dll
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
+E:\CODE REPOS\PriceComparrerDemo\PriceComparrerDemo\obj\Debug\net7.0-windows\PriceComparrerWinforms.csproj.CopyComplete

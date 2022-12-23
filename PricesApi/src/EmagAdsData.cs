@@ -1,111 +1,83 @@
-﻿using HtmlAgilityPack;
-using Microsoft.Data.SqlClient;
-using System.Collections;
-using System.Reflection.Metadata;
+﻿using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 
 namespace DataScrapper.src
 {
     public class EmagAdsData
     {
-        //private readonly IConfiguration configuration;
+        private readonly AdsModel _ads = new();
         private readonly HttpClient client = new();
-        private readonly HtmlDocument document = new();
         private readonly SqlConnection connection = new(InsertData.ConnectionString);
 
-        public string ReadProcessorTitle(HtmlDocument document)
+        public void ReadProcessorTitles(HtmlAgilityPack.HtmlDocument document)
         {
-            var processorTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
+            var processorsTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
 
-            foreach (var processorTitle in processorTitles)
+            foreach (var processorTitle in processorsTitles)
             {
-                Ads.AdTitle += $"{processorTitle.InnerText}\n";
-                Ads.AdHyperlink += $"{processorTitle.Attributes["href"].Value}\n";
+                connection.Open();
+
+                var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag", processorTitle.InnerText, processorTitle.Attributes["href"].Value), connection);
+
+                var adapter = new SqlDataAdapter(insertCommand);
+
+                adapter.InsertCommand = insertCommand;
+
+                adapter.InsertCommand.ExecuteNonQuery();
+
+                connection.Close();
             }
-
-            var processorsPrices = document.DocumentNode.SelectNodes("//div[@class='card-v2-pricing']/p[@class='product-new-price']");
-
-            foreach (var processorPrice in processorsPrices)
-            {
-                Ads.AdPrice += $"{processorPrice.InnerText}\n";
-
-            }
-
-            var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag", Ads.AdTitle, Ads.AdHyperlink, Ads.AdPrice), connection);
-
-            connection.Open();
-
-            var adapter = new SqlDataAdapter(insertCommand);
-
-            adapter.InsertCommand = insertCommand;
-
-            adapter.InsertCommand.ExecuteNonQuery();
-
-            connection.Close();
-
-            return Ads.AdTitle;
-        }
-
-        public string ReadProcessorHyperlink(HtmlDocument document)
-        {
-            var processorTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
-
-            foreach (var processorTitle in processorTitles)
-            {
-                Ads.AdHyperlink += $"{processorTitle.Attributes["href"].Value}\n";
-
-            }
-            return Ads.AdHyperlink;
-        }
-
-        public string ReadProcessorPrices(HtmlDocument document)
-        {
-            var processorsPrices = document.DocumentNode.SelectNodes("//div[@class='card-v2-pricing']/p[@class='product-new-price']");
-
-            foreach (var processorPrice in processorsPrices)
-            {
-                Ads.AdPrice += $"{processorPrice.InnerText}\n";
-
-            }
-
-            return Ads.AdPrice;
 
         }
 
-        public void InsertProcessorData(string processorTitle,string processorHyperlink,string processorPrice)
-        {
-            var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag",processorTitle,processorHyperlink,processorPrice),connection);
-
-            connection.Open();
-
-            var adapter = new SqlDataAdapter(insertCommand);
-
-            adapter.InsertCommand= insertCommand;
-
-            adapter.InsertCommand.ExecuteNonQuery();
-
-            connection.Close();
-
-        }
-
-
-        public string ReadProcessorAds(string processorModel)
+        public string ReadProcessorAds(HtmlAgilityPack.HtmlDocument document, string processorModel)
         {
             connection.Open();
 
-            var command = new SqlCommand(ReadData.ReadProcessorModel("Emag",processorModel),connection);
+            var command = new SqlCommand(ReadData.ReadProcessorModel("Emag", processorModel), connection);
 
             var reader = command.ExecuteReader();
 
             while (reader.Read())
             {
-                Ads.AdTitle += $"{reader.GetString(0)}\n";
-                Ads.AdHyperlink += $"{reader.GetString(1)}\n";
-                Ads.AdPrice += $"{reader.GetString(2)}\n";
+                _ads.AdTitle += $"{reader.GetString(0)}\n";
+
+                //List<string> hyperlinks = new()
+                //{
+                //    $"{reader.GetString(1)}\n"
+
+                //};
+
+                _ads.AdHyperlinks = new List<string>();
+
+                _ads.AdHyperlinks.Add($"{reader.GetString(1)}\n");
+
+                foreach (var hyperlink in _ads.AdHyperlinks)
+                {
+                    _ads.AdHyperlink += hyperlink.ToString();
+
+                    Thread.Sleep(10000);
+
+                    var processorsPages = client.GetStringAsync(hyperlink.ToString()).Result;
+
+                    document.LoadHtml(processorsPages);
+
+                    var processorsPrices = document.DocumentNode.SelectNodes("//div[@class='pricing-block  has-installments']/p[@class='product-new-price']");
+
+                    foreach (var processorPrice in processorsPrices)
+                    {
+                        _ads.AdPrice += $"{processorPrice.InnerText}\n";
+
+                    }
+
+                }
 
             }
             connection.Close();
 
-            return $"{Ads.AdTitle}{Ads.AdHyperlink}{Ads.AdPrice}";
+            File.WriteAllText(@"C:\Users\VLAD\Documents\Ads.json", $"{JsonConvert.SerializeObject(_ads)}");
+
+            return JsonConvert.SerializeObject(_ads);
         }
 
 
