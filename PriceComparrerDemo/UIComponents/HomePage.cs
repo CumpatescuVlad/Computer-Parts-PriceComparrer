@@ -8,7 +8,7 @@ namespace PriceComparrerDemo
     public partial class HomePage : UserControl
     {
         private readonly WebClient client = new();
-
+        private  Stream byteStream;
         public HomePage()
         {
             InitializeComponent();
@@ -41,7 +41,7 @@ namespace PriceComparrerDemo
         {
             //search for the processors on varous webSites 
 
-            // https://localhost:7210/api/Processor/1
+            client.OpenRead($"https://localhost:7210/api/Processors/1");
 
             #region HideElements
             processorBtnTab.Hide();
@@ -121,7 +121,7 @@ namespace PriceComparrerDemo
                 //search processsor prices 
                 //null exceptions
 
-                Stream stream = client.OpenRead($"https://localhost:7210/api/ReadProcessorPrice/{searchBox.Text}");
+                Stream stream = client.OpenRead($"https://localhost:7210/api/ReadProcessorPrice/{searchBox.Text.Trim()}");
 
                 var reader = new StreamReader(stream);
 
@@ -133,8 +133,20 @@ namespace PriceComparrerDemo
 
                 MessageBox.Show("This is the processor Tab");
             }
+
             else if (searchLbl.Text.Contains("Video Card"))
             {
+                byteStream = client.OpenRead($"https://localhost:7210/api/ReadVideoCardsPrices/{searchBox.Text.Trim()}");
+
+                var reader = new StreamReader(byteStream);
+
+                AdsModel _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
+
+                componentNameLbl.Text = _ads.AdTitle;
+                componentPriceLbl.Text = _ads.AdPrice;
+                richTextBox1.Text = _ads.AdHyperlink;
+
+
                 MessageBox.Show("this is the Video Card tab");
             }
 
@@ -186,7 +198,7 @@ namespace PriceComparrerDemo
 
         private void videoCardsBtnTab_Click(object sender, EventArgs e)
         {
-            //client.OpenRead($"https://localhost:7210/api/ReadProcessorPrice/i7/{linkBox}");
+            client.OpenRead($"https://localhost:7210/api/VideoCards/1");
 
 
             #region HideElements
@@ -208,6 +220,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
 
@@ -234,6 +247,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -259,6 +273,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -284,6 +299,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -309,6 +325,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -334,6 +351,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -359,6 +377,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -384,6 +403,7 @@ namespace PriceComparrerDemo
             homeBtn.Show();
             richTextBox1.Show();
             componentNameLbl.Show();
+            componentPriceLbl.Show();
             #endregion
 
         }
@@ -408,6 +428,9 @@ namespace PriceComparrerDemo
             homeBtn.Hide();
             richTextBox1.Show();
             componentNameLbl.Show();
+            richTextBox1.Hide();
+            componentNameLbl.Hide();
+            componentPriceLbl.Hide();
             #endregion
 
 

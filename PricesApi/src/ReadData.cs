@@ -6,7 +6,7 @@
 
         public static string ConnectionString { get => _connectionString; }
 
-        public static string ReadProcessorModel(string webSiteName, string processorModel) => $"Select ComponentTitle , ComponentHyperlink  From ProcessorTable Where WebSiteName = '{webSiteName}' and ComponentTitle Like '%{processorModel}%'";
+        public static string ReadComponentModel(string tableName,string webSiteName, string processorModel) => $"Select ComponentTitle , ComponentHyperlink  From {tableName} Where WebSiteName = '{webSiteName}' and ComponentTitle Like '%{processorModel}%'";
 
     }
 }

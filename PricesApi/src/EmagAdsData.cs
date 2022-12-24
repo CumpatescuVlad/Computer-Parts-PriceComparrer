@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using HtmlAgilityPack;
 using Newtonsoft.Json;
 
 namespace DataScrapper.src
@@ -9,7 +10,7 @@ namespace DataScrapper.src
         private readonly HttpClient client = new();
         private readonly SqlConnection connection = new(InsertData.ConnectionString);
 
-        public void ReadProcessorTitles(HtmlAgilityPack.HtmlDocument document)
+        public void ReadProcessorsTitles(HtmlDocument document)
         {
             var processorsTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
 
@@ -17,7 +18,7 @@ namespace DataScrapper.src
             {
                 connection.Open();
 
-                var insertCommand = new SqlCommand(InsertData.InsertProcessorData("Emag", processorTitle.InnerText, processorTitle.Attributes["href"].Value), connection);
+                var insertCommand = new SqlCommand(InsertData.InsertComponentData("ProcessorTable","Emag", processorTitle.InnerText, processorTitle.Attributes["href"].Value), connection);
 
                 var adapter = new SqlDataAdapter(insertCommand);
 
@@ -30,11 +31,11 @@ namespace DataScrapper.src
 
         }
 
-        public string ReadProcessorAds(HtmlAgilityPack.HtmlDocument document, string processorModel)
+        public string ReadProcessorsPrices(HtmlDocument document, string processorModel)
         {
             connection.Open();
 
-            var command = new SqlCommand(ReadData.ReadProcessorModel("Emag", processorModel), connection);
+            var command = new SqlCommand(ReadData.ReadComponentModel("VideoCardTable","Emag", processorModel), connection);
 
             var reader = command.ExecuteReader();
 
@@ -42,15 +43,10 @@ namespace DataScrapper.src
             {
                 _ads.AdTitle += $"{reader.GetString(0)}\n";
 
-                //List<string> hyperlinks = new()
-                //{
-                //    $"{reader.GetString(1)}\n"
-
-                //};
-
-                _ads.AdHyperlinks = new List<string>();
-
-                _ads.AdHyperlinks.Add($"{reader.GetString(1)}\n");
+                _ads.AdHyperlinks = new List<string>()
+                {
+                    $"{reader.GetString(1)}\n"
+                };
 
                 foreach (var hyperlink in _ads.AdHyperlinks)
                 {
@@ -75,11 +71,74 @@ namespace DataScrapper.src
             }
             connection.Close();
 
-            File.WriteAllText(@"C:\Users\VLAD\Documents\Ads.json", $"{JsonConvert.SerializeObject(_ads)}");
-
             return JsonConvert.SerializeObject(_ads);
         }
 
+        public void ReadVideoCardsTitles(HtmlDocument document)
+        {
+            var videoCardsTitles = document.DocumentNode.SelectNodes("//div[@class='pad-hrz-xs']/a[@data-zone='title']");
 
+            foreach (var videoCardTitle in videoCardsTitles)
+            {
+                connection.Open();
+
+                var insertCommand = new SqlCommand(InsertData.InsertComponentData("VideoCardTable","Emag", videoCardTitle.InnerText, videoCardTitle.Attributes["href"].Value), connection);
+
+                var adapter = new SqlDataAdapter(insertCommand);
+
+                adapter.InsertCommand = insertCommand;
+
+                adapter.InsertCommand.ExecuteNonQuery();
+
+                connection.Close();
+            }
+
+
+
+        }
+
+        public string ReadVideoCardsPrices(HtmlDocument document, string videoCardModel)
+        {
+            connection.Open();
+
+            var command = new SqlCommand(ReadData.ReadComponentModel("VideoCardTable","Emag", videoCardModel), connection);
+
+            var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                _ads.AdTitle += $"{reader.GetString(0)}\n";
+
+                _ads.AdHyperlinks = new List<string>()
+                {
+                    $"{reader.GetString(1)}\n"
+                };
+
+                foreach (var hyperlink in _ads.AdHyperlinks)
+                {
+                    _ads.AdHyperlink += hyperlink.ToString();
+
+                    Thread.Sleep(10000);
+
+                    var videoCardsPages = client.GetStringAsync(hyperlink.ToString()).Result;
+
+                    document.LoadHtml(videoCardsPages);
+
+                    var videoCardsPrices = document.DocumentNode.SelectNodes("//div[@class='pricing-block  has-installments']/p[@class='product-new-price']");
+
+                    foreach (var videoCardPrice in videoCardsPrices)
+                    {
+                        _ads.AdPrice += $"{videoCardPrice.InnerText}\n";
+
+                    }
+
+                }
+
+            }
+            connection.Close();
+
+            return JsonConvert.SerializeObject(_ads);
+
+        }
     }
 }
