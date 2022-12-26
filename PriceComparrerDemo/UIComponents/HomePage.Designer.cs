@@ -46,6 +46,7 @@
             this.componentNameLbl = new System.Windows.Forms.Label();
             this.componentPriceLbl = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.searchingLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chooseComponentLbl
@@ -264,10 +265,22 @@
             this.richTextBox1.TabIndex = 26;
             this.richTextBox1.Text = "";
             // 
+            // searchingLbl
+            // 
+            this.searchingLbl.AutoSize = true;
+            this.searchingLbl.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.searchingLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.searchingLbl.Location = new System.Drawing.Point(406, 217);
+            this.searchingLbl.Name = "searchingLbl";
+            this.searchingLbl.Size = new System.Drawing.Size(154, 32);
+            this.searchingLbl.TabIndex = 27;
+            this.searchingLbl.Text = "Searching.......";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.searchingLbl);
             this.Controls.Add(this.richTextBox1);
             this.Controls.Add(this.componentPriceLbl);
             this.Controls.Add(this.componentNameLbl);
@@ -312,5 +325,6 @@
         private Label componentNameLbl;
         private Label componentPriceLbl;
         private RichTextBox richTextBox1;
+        private Label searchingLbl;
     }
 }

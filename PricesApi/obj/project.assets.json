@@ -2890,11 +2890,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\CODE REPOS\\PriceComparrerDemo\\PricesApi\\DataScrapper.csproj",
+      "projectUniqueName": "E:\\CODE REPOS\\PriceComparrerWinforms\\PricesApi\\DataScrapper.csproj",
       "projectName": "DataScrapper",
-      "projectPath": "E:\\CODE REPOS\\PriceComparrerDemo\\PricesApi\\DataScrapper.csproj",
+      "projectPath": "E:\\CODE REPOS\\PriceComparrerWinforms\\PricesApi\\DataScrapper.csproj",
       "packagesPath": "C:\\Users\\VLAD\\.nuget\\packages\\",
-      "outputPath": "E:\\CODE REPOS\\PriceComparrerDemo\\PricesApi\\obj\\",
+      "outputPath": "E:\\CODE REPOS\\PriceComparrerWinforms\\PricesApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

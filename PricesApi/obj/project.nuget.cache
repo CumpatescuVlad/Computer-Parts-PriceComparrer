@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RQ9sdtXTtuTnh+tn5DG8xrkNbW0KsZYjjO58RAtAXuNJqbvRJisbKr7aBu1JJvpb1CYAmScFVI5esmaXY/HBqw==",
+  "dgSpecHash": "L2tsST2w2Lh315ZfqlIIRjDlUlrVKViJ9+FJarNYk3TdEfeFEKq8YhRoplvnKD2axzYpPlaWLbr6ZN2TAdtrGA==",
   "success": true,
-  "projectFilePath": "E:\\CODE REPOS\\PriceComparrerDemo\\PricesApi\\DataScrapper.csproj",
+  "projectFilePath": "E:\\CODE REPOS\\PriceComparrerWinforms\\PricesApi\\DataScrapper.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\VLAD\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\VLAD\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
