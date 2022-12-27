@@ -35,14 +35,14 @@
             // 
             this.homePage1.Location = new System.Drawing.Point(0, 1);
             this.homePage1.Name = "homePage1";
-            this.homePage1.Size = new System.Drawing.Size(1032, 428);
+            this.homePage1.Size = new System.Drawing.Size(1032, 645);
             this.homePage1.TabIndex = 0;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 500);
+            this.ClientSize = new System.Drawing.Size(1035, 658);
             this.Controls.Add(this.homePage1);
             this.Name = "Form1";
             this.Text = "Form1";

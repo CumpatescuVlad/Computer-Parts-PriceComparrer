@@ -1,9 +1,8 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.Data.SqlClient;
+using Newtonsoft.Json;
 using PriceComparrerWinforms.src;
-using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using System.Net;
-using System.Reflection;
 
 namespace PriceComparrerDemo
 {
@@ -12,12 +11,20 @@ namespace PriceComparrerDemo
         private readonly WebClient client = new();
         private readonly AdsModel _ads = new();
         private readonly SqlConnection connection = new SqlConnection(Data.ConnectionString);
-        private  Stream byteStream;
+
         public HomePage()
         {
             InitializeComponent();
             searchBox.KeyDown += SearchBox_KeyDown;
             richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
+            searchBox.GotFocus += SearchBox_GotFocus;
+        }
+
+        private void SearchBox_GotFocus(object? sender, EventArgs e)
+        {
+            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+            richTextBox1.ForeColor = Color.Black;
+            richTextBox1.Clear();
         }
 
         private void RichTextBox1_LinkClicked(object? sender, LinkClickedEventArgs e)
@@ -37,7 +44,82 @@ namespace PriceComparrerDemo
         {
             if (e.KeyCode is Keys.Enter)
             {
-                MessageBox.Show($"Now THhe search method will be executed whe nkey is {e.KeyCode}");
+                searchingLbl.Show();
+
+                if (String.IsNullOrEmpty(searchBox.Text))
+                {
+                    MessageBox.Show("value Cannot be null ");
+
+                    return;
+                }
+
+                #region SearchLblContents
+                if (searchLbl.Text.Contains("Processor"))
+                {
+                    DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{ParseImput(searchBox.Text)}");
+
+                    searchingLbl.Hide();
+
+                }
+
+                else if (searchLbl.Text.Contains("Video Card"))
+                {
+
+                    DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{ParseImput(searchBox.Text)}");
+
+                    searchingLbl.Hide();
+
+                }
+
+                else if (searchLbl.Text.Contains("Motherboard"))
+                {
+                    DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{ParseImput(searchBox.Text)}");
+
+                    searchingLbl.Hide();
+
+                }
+                else if (searchLbl.Text.Contains("Ram Memory"))
+                {
+                    DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{ParseImput(searchBox.Text)}");
+
+                    MessageBox.Show("this os the Ram Tab");
+                }
+
+                else if (searchLbl.Text.Contains("Power Supply"))
+                {
+                    //search processsor prices 
+                    //null exceptions
+                    MessageBox.Show("This is the pwoert supply Tab Tab");
+                }
+                else if (searchLbl.Text.Contains("Cooler"))
+                {
+                    MessageBox.Show("This is the cooler Tab");
+                }
+                else if (searchLbl.Text.Contains("Computer Case"))
+                {
+                    //search processsor prices 
+                    //null exceptions
+
+                    MessageBox.Show("Case Tab is here ");
+                }
+                else if (searchLbl.Text.Contains("SSD"))
+                {
+                    MessageBox.Show("SSSd Tab is here ");
+                }
+
+                else if (searchLbl.Text.Contains("HDD"))
+                {
+                    //search processsor prices 
+                    //null exceptions
+
+                    MessageBox.Show("THdd Tahb is here ");
+                }
+
+                #endregion
+
+
+
+
             }
         }
 
@@ -60,6 +142,7 @@ namespace PriceComparrerDemo
                 DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{ParseImput(searchBox.Text)}");
 
                 searchingLbl.Hide();
+
             }
 
             else if (searchLbl.Text.Contains("Video Card"))
@@ -73,47 +156,53 @@ namespace PriceComparrerDemo
 
             else if (searchLbl.Text.Contains("Motherboard"))
             {
-                //search processsor prices 
-
                 DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{ParseImput(searchBox.Text)}");
-                
+
                 searchingLbl.Hide();
 
-                MessageBox.Show("This is the Mobo Tab");
             }
             else if (searchLbl.Text.Contains("Ram Memory"))
             {
-                MessageBox.Show("this os the Ram Tab");
+                DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{ParseImput(searchBox.Text)}");
+
+                searchingLbl.Hide();
             }
 
             else if (searchLbl.Text.Contains("Power Supply"))
             {
-                //search processsor prices 
-                //null exceptions
-                MessageBox.Show("This is the pwoert supply Tab Tab");
+                DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{ParseImput(searchBox.Text)}");
+
+                searchingLbl.Hide();
             }
             else if (searchLbl.Text.Contains("Cooler"))
             {
-                MessageBox.Show("This is the cooler Tab");
+                DisplayResults($"https://localhost:7210/api/CoolerPrices/{ParseImput(searchBox.Text)}");
+
+                searchingLbl.Hide();
+
             }
             else if (searchLbl.Text.Contains("Computer Case"))
             {
-                //search processsor prices 
-                //null exceptions
+                DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{ParseImput(searchBox.Text)}");
 
-                MessageBox.Show("Case Tab is here ");
+                searchingLbl.Hide();
+
+
             }
             else if (searchLbl.Text.Contains("SSD"))
             {
-                MessageBox.Show("SSSd Tab is here ");
+                DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{ParseImput(searchBox.Text)}");
+
+                searchingLbl.Hide();
             }
 
             else if (searchLbl.Text.Contains("HDD"))
             {
-                //search processsor prices 
-                //null exceptions
+                DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{ParseImput(searchBox.Text)}");
 
-                MessageBox.Show("THdd Tahb is here ");
+                searchingLbl.Hide();
+
+
             }
 
             #endregion
@@ -121,9 +210,11 @@ namespace PriceComparrerDemo
         }
 
 
+        #region MainButtons
+
         private void processorBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable","Procesor","Emag")))
+            if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Emag")))
             {
                 client.OpenRead($"https://localhost:7210/api/Processors/1");
             }
@@ -152,49 +243,9 @@ namespace PriceComparrerDemo
 
         }
 
-        #region !Useful
-        private void genericTab1_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        //private void HideElements(Button? processorBtn,Button? videoCardtbn,Button ? motherboardBtn,Button? ramBtn,
-        //    Button ? powerSupplyBtn,Button? coolerBtn,Button? caseBtn,Button? ssdBtn,Button? hddBtn,Button? m2btn,Label chooseProdBtn)
-        //{
-        //    motherboardBtn.Hide();
-        //    powerSupplyBtn.Hide();
-        //    chooseProdBtn.Hide();
-        //    processorBtn.Hide();
-        //    videoCardtbn.Hide();
-        //    coolerBtn.Hide();
-        //    caseBtn.Hide();
-        //    ssdBtn.Hide();
-        //    hddBtn.Hide();
-        //    m2btn.Hide();
-        //    ramBtn.Hide();
-
-        //}
-
-        #endregion
-
-
-        private void HomePage_Load(object sender, EventArgs e)
-        {
-            searchBox.Hide();
-            searchBtn.Hide();
-            searchLbl.Hide();
-            homeBtn.Hide();
-            richTextBox1.Hide();
-            componentNameLbl.Hide();
-            searchingLbl.Hide();
-
-        }
-
-       
-
         private void videoCardsBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("VideoCardTable","Placa","Emag")))
+            if (String.IsNullOrEmpty(CheckForExistingAds("VideoCardTable", "Placa", "Emag")))
             {
                 client.OpenRead($"https://localhost:7210/api/VideoCards/1");
             }
@@ -231,6 +282,7 @@ namespace PriceComparrerDemo
             {
                 client.OpenRead($"https://localhost:7210/api/Motherboards/1");
             }
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -258,6 +310,12 @@ namespace PriceComparrerDemo
 
         private void ramBtnTab_Click(object sender, EventArgs e)
         {
+
+            if (String.IsNullOrEmpty(CheckForExistingAds("RamMemoryTable", "Memorie Ram", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/RamMemory/1");
+            }
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -285,6 +343,11 @@ namespace PriceComparrerDemo
 
         private void powerSupplyBtnTab_Click(object sender, EventArgs e)
         {
+            if (String.IsNullOrEmpty(CheckForExistingAds("PowerSupplyTable", "Sursa", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/PowerSupply/1");
+            }
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -312,6 +375,13 @@ namespace PriceComparrerDemo
 
         private void coolerBtnTab_Click(object sender, EventArgs e)
         {
+
+            if (String.IsNullOrEmpty(CheckForExistingAds("CoolerTable", "Cooler", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/Cooler/1");
+            }
+
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -339,6 +409,13 @@ namespace PriceComparrerDemo
 
         private void caseBtnTab_Click(object sender, EventArgs e)
         {
+
+            if (String.IsNullOrEmpty(CheckForExistingAds("ComputerCaseTable", "Carcasa", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/ComputerCase/1");
+            }
+
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -366,6 +443,12 @@ namespace PriceComparrerDemo
 
         private void ssdBtnTab_Click(object sender, EventArgs e)
         {
+
+            if (String.IsNullOrEmpty(CheckForExistingAds("SSDTable", "Solid State Drive", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/SSD/1");
+            }
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -393,6 +476,12 @@ namespace PriceComparrerDemo
 
         private void hddBtnTab_Click(object sender, EventArgs e)
         {
+
+            if (String.IsNullOrEmpty(CheckForExistingAds("HDDTable", "HDD", "Emag")))
+            {
+                client.OpenRead($"https://localhost:7210/api/HDD/1");
+            }
+
             #region HideElements
             searchLbl.Hide();
             processorBtnTab.Hide();
@@ -417,6 +506,27 @@ namespace PriceComparrerDemo
             #endregion
 
         }
+
+
+
+
+
+        #endregion
+
+        private void HomePage_Load(object sender, EventArgs e)
+        {
+            searchBox.Hide();
+            searchBtn.Hide();
+            searchLbl.Hide();
+            homeBtn.Hide();
+            richTextBox1.Hide();
+            componentNameLbl.Hide();
+            searchingLbl.Hide();
+
+        }
+
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             #region ShowElements
@@ -454,6 +564,7 @@ namespace PriceComparrerDemo
 
         private static string ParseImput(string imput)
         {
+
             var splitText = imput.Split(' ');
 
             string model = splitText[1];
@@ -466,11 +577,11 @@ namespace PriceComparrerDemo
             return model;
         }
 
-        private string CheckForExistingAds(string tableName,string likeKeyword,string webSiteName)
+        private string CheckForExistingAds(string tableName, string likeKeyword, string webSiteName)
         {
             connection.Open();
 
-            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName,likeKeyword,webSiteName),connection);
+            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, likeKeyword, webSiteName), connection);
 
             var reader = readProcessorDataCommand.ExecuteReader();
 
@@ -484,7 +595,7 @@ namespace PriceComparrerDemo
             return _ads.AdTitle;
         }
 
-        private  void DisplayResults(string apiURl)
+        private void DisplayResults(string apiURl)
         {
             Stream stream = client.OpenRead(apiURl);
 
@@ -495,6 +606,15 @@ namespace PriceComparrerDemo
             componentNameLbl.Text = _ads.AdTitle;
             componentPriceLbl.Text = _ads.AdPrice;
             richTextBox1.Text = _ads.AdHyperlink;
+
+            if (String.IsNullOrEmpty(_ads.AdTitle) || String.IsNullOrEmpty(_ads.AdPrice) || String.IsNullOrEmpty(_ads.AdHyperlink))
+            {
+
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
+                richTextBox1.ForeColor = Color.Red;
+                richTextBox1.Text = "No Result That Matches Your Search ,Please Be More Explicit.";
+
+            }
 
         }
     }

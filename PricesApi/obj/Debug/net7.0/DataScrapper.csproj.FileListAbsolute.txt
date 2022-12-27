@@ -112,3 +112,4 @@ E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\refint\DataScrap
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\DataScrapper.pdb
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\DataScrapper.genruntimeconfig.cache
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\ref\DataScrapper.dll
+E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Serilog.dll

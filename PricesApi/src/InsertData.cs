@@ -6,7 +6,7 @@
 
         public static string ConnectionString { get => _connectionString; }
 
-        public static string InsertComponentData(string tableName,string webSiteName, string titles, string hyperlinks) => $"Insert into {tableName} (WebSiteName,ComponentTitle,ComponentHyperlink) values ('{webSiteName}','{titles}','{hyperlinks}') ";
+        public static string InsertComponentData(string tableName, string webSiteName, string titles, string hyperlinks) => $"Insert into {tableName} (WebSiteName,ComponentTitle,ComponentHyperlink) values ('{webSiteName}','{titles}','{hyperlinks}') ";
 
 
     }

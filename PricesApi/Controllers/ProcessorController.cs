@@ -7,7 +7,7 @@ namespace DataScrapper.Controllers
     [ApiController]
     public class ProcessorController : ControllerBase
     {
-        private readonly EmagAdsData emag = new();
+        private readonly Websites emag = new();
         private readonly HttpClient client = new();
         private readonly HtmlAgilityPack.HtmlDocument document = new();
 
@@ -22,7 +22,7 @@ namespace DataScrapper.Controllers
 
             document.LoadHtml(HtmlPage);
 
-            emag.ReadProcessorsTitles(document);
+            emag.ReadComponentsTitles(document, "ProcessorTable");
 
         }
 
@@ -30,7 +30,7 @@ namespace DataScrapper.Controllers
 
         [HttpGet]
 
-        public string GetProcessorsPrices(string processorModel) => emag.ReadProcessorsPrices(document, processorModel);
+        public string GetProcessorsPrices(string processorModel) => emag.ReadComponentsPrices(document, "ProcessorTable", processorModel);
         #endregion
 
     }

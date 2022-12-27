@@ -203,7 +203,7 @@
             // searchBox
             // 
             this.searchBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.searchBox.Location = new System.Drawing.Point(254, 115);
+            this.searchBox.Location = new System.Drawing.Point(254, 158);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(374, 39);
             this.searchBox.TabIndex = 20;
@@ -211,7 +211,7 @@
             // searchBtn
             // 
             this.searchBtn.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.searchBtn.Location = new System.Drawing.Point(634, 115);
+            this.searchBtn.Location = new System.Drawing.Point(634, 158);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(158, 39);
             this.searchBtn.TabIndex = 19;
@@ -233,7 +233,7 @@
             // homeBtn
             // 
             this.homeBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.homeBtn.Location = new System.Drawing.Point(20, 376);
+            this.homeBtn.Location = new System.Drawing.Point(0, 584);
             this.homeBtn.Name = "homeBtn";
             this.homeBtn.Size = new System.Drawing.Size(111, 38);
             this.homeBtn.TabIndex = 21;
@@ -259,7 +259,8 @@
             // 
             // richTextBox1
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(59, 252);
+            this.richTextBox1.Font = new System.Drawing.Font("Sitka Heading", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.richTextBox1.Location = new System.Drawing.Point(56, 460);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(951, 118);
             this.richTextBox1.TabIndex = 26;
@@ -270,7 +271,7 @@
             this.searchingLbl.AutoSize = true;
             this.searchingLbl.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.searchingLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.searchingLbl.Location = new System.Drawing.Point(406, 217);
+            this.searchingLbl.Location = new System.Drawing.Point(412, 425);
             this.searchingLbl.Name = "searchingLbl";
             this.searchingLbl.Size = new System.Drawing.Size(154, 32);
             this.searchingLbl.TabIndex = 27;
@@ -299,7 +300,7 @@
             this.Controls.Add(this.processorBtnTab);
             this.Controls.Add(this.chooseComponentLbl);
             this.Name = "HomePage";
-            this.Size = new System.Drawing.Size(1048, 428);
+            this.Size = new System.Drawing.Size(1040, 650);
             this.Load += new System.EventHandler(this.HomePage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
