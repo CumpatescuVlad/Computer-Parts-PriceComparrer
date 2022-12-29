@@ -203,7 +203,7 @@
             // searchBox
             // 
             this.searchBox.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.searchBox.Location = new System.Drawing.Point(254, 158);
+            this.searchBox.Location = new System.Drawing.Point(254, 113);
             this.searchBox.Name = "searchBox";
             this.searchBox.Size = new System.Drawing.Size(374, 39);
             this.searchBox.TabIndex = 20;
@@ -211,7 +211,7 @@
             // searchBtn
             // 
             this.searchBtn.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.searchBtn.Location = new System.Drawing.Point(634, 158);
+            this.searchBtn.Location = new System.Drawing.Point(634, 113);
             this.searchBtn.Name = "searchBtn";
             this.searchBtn.Size = new System.Drawing.Size(158, 39);
             this.searchBtn.TabIndex = 19;
@@ -262,6 +262,7 @@
             this.richTextBox1.Font = new System.Drawing.Font("Sitka Heading", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.richTextBox1.Location = new System.Drawing.Point(56, 460);
             this.richTextBox1.Name = "richTextBox1";
+            this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(951, 118);
             this.richTextBox1.TabIndex = 26;
             this.richTextBox1.Text = "";

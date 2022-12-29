@@ -25,10 +25,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ReadRamMemoryPrices/{ramMemoryModel}")]
+        [Route("api/ReadRamMemoryPrices/{querryString}")]
         [HttpGet]
 
-        public string GetRamMemoryPrices(string ramMemoryModel) => emag.ReadComponentsPrices(document, "RamMemoryTable", ramMemoryModel);
+        public string GetRamMemoryPrices(string querryString) => emag.ReadComponentsPrices(document, querryString);
 
         #endregion
 

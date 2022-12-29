@@ -24,10 +24,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ReadSSDPrices/{ssdModel}")]
+        [Route("api/ReadSSDPrices/{querryString}")]
         [HttpGet]
 
-        public string GetSSDPrices(string ssdModel) => emag.ReadComponentsPrices(document, "SSDTable", ssdModel);
+        public string GetSSDPrices(string querryString) => emag.ReadComponentsPrices(document,querryString);
 
         #endregion
     }

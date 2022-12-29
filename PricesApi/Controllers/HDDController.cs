@@ -25,10 +25,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ReadHDDPrices/{hddModel}")]
+        [Route("api/ReadHDDPrices/{querryString}")]
         [HttpGet]
 
-        public string GetHDDPrices(string hddModel) => emag.ReadComponentsPrices(document, "HDDTable", hddModel);
+        public string GetHDDPrices(string querryString) => emag.ReadComponentsPrices(document,querryString);
 
         #endregion
 

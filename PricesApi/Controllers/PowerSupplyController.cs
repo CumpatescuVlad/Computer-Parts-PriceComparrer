@@ -25,10 +25,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ReadPowerSupplyPrices/{powerSupplyModel}")]
+        [Route("api/ReadPowerSupplyPrices/{querryString}")]
         [HttpGet]
 
-        public string GetPowerSupplyPrices(string powerSupplyModel) => emag.ReadComponentsPrices(document, "PowerSupplyTable", powerSupplyModel);
+        public string GetPowerSupplyPrices(string querryString ) => emag.ReadComponentsPrices(document, querryString);
 
         #endregion
 

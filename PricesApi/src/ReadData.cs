@@ -6,7 +6,5 @@
 
         public static string ConnectionString { get => _connectionString; }
 
-        public static string ReadComponentModel(string tableName, string webSiteName, string componentModel) => $"Select ComponentTitle , ComponentHyperlink From {tableName} Where WebSiteName = '{webSiteName}' and ComponentTitle Like '%{componentModel}%'";
-
     }
 }

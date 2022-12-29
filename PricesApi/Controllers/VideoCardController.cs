@@ -24,10 +24,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ReadVideoCardsPrices/{videoCardModel}")]
+        [Route("api/ReadVideoCardsPrices/{querryString}")]
         [HttpGet]
 
-        public string GetVideoCardsPrices(string videoCardModel) => emag.ReadComponentsPrices(document, "VideoCardTable", videoCardModel);
+        public string GetVideoCardsPrices(string querryString) => emag.ReadComponentsPrices(document, querryString);
 
         #endregion
     }

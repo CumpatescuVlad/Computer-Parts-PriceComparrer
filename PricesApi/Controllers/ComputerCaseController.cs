@@ -24,10 +24,10 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/ComputerCasePrices/{computerCaseModel}")]
+        [Route("api/ComputerCasePrices/{querryString}")]
         [HttpGet]
 
-        public string GetComputerCasePrices(string computerCaseModel) => emag.ReadComponentsPrices(document, "ComputerCaseTable", computerCaseModel);
+        public string GetComputerCasePrices(string querryString) => emag.ReadComponentsPrices(document,querryString);
 
         #endregion
 

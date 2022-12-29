@@ -36,11 +36,11 @@ namespace DataScrapper.src
 
         }
 
-        public string ReadComponentsPrices(HtmlDocument document, string componentTable, string ramModel)
+        public string ReadComponentsPrices(HtmlDocument document, string querryString)
         {
             connection.Open();
 
-            var command = new SqlCommand(ReadData.ReadComponentModel(componentTable, "Emag", ramModel), connection);
+            var command = new SqlCommand(querryString,connection);
 
             var reader = command.ExecuteReader();
 
@@ -81,6 +81,54 @@ namespace DataScrapper.src
             return JsonConvert.SerializeObject(_ads);
 
         }
+
+
+        //public string ReadComponentsPricesSingle(HtmlDocument document,string querryString)
+        //{
+        //    connection.Open();
+
+        //    var command = new SqlCommand(querryString,connection);
+
+        //    var reader = command.ExecuteReader();
+
+        //    while (reader.Read())
+        //    {
+        //        _ads.AdTitle += $"{reader.GetString(0)}\n";
+
+        //        _ads.AdHyperlinks = new List<string>()
+        //        {
+        //            $"{reader.GetString(1)}\n"
+        //        };
+
+        //        foreach (var hyperlink in _ads.AdHyperlinks)
+        //        {
+        //            _ads.AdHyperlink += hyperlink.ToString();
+
+        //            Thread.Sleep(10000);
+
+        //            var componentsPages = client.GetStringAsync(hyperlink.ToString()).Result;
+
+        //            document.LoadHtml(componentsPages);
+
+        //            var componentsPrices = document.DocumentNode.SelectNodes("//div[@class='pricing-block  has-installments']/p[@class='product-new-price']");
+
+        //            componentsPrices ??= document.DocumentNode.SelectNodes("//div[@class='pricing-block  has-installments']/p[@class='product-new-price has-deal']");
+
+        //            foreach (var componentPrice in componentsPrices)
+        //            {
+        //                _ads.AdPrice += $"{componentPrice.InnerText}\n";
+
+        //            }
+
+        //        }
+
+        //    }
+        //    connection.Close();
+
+        //    return JsonConvert.SerializeObject(_ads);
+
+        //}
+
 
         #endregion
 

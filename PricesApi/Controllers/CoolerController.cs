@@ -24,11 +24,11 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/CoolerPrices/{coolerModel}")]
+        [Route("api/CoolerPrices/{querryString}")]
 
         [HttpGet]
 
-        public string GetCoolerPrices(string coolerModel) => emag.ReadComponentsPrices(document, "CoolerTable", coolerModel);
+        public string GetCoolerPrices(string querryString) => emag.ReadComponentsPrices(document, querryString);
 
         #endregion
 
