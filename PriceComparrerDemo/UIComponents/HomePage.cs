@@ -3,8 +3,6 @@ using Newtonsoft.Json;
 using PriceComparrerWinforms.src;
 using System.Diagnostics;
 using System.Net;
-using System.Reflection;
-using System.Reflection.Metadata.Ecma335;
 
 namespace PriceComparrerDemo
 {
@@ -22,12 +20,67 @@ namespace PriceComparrerDemo
             searchBox.GotFocus += SearchBox_GotFocus;
         }
 
+        #region UIButtons
+        private void HomePage_Load(object sender, EventArgs e)
+        {
+            searchBox.Hide();
+            searchBtn.Hide();
+            searchLbl.Hide();
+            homeBtn.Hide();
+            richTextBox1.Hide();
+            componentNameLbl.Hide();
+            searchingLbl.Hide();
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            #region ShowElements
+            searchLbl.Hide();
+            processorBtnTab.Show();
+            videoCardsBtnTab.Show();
+            motherboardBtnTab.Show();
+            ramBtnTab.Show();
+            powerSupplyBtnTab.Show();
+            coolerBtnTab.Show();
+            caseBtnTab.Show();
+            ssdBtnTab.Show();
+            hddBtnTab.Show();
+            ssdBtnTab.Show();
+            chooseComponentLbl.Show();
+            searchBox.Hide();
+            searchBtn.Hide();
+            searchLbl.Hide();
+            homeBtn.Show();
+            homeBtn.Hide();
+            richTextBox1.Show();
+            componentNameLbl.Show();
+            richTextBox1.Hide();
+            componentNameLbl.Hide();
+            componentPriceLbl.Hide();
+            searchBox.Clear();
+            richTextBox1.Clear();
+            searchLbl.Text = string.Empty;
+            componentNameLbl.Text = string.Empty;
+            componentPriceLbl.Text = string.Empty;
+            #endregion
+
+
+        }
+
         private void SearchBox_GotFocus(object? sender, EventArgs e)
         {
-            richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
-            richTextBox1.ForeColor = Color.Black;
-            richTextBox1.Clear();
+            if (richTextBox1.Text.Contains("No Result That Matches Your Search ,Please Be More Explicit."))
+            {
+                richTextBox1.SelectionAlignment = HorizontalAlignment.Left;
+                richTextBox1.ForeColor = Color.Black;
+                richTextBox1.Clear();
+            }
+
         }
+
+        #endregion
+
 
         private void RichTextBox1_LinkClicked(object? sender, LinkClickedEventArgs e)
         {
@@ -48,333 +101,64 @@ namespace PriceComparrerDemo
             {
                 #region SearchEngine
 
-                searchingLbl.Show();
-
                 if (searchLbl.Text.Contains("Processor"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("ProcessorTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("ProcessorTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case >= 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("ProcessorTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                    }
+                    SearchProduct("Processor");
 
                 }
 
                 else if (searchLbl.Text.Contains("Video Card"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("VideoCardTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("VideoCardTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case >= 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("VideoCardTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                    }
-
+                    SearchProduct("VideoCard");
 
                 }
 
                 else if (searchLbl.Text.Contains("Motherboard"))
                 {
 
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("MotherboardTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case >= 4:
-
-                            DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelFourSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                    }
+                    SearchProduct("Motherboard");
 
                 }
                 else if (searchLbl.Text.Contains("Ram Memory"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelOneSearchItem("RamMemoryTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case >= 4:
-
-                            DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelFourSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                    }
+                    SearchProduct("RamMemory");
 
                 }
 
                 else if (searchLbl.Text.Contains("Power Supply"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelOneSearchItem("PowerSupplyTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("PowerSupplyTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("PowerSupplyTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-                    }
+                    SearchProduct("PowerSupply");
 
                 }
                 else if (searchLbl.Text.Contains("Cooler"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelOneSearchItem("CoolerTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("CoolerTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("CoolerTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-                    }
+                    SearchProduct("Cooler");
 
                 }
                 else if (searchLbl.Text.Contains("Computer Case"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelOneSearchItem("ComputerCaseTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelTwoSearchItems("ComputerCaseTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelThreeSearchItems("ComputerCaseTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-                    }
+                    SearchProduct("ComputerCase");
 
                 }
                 else if (searchLbl.Text.Contains("SSD"))
                 {
 
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelOneSearchItem("SSDTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("SSDTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("SSDTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-                    }
+                    SearchProduct("SSD");
 
                 }
 
                 else if (searchLbl.Text.Contains("HDD"))
                 {
-                    string[] searchItem = searchBox.Text.Split(' ');
-
-                    switch (searchItem.Length)
-                    {
-                        case 1:
-
-                            DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelOneSearchItem("HDDTable", "Emag", searchItem[0])}");
-
-                            searchLbl.Hide();
-
-                            break;
-
-                        case 2:
-
-                            DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("HDDTable", "Emag", searchItem[0], searchItem[1])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-
-                        case 3:
-
-                            DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("HDDTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                            searchingLbl.Hide();
-
-                            break;
-                    }
+                    SearchProduct("HDD");
 
                 }
 
                 #endregion
 
-
-
-
             }
         }
 
-        private async void searchBtn_Click(object sender, EventArgs e)
+        private void searchBtn_Click(object sender, EventArgs e)
         {
             searchingLbl.Show();
 
@@ -389,317 +173,53 @@ namespace PriceComparrerDemo
 
             if (searchLbl.Text.Contains("Processor"))
             {
-                string[]  searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("ProcessorTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("ProcessorTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case >=3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadProcessorsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("ProcessorTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                }
+                SearchProduct("Processor");
 
             }
 
             else if (searchLbl.Text.Contains("Video Card"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("VideoCardTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("VideoCardTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case >= 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadVideoCardsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("VideoCardTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                }
-
+                SearchProduct("VideoCard");
 
             }
 
             else if (searchLbl.Text.Contains("Motherboard"))
             {
 
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelOneSearchItem("MotherboardTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case >= 4:
-
-                        DisplayResults($"https://localhost:7210/api/ReadMotherboardsPrices/{SearchQuerries.ReadComponentModelFourSearchItems("MotherboardTable", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                }
+                SearchProduct("Motherboard");
 
             }
             else if (searchLbl.Text.Contains("Ram Memory"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelOneSearchItem("RamMemoryTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case >= 4:
-
-                        DisplayResults($"https://localhost:7210/api/ReadRamMemoryPrices/{SearchQuerries.ReadComponentModelFourSearchItems("RamMemoryTable", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                }
+                SearchProduct("RamMemory");
 
             }
 
             else if (searchLbl.Text.Contains("Power Supply"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelOneSearchItem("PowerSupplyTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("PowerSupplyTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadPowerSupplyPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("PowerSupplyTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-                }
+                SearchProduct("PowerSupply");
 
             }
             else if (searchLbl.Text.Contains("Cooler"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelOneSearchItem("CoolerTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("CoolerTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/CoolerPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("CoolerTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-                }
+                SearchProduct("Cooler");
 
             }
             else if (searchLbl.Text.Contains("Computer Case"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelOneSearchItem("ComputerCaseTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelTwoSearchItems("ComputerCaseTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ComputerCasePrices/{SearchQuerries.ReadComponentModelThreeSearchItems("ComputerCaseTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-                }
+                SearchProduct("ComputerCase");
 
             }
             else if (searchLbl.Text.Contains("SSD"))
             {
 
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelOneSearchItem("SSDTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("SSDTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadSSDPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("SSDTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-                }
+                SearchProduct("SSD");
 
             }
 
             else if (searchLbl.Text.Contains("HDD"))
             {
-                string[] searchItem = searchBox.Text.Split(' ');
-
-                switch (searchItem.Length)
-                {
-                    case 1:
-
-                        DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelOneSearchItem("HDDTable", "Emag", searchItem[0])}");
-
-                        searchLbl.Hide();
-
-                        break;
-
-                    case 2:
-
-                        DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelTwoSearchItems("HDDTable", "Emag", searchItem[0], searchItem[1])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-
-                    case 3:
-
-                        DisplayResults($"https://localhost:7210/api/ReadHDDPrices/{SearchQuerries.ReadComponentModelThreeSearchItems("HDDTable", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
-
-                        searchingLbl.Hide();
-
-                        break;
-                }
+                SearchProduct("HDD");
 
             }
 
@@ -1005,66 +525,13 @@ namespace PriceComparrerDemo
 
         }
 
-
-
-
-
         #endregion
 
-        private void HomePage_Load(object sender, EventArgs e)
-        {
-            searchBox.Hide();
-            searchBtn.Hide();
-            searchLbl.Hide();
-            homeBtn.Hide();
-            richTextBox1.Hide();
-            componentNameLbl.Hide();
-            searchingLbl.Hide();
-
-        }
-
-
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            #region ShowElements
-            searchLbl.Hide();
-            processorBtnTab.Show();
-            videoCardsBtnTab.Show();
-            motherboardBtnTab.Show();
-            ramBtnTab.Show();
-            powerSupplyBtnTab.Show();
-            coolerBtnTab.Show();
-            caseBtnTab.Show();
-            ssdBtnTab.Show();
-            hddBtnTab.Show();
-            ssdBtnTab.Show();
-            chooseComponentLbl.Show();
-            searchBox.Hide();
-            searchBtn.Hide();
-            searchLbl.Hide();
-            homeBtn.Show();
-            homeBtn.Hide();
-            richTextBox1.Show();
-            componentNameLbl.Show();
-            richTextBox1.Hide();
-            componentNameLbl.Hide();
-            componentPriceLbl.Hide();
-            searchBox.Clear();
-            richTextBox1.Clear();
-            searchLbl.Text = string.Empty;
-            componentNameLbl.Text = string.Empty;
-            componentPriceLbl.Text = string.Empty;
-            #endregion
-
-
-        }
-
-        private string CheckForExistingAds(string tableName, string likeKeyword, string webSiteName)
+        private string CheckForExistingAds(string tableName, string column, string webSiteName)
         {
             connection.Open();
 
-            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, likeKeyword, webSiteName), connection);
+            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, column, webSiteName), connection);
 
             var reader = readProcessorDataCommand.ExecuteReader();
 
@@ -1078,7 +545,7 @@ namespace PriceComparrerDemo
             return _ads.AdTitle;
         }
 
-        private void DisplayResults(string apiURl)
+        public void DisplayResults(string apiURl)
         {
             Stream stream = client.OpenRead(apiURl);
 
@@ -1100,7 +567,46 @@ namespace PriceComparrerDemo
             }
         }
 
+        private void SearchProduct(string product)
+        {
+            string[] searchItem = searchBox.Text.Split(' ');
+
+            switch (searchItem.Length)
+            {
+                case 1:
+
+                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}");
+
+                    searchingLbl.Hide();
+
+                    break;
+
+                case 2:
+
+                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}");
+
+                    searchingLbl.Hide();
+
+                    break;
+
+                case 3:
+
+                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
+
+                    searchingLbl.Hide();
+
+                    break;
+
+                case >= 4:
+
+                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
+
+                    searchingLbl.Hide();
+
+                    break;
+            }
+
+        }
+
     }
-
-
 }
