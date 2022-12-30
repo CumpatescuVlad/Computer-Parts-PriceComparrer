@@ -1,6 +1,7 @@
 ﻿using DataScrapper.src;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DataScrapper.Controllers
 {
@@ -9,15 +10,15 @@ namespace DataScrapper.Controllers
     public class HDDController : ControllerBase
     {
 
-        private readonly IWebsites _emag;
-        private readonly IConfiguration _config;
+        private readonly IReadAdsData _emag;
+        private readonly XpathConfig _xpathConfig;
         private readonly HttpClient client = new();
         private readonly HtmlDocument document = new();
 
-        public HDDController(IWebsites emag, IConfiguration config)
+        public HDDController(IReadAdsData emag, IOptions<XpathConfig> xpathConfig)
         {
             _emag = emag;
-            _config = config;
+            _xpathConfig = xpathConfig.Value;
         }
 
         #region HDDRouting
@@ -27,17 +28,17 @@ namespace DataScrapper.Controllers
 
         public void GetEmagHDDAds(string pageCount)
         {
-            client.DefaultRequestHeaders.UserAgent.ParseAdd(_config.GetSection("UserAgent").Value);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/hard_disk-uri/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "HDDTable",_config.GetSection("EmagAdsTitles").Value);
+            _emag.ReadComponentsTitles(document, "HDDTable",_xpathConfig.EmagAdsTitles);
 
         }
 
         [Route("api/ReadHDDPrices/{querryString}")]
         [HttpGet]
 
-        public string GetHDDPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_config.GetSection("EmagAdsPrices").Value,_config.GetSection("EmagAdsPricesForDeals").Value);
+        public string GetHDDPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices,_xpathConfig.EmagAdsPrices);
 
         #endregion
 

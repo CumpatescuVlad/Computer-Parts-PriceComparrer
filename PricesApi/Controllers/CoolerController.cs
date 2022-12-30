@@ -1,6 +1,7 @@
 ﻿using DataScrapper.src;
 using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace DataScrapper.Controllers
 {
@@ -9,15 +10,15 @@ namespace DataScrapper.Controllers
     public class CoolerController : ControllerBase
     {
 
-        private readonly IWebsites _emag;
-        private readonly IConfiguration _config;
+        private readonly IReadAdsData _emag;
+        private readonly XpathConfig _xpathConfig;
         private readonly HttpClient client = new();
         private readonly HtmlDocument document = new();
 
-        public CoolerController(IWebsites emag, IConfiguration config)
+        public CoolerController(IReadAdsData emag, IOptions<XpathConfig> xpathConfig)
         {
             _emag = emag;
-            _config = config;
+            _xpathConfig = xpathConfig.Value;
         }
 
         #region CoolerRouting
@@ -27,10 +28,10 @@ namespace DataScrapper.Controllers
 
         public void GetEmagCoolerAds(string pageCount)
         {
-            client.DefaultRequestHeaders.UserAgent.ParseAdd(_config.GetSection("UserAgent").Value);
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/coolere_procesor/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "CoolerTable",_config.GetSection("EmagAdsTitles").Value);
+            _emag.ReadComponentsTitles(document, "CoolerTable",_xpathConfig.EmagAdsTitles);
 
         }
 
@@ -38,7 +39,7 @@ namespace DataScrapper.Controllers
 
         [HttpGet]
 
-        public string GetCoolerPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_config.GetSection("EmagAdsPrices").Value,_config.GetSection("EmagAdsPricesForDeals").Value);
+        public string GetCoolerPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);
 
         #endregion
 
