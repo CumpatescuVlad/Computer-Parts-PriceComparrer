@@ -45,6 +45,7 @@ namespace DataScrapper.Controllers
         #endregion
 
         #region EvomagProcessorsRouting
+
         [Route("api/EvomagProcessors/{pageCount}")]
 
         [HttpGet]
@@ -57,7 +58,7 @@ namespace DataScrapper.Controllers
 
             document.LoadHtml(HtmlPage);
 
-            _emag.ReadComponentsTitles(document, "ProcessorTable", _xpathConfig.EmagAdsTitles,_xpathConfig.Website,"Evomag");
+            _emag.ReadComponentsTitles(document, "ProcessorTable", _xpathConfig.EvomagAdsTitles,_xpathConfig.Website,"Evomag");
 
         }
 
@@ -65,7 +66,7 @@ namespace DataScrapper.Controllers
 
         [HttpGet]
 
-        public string GetEvomagProcessorPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString, _xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);
+        public string GetEvomagProcessorPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EvomagAdsPrices,string.Empty);
         #endregion
 
     }

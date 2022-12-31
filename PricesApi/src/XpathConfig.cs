@@ -10,6 +10,6 @@
         public string EmagAdsPricesForDeals { get; set; }
         public string EvomagAdsTitles { get; set; }
         public string EvomagAdsPrices { get; set; }
-        public string EvomagAdsPricesForDeals { get; set; }
+       
     }
 }

@@ -63,7 +63,7 @@ namespace DataScrapper.src
                 {
                     _ads.AdHyperlink += hyperlink.ToString();
 
-                    Thread.Sleep(10000);
+                    Thread.Sleep(5000);
 
                     client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
 

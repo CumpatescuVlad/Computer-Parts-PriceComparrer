@@ -30,6 +30,10 @@ namespace PriceComparrerDemo
             richTextBox1.Hide();
             componentNameLbl.Hide();
             searchingLbl.Hide();
+            emagLbl.Hide();
+            evomagLbl.Hide();
+            evomagHypelinksBox.Hide();
+            homeBtn.Location = new Point(0, 580);
 
         }
 
@@ -238,13 +242,7 @@ namespace PriceComparrerDemo
 
                 client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
 
-                Thread.Sleep(5000);
-
-                client.OpenRead("https://localhost:7210/api/EvomagProcessors/2");
-
-                Thread.Sleep(5000);
-
-                client.OpenRead("https://localhost:7210/api/EvomagProcessors/3");
+               
 
             }
 
@@ -266,7 +264,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Processor Model";
             homeBtn.Show();
-            richTextBox1.Show();
             componentNameLbl.Show();
             #endregion
 
@@ -556,7 +553,7 @@ namespace PriceComparrerDemo
             return _ads.AdTitle;
         }
 
-        public void DisplayResults(string apiURl)
+        public void DisplayResults(string apiURl,Label componentNameLbl,Label componentPriceLbl,RichTextBox hyperlinkBox,Label webSiteNameLbl,Button? homeBtn, int buttonYPosition)
         {
             Stream stream = client.OpenRead(apiURl);
 
@@ -564,18 +561,23 @@ namespace PriceComparrerDemo
 
             AdsModel _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
 
-            componentNameLbl.Text = _ads.AdTitle;
-            componentPriceLbl.Text = _ads.AdPrice;
-            richTextBox1.Text = _ads.AdHyperlink;
-
-            if (String.IsNullOrEmpty(_ads.AdTitle) || String.IsNullOrEmpty(_ads.AdPrice) || String.IsNullOrEmpty(_ads.AdHyperlink))
+            if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
             {
+                webSiteNameLbl.Show();
+                hyperlinkBox.Show();
+                componentNameLbl.ForeColor = Color.Black;
+                componentNameLbl.Text = _ads.AdTitle;
+                componentPriceLbl.Text = _ads.AdPrice;
+                hyperlinkBox.Text = _ads.AdHyperlink;
+                homeBtn.Location = new Point(0, buttonYPosition);
 
-                richTextBox1.SelectionAlignment = HorizontalAlignment.Center;
-                richTextBox1.ForeColor = Color.Red;
-                richTextBox1.Text = "No Result That Matches Your Search ,Please Be More Explicit.";
+                return;
 
             }
+
+            componentNameLbl.ForeColor = Color.Red;
+            componentNameLbl.Text = "No Result That Matches Your Search ,Please Be More Explicit.";
+
         }
 
         private void SearchProduct(string product)
@@ -586,9 +588,11 @@ namespace PriceComparrerDemo
             {
                 case 1:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}");
+                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}"
+                    //    ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl,homeBtn,580);
 
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}");
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
+                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
 
@@ -596,9 +600,12 @@ namespace PriceComparrerDemo
 
                 case 2:
 
-                   // DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}");
+                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}"
+                    //   ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, homeBtn, 580);
 
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1])}");
+                   
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
+                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
 
@@ -606,7 +613,11 @@ namespace PriceComparrerDemo
 
                 case 3:
 
-                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
+                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}"
+                    //    ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, homeBtn, 580);
+
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
+                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
 
@@ -614,7 +625,8 @@ namespace PriceComparrerDemo
 
                 case >= 4:
 
-                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}"
+                        ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, searchBtn, 580);
 
                     searchingLbl.Hide();
 
@@ -622,6 +634,17 @@ namespace PriceComparrerDemo
             }
 
         }
+
+        //private void ChangeUI(Label componentNameLbl, Label componentPriceLbl,Label webSiteNameLbl,RichTextBox hyperlinkBox,Button? homeBtn,int buttonYPosition)
+        //{
+        //    webSiteNameLbl.Show();
+        //    hyperlinkBox.Show();
+        //    componentNameLbl.ForeColor = Color.Black;
+        //    componentNameLbl.Text = _ads.AdTitle;
+        //    componentPriceLbl.Text = _ads.AdPrice;
+        //    hyperlinkBox.Text = _ads.AdHyperlink;
+        //    homeBtn.Location = new Point(0, buttonYPosition);
+        //}
 
     }
 }
