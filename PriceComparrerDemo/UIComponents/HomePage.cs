@@ -18,6 +18,19 @@ namespace PriceComparrerDemo
             searchBox.KeyDown += SearchBox_KeyDown;
             richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
             searchBox.GotFocus += SearchBox_GotFocus;
+            evomagHypelinksBox.LinkClicked += EvomagHypelinksBox_LinkClicked;
+        }
+
+        private void EvomagHypelinksBox_LinkClicked(object? sender, LinkClickedEventArgs e)
+        {
+            ProcessStartInfo processInfo = new()
+            {
+                FileName = e.LinkText,
+                UseShellExecute = true
+            };
+
+            Process.Start(processInfo);
+
         }
 
         #region UIButtons
@@ -588,8 +601,8 @@ namespace PriceComparrerDemo
             {
                 case 1:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}"
-                    //    ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl,homeBtn,580);
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}"
+                        , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
 
                     DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
                         , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
@@ -600,11 +613,11 @@ namespace PriceComparrerDemo
 
                 case 2:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}"
-                    //   ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, homeBtn, 580);
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}"
+                       , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
 
-                   
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
+
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1])}"
                         , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
@@ -613,10 +626,10 @@ namespace PriceComparrerDemo
 
                 case 3:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}"
-                    //    ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, homeBtn, 580);
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}"
+                        , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
 
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1], searchItem[2])}"
                         , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
