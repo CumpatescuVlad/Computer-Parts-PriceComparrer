@@ -21,7 +21,7 @@ namespace DataScrapper.Controllers
         }
 
         #region PowerSupplyRouting
-        [Route("api/PowerSupply/{pageCount}")]
+        [Route("api/EmagPowerSupply/{pageCount}")]
 
         [HttpGet]
 
@@ -30,11 +30,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/surse-pc/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "PowerSupplyTable",_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "PowerSupplyTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadPowerSupplyPrices/{querryString}")]
+        [Route("api/ReadEmagPowerSupplyPrices/{querryString}")]
         [HttpGet]
 
         public string GetPowerSupplyPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);

@@ -3,6 +3,8 @@
     public class XpathConfig
     {
         public string UserAgent { get; set; }
+
+        public string Website { get; set; }
         public string EmagAdsTitles { get; set; }
         public string EmagAdsPrices { get; set; }
         public string EmagAdsPricesForDeals { get; set; }

@@ -15,11 +15,11 @@ namespace DataScrapper.src
 
         public ReadAdsData(IOptions<XpathConfig> xpathConfig)
         {
-           _xpathConfig = xpathConfig.Value;
+            _xpathConfig = xpathConfig.Value;
         }
         #region ReadEmagComponentsAds
 
-        public void ReadComponentsTitles(HtmlDocument document, string componentTable, string webSiteAdsList)
+        public void ReadComponentsTitles(HtmlDocument document, string componentTable, string webSiteAdsList, string? websitePrefix, string webSiteName)
         {
             var componentsTitles = document.DocumentNode.SelectNodes(webSiteAdsList);
 
@@ -27,7 +27,7 @@ namespace DataScrapper.src
             {
                 connection.Open();
 
-                var insertTitlesCommand = new SqlCommand(InsertData.InsertComponentData(componentTable, "Emag", componentTitle.InnerText, componentTitle.Attributes["href"].Value), connection);
+                var insertTitlesCommand = new SqlCommand(InsertData.InsertComponentData(componentTable, webSiteName, componentTitle.InnerText, $"{websitePrefix}{componentTitle.Attributes["href"].Value}"), connection);
 
                 var adapter = new SqlDataAdapter(insertTitlesCommand);
 
@@ -42,7 +42,7 @@ namespace DataScrapper.src
 
         }
 
-        public string ReadComponentsPrices(HtmlDocument document, string querryString , string firstPricesXpath,string secondXpathPrices)
+        public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string secondXpathPrices)
         {
             connection.Open();
 

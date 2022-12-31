@@ -20,8 +20,8 @@ namespace DataScrapper.Controllers
             _xpathConfig = xpathConfig.Value;
         }
 
-        #region ProcessorsRouting
-        [Route("api/Processors/{pageCount}")]
+        #region EmagProcessorsRouting
+        [Route("api/EmagProcessors/{pageCount}")]
 
         [HttpGet]
 
@@ -33,15 +33,39 @@ namespace DataScrapper.Controllers
 
             document.LoadHtml(HtmlPage);
 
-            _emag.ReadComponentsTitles(document, "ProcessorTable",_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "ProcessorTable",_xpathConfig.EmagAdsTitles,string.Empty,"Emag");
 
         }
 
-        [Route("api/ReadProcessorPrices/{querryString}")]
+        [Route("api/ReadEmagProcessorPrices/{querryString}")]
 
         [HttpGet]
 
-        public string GetProcessorPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);
+        public string GetEmagProcessorPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);
+        #endregion
+
+        #region EvomagProcessorsRouting
+        [Route("api/EvomagProcessors/{pageCount}")]
+
+        [HttpGet]
+
+        public void GetEvomagProcessorsAds(string pageCount)
+        {
+            client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
+
+            var HtmlPage = client.GetStringAsync($"https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:{pageCount}").Result;
+
+            document.LoadHtml(HtmlPage);
+
+            _emag.ReadComponentsTitles(document, "ProcessorTable", _xpathConfig.EmagAdsTitles,_xpathConfig.Website,"Evomag");
+
+        }
+
+        [Route("api/ReadEvomagProcessorPrices/{querryString}")]
+
+        [HttpGet]
+
+        public string GetEvomagProcessorPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString, _xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);
         #endregion
 
     }

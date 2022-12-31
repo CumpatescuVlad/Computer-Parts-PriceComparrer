@@ -21,7 +21,7 @@ namespace DataScrapper.Controllers
         }
 
         #region MotherboardRouting
-        [Route("api/Motherboards/{pageCount}")]
+        [Route("api/EmagMotherboards/{pageCount}")]
 
         [HttpGet]
 
@@ -30,11 +30,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/placi_baza/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "MotherboardTable",_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "MotherboardTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadMotherboardPrices/{querryString}")]
+        [Route("api/ReadEmagMotherboardPrices/{querryString}")]
         [HttpGet]
 
         public string GetMotherboardPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices,_xpathConfig.EmagAdsPricesForDeals);

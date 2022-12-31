@@ -21,7 +21,7 @@ namespace DataScrapper.Controllers
         }
 
         #region SSDRouting
-        [Route("api/SSD/{pageCount}")]
+        [Route("api/EmagSSD/{pageCount}")]
 
         [HttpGet]
 
@@ -30,11 +30,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/solid-state_drive_ssd_/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "SSDTable", _xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "SSDTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadSSDPrices/{querryString}")]
+        [Route("api/ReadEmagSSDPrices/{querryString}")]
         [HttpGet]
 
         public string GetSSDPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString, _xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);

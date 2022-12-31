@@ -22,7 +22,7 @@ namespace DataScrapper.Controllers
         }
 
         #region CoolerRouting
-        [Route("api/Cooler/{pageCount}")]
+        [Route("api/EmagCooler/{pageCount}")]
 
         [HttpGet]
 
@@ -31,11 +31,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/coolere_procesor/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "CoolerTable",_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "CoolerTable",_xpathConfig.EmagAdsTitles,string.Empty,"Emag");
 
         }
 
-        [Route("api/CoolerPrices/{querryString}")]
+        [Route("api/ReadEmagCoolerPrices/{querryString}")]
 
         [HttpGet]
 

@@ -22,7 +22,7 @@ namespace DataScrapper.Controllers
         }
 
         #region ComputerCaseRouting
-        [Route("api/ComputerCase/{pageCount}")]
+        [Route("api/EmagComputerCase/{pageCount}")]
 
         [HttpGet]
 
@@ -31,11 +31,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/carcase/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "ComputerCaseTable" ,_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "ComputerCaseTable" ,_xpathConfig.EmagAdsTitles,string.Empty,"Emag");
 
         }
 
-        [Route("api/ComputerCasePrices/{querryString}")]
+        [Route("api/ReadEmagComputerCasePrices/{querryString}")]
         [HttpGet]
 
         public string GetComputerCasePrices(string querryString) => _emag.ReadComponentsPrices(document, querryString, _xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);

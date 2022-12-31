@@ -21,7 +21,7 @@ namespace DataScrapper.Controllers
         }
 
         #region RamMemoryRouting
-        [Route("api/RamMemory/{pageCount}")]
+        [Route("api/EmagRamMemory/{pageCount}")]
 
         [HttpGet]
 
@@ -30,11 +30,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/memorii/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "RamMemoryTable", _xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "RamMemoryTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadRamMemoryPrices/{querryString}")]
+        [Route("api/ReadEmagRamMemoryPrices/{querryString}")]
         [HttpGet]
 
         public string GetRamMemoryPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString, _xpathConfig.EmagAdsPrices, _xpathConfig.EmagAdsPricesForDeals);

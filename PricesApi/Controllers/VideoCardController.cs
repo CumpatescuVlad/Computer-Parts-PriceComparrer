@@ -19,7 +19,7 @@ namespace DataScrapper.Controllers
             _xpathConfig = xpathConfig.Value;
         }
         #region VideoCardsRouting
-        [Route("api/VideoCards/{pageCount}")]
+        [Route("api/EmagVideoCards/{pageCount}")]
 
         [HttpGet]
 
@@ -28,11 +28,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/placi_video/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "VideoCardTable", _xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "VideoCardTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadVideoCardPrices/{querryString}")]
+        [Route("api/ReadEmagVideoCardPrices/{querryString}")]
         [HttpGet]
 
         public string GetVideoCardPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices,_xpathConfig.EmagAdsPricesForDeals);

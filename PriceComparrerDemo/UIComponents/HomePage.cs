@@ -232,9 +232,20 @@ namespace PriceComparrerDemo
 
         private void processorBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Emag")))
+            if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Emag")) || String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Evomag")))
             {
-                client.OpenRead($"https://localhost:7210/api/Processors/1");
+                client.OpenRead("https://localhost:7210/api/EmagProcessors/1");
+
+                client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
+
+                Thread.Sleep(5000);
+
+                client.OpenRead("https://localhost:7210/api/EvomagProcessors/2");
+
+                Thread.Sleep(5000);
+
+                client.OpenRead("https://localhost:7210/api/EvomagProcessors/3");
+
             }
 
             #region HideElements
@@ -265,7 +276,7 @@ namespace PriceComparrerDemo
         {
             if (String.IsNullOrEmpty(CheckForExistingAds("VideoCardTable", "Placa", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/VideoCards/1");
+                client.OpenRead($"https://localhost:7210/api/EmagVideoCards/1");
             }
 
             #region HideElements
@@ -298,7 +309,7 @@ namespace PriceComparrerDemo
         {
             if (String.IsNullOrEmpty(CheckForExistingAds("MotherboardTable", "Placa de baza", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/Motherboards/1");
+                client.OpenRead($"https://localhost:7210/api/EmagMotherboards/1");
             }
 
             #region HideElements
@@ -331,7 +342,7 @@ namespace PriceComparrerDemo
 
             if (String.IsNullOrEmpty(CheckForExistingAds("RamMemoryTable", "Memorie Ram", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/RamMemory/1");
+                client.OpenRead($"https://localhost:7210/api/EmagRamMemory/1");
             }
 
             #region HideElements
@@ -363,7 +374,7 @@ namespace PriceComparrerDemo
         {
             if (String.IsNullOrEmpty(CheckForExistingAds("PowerSupplyTable", "Sursa", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/PowerSupply/1");
+                client.OpenRead($"https://localhost:7210/api/EmagPowerSupply/1");
             }
 
             #region HideElements
@@ -396,7 +407,7 @@ namespace PriceComparrerDemo
 
             if (String.IsNullOrEmpty(CheckForExistingAds("CoolerTable", "Cooler", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/Cooler/1");
+                client.OpenRead($"https://localhost:7210/api/EmagCooler/1");
             }
 
 
@@ -430,7 +441,7 @@ namespace PriceComparrerDemo
 
             if (String.IsNullOrEmpty(CheckForExistingAds("ComputerCaseTable", "Carcasa", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/ComputerCase/1");
+                client.OpenRead($"https://localhost:7210/api/EmagComputerCase/1");
             }
 
 
@@ -464,7 +475,7 @@ namespace PriceComparrerDemo
 
             if (String.IsNullOrEmpty(CheckForExistingAds("SSDTable", "Solid State Drive", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/SSD/1");
+                client.OpenRead($"https://localhost:7210/api/EmagSSD/1");
             }
 
             #region HideElements
@@ -497,7 +508,7 @@ namespace PriceComparrerDemo
 
             if (String.IsNullOrEmpty(CheckForExistingAds("HDDTable", "HDD", "Emag")))
             {
-                client.OpenRead($"https://localhost:7210/api/HDD/1");
+                client.OpenRead($"https://localhost:7210/api/EmagHDD/1");
             }
 
             #region HideElements
@@ -575,7 +586,9 @@ namespace PriceComparrerDemo
             {
                 case 1:
 
-                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}");
+                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}");
+
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}");
 
                     searchingLbl.Hide();
 
@@ -583,7 +596,9 @@ namespace PriceComparrerDemo
 
                 case 2:
 
-                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}");
+                   // DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1])}");
+
+                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1])}");
 
                     searchingLbl.Hide();
 
@@ -591,7 +606,7 @@ namespace PriceComparrerDemo
 
                 case 3:
 
-                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}");
 
                     searchingLbl.Hide();
 
@@ -599,7 +614,7 @@ namespace PriceComparrerDemo
 
                 case >= 4:
 
-                    DisplayResults($"https://localhost:7210/api/Read{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
+                    DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}");
 
                     searchingLbl.Hide();
 

@@ -22,7 +22,7 @@ namespace DataScrapper.Controllers
         }
 
         #region HDDRouting
-        [Route("api/HDD/{pageCount}")]
+        [Route("api/EmagHDD/{pageCount}")]
 
         [HttpGet]
 
@@ -31,11 +31,11 @@ namespace DataScrapper.Controllers
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
             var HtmlPage = client.GetStringAsync($"https://www.emag.ro/hard_disk-uri/p{pageCount}/c").Result;
             document.LoadHtml(HtmlPage);
-            _emag.ReadComponentsTitles(document, "HDDTable",_xpathConfig.EmagAdsTitles);
+            _emag.ReadComponentsTitles(document, "HDDTable", _xpathConfig.EmagAdsTitles, string.Empty, "Emag");
 
         }
 
-        [Route("api/ReadHDDPrices/{querryString}")]
+        [Route("api/ReadEmagHDDPrices/{querryString}")]
         [HttpGet]
 
         public string GetHDDPrices(string querryString) => _emag.ReadComponentsPrices(document, querryString,_xpathConfig.EmagAdsPrices,_xpathConfig.EmagAdsPrices);
