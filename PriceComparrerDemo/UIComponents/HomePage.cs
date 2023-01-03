@@ -253,9 +253,9 @@ namespace PriceComparrerDemo
             {
                 client.OpenRead("https://localhost:7210/api/EmagProcessors/1");
 
-                client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
+                Thread.Sleep(3000);
 
-               
+                client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
 
             }
 
@@ -566,7 +566,7 @@ namespace PriceComparrerDemo
             return _ads.AdTitle;
         }
 
-        public void DisplayResults(string apiURl,Label componentNameLbl,Label componentPriceLbl,RichTextBox hyperlinkBox,Label webSiteNameLbl,Button? homeBtn, int buttonYPosition)
+        public void DisplayResults(string apiURl, Label componentNameLbl, Label componentPriceLbl, RichTextBox hyperlinkBox, Label webSiteNameLbl, Button? homeBtn, int buttonYPosition)
         {
             Stream stream = client.OpenRead(apiURl);
 
@@ -576,6 +576,7 @@ namespace PriceComparrerDemo
 
             if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
             {
+
                 webSiteNameLbl.Show();
                 hyperlinkBox.Show();
                 componentNameLbl.ForeColor = Color.Black;
@@ -584,9 +585,11 @@ namespace PriceComparrerDemo
                 hyperlinkBox.Text = _ads.AdHyperlink;
                 homeBtn.Location = new Point(0, buttonYPosition);
 
+
                 return;
 
             }
+
 
             componentNameLbl.ForeColor = Color.Red;
             componentNameLbl.Text = "No Result That Matches Your Search ,Please Be More Explicit.";
@@ -639,7 +642,7 @@ namespace PriceComparrerDemo
                 case >= 4:
 
                     DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}"
-                        ,componentNameLbl,componentPriceLbl,richTextBox1,emagLbl, searchBtn, 580);
+                        , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, searchBtn, 580);
 
                     searchingLbl.Hide();
 
@@ -647,17 +650,6 @@ namespace PriceComparrerDemo
             }
 
         }
-
-        //private void ChangeUI(Label componentNameLbl, Label componentPriceLbl,Label webSiteNameLbl,RichTextBox hyperlinkBox,Button? homeBtn,int buttonYPosition)
-        //{
-        //    webSiteNameLbl.Show();
-        //    hyperlinkBox.Show();
-        //    componentNameLbl.ForeColor = Color.Black;
-        //    componentNameLbl.Text = _ads.AdTitle;
-        //    componentPriceLbl.Text = _ads.AdPrice;
-        //    hyperlinkBox.Text = _ads.AdHyperlink;
-        //    homeBtn.Location = new Point(0, buttonYPosition);
-        //}
 
     }
 }

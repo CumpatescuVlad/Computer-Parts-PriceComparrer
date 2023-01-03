@@ -8,9 +8,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.Configure<XpathConfig>(builder.Configuration.GetSection("XpathConfig"));
-builder.Services.AddScoped<IReadAdsData,ReadAdsData>();
-
+builder.Services.Configure<ConfigModel>(builder.Configuration.GetSection("ScrapperConfig"));
+builder.Services.AddScoped<IReadAdsData, ReadAdsData>();
+//builder.Host.UseSerilog();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

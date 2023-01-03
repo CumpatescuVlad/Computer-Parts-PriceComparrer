@@ -398,6 +398,22 @@
           }
         }
       },
+      "Serilog.Expressions/3.4.1": {
+        "type": "package",
+        "dependencies": {
+          "Serilog": "2.10.0"
+        },
+        "compile": {
+          "lib/net5.0/Serilog.Expressions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Serilog.Expressions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Swashbuckle.AspNetCore/6.2.3": {
         "type": "package",
         "dependencies": {
@@ -1564,6 +1580,24 @@
         "lib/netstandard2.1/Serilog.xml",
         "serilog.2.12.0.nupkg.sha512",
         "serilog.nuspec"
+      ]
+    },
+    "Serilog.Expressions/3.4.1": {
+      "sha512": "0gcR+7/0g4WYQlbxWWuTNYdUkrwHdnD60it4kY9yX3Djm1DFcrHRO6gynYaxPb8vcPFuGRZwpA2mowCFRm6MYg==",
+      "type": "package",
+      "path": "serilog.expressions/3.4.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/net5.0/Serilog.Expressions.dll",
+        "lib/net5.0/Serilog.Expressions.xml",
+        "lib/netstandard2.0/Serilog.Expressions.dll",
+        "lib/netstandard2.0/Serilog.Expressions.xml",
+        "lib/netstandard2.1/Serilog.Expressions.dll",
+        "lib/netstandard2.1/Serilog.Expressions.xml",
+        "serilog.expressions.3.4.1.nupkg.sha512",
+        "serilog.expressions.nuspec"
       ]
     },
     "Swashbuckle.AspNetCore/6.2.3": {
@@ -2924,6 +2958,7 @@
       "Microsoft.Data.SqlClient >= 5.0.1",
       "Newtonsoft.Json >= 13.0.2",
       "Serilog >= 2.12.0",
+      "Serilog.Expressions >= 3.4.1",
       "Swashbuckle.AspNetCore >= 6.2.3"
     ]
   },
@@ -2986,6 +3021,10 @@
           "Serilog": {
             "target": "Package",
             "version": "[2.12.0, )"
+          },
+          "Serilog.Expressions": {
+            "target": "Package",
+            "version": "[3.4.1, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

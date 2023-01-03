@@ -12,6 +12,7 @@
           "Microsoft.Data.SqlClient": "5.0.1",
           "Newtonsoft.Json": "13.0.2",
           "Serilog": "2.12.0",
+          "Serilog.Expressions": "3.4.1",
           "Swashbuckle.AspNetCore": "6.2.3"
         },
         "runtime": {
@@ -267,6 +268,17 @@
           "lib/net6.0/Serilog.dll": {
             "assemblyVersion": "2.0.0.0",
             "fileVersion": "2.12.0.0"
+          }
+        }
+      },
+      "Serilog.Expressions/3.4.1": {
+        "dependencies": {
+          "Serilog": "2.12.0"
+        },
+        "runtime": {
+          "lib/net5.0/Serilog.Expressions.dll": {
+            "assemblyVersion": "3.4.1.0",
+            "fileVersion": "3.4.1.0"
           }
         }
       },
@@ -635,6 +647,13 @@
       "sha512": "sha512-xaiJLIdu6rYMKfQMYUZgTy8YK7SMZjB4Yk50C/u//Z4OsvxkUfSPJy4nknfvwAC34yr13q7kcyh4grbwhSxyZg==",
       "path": "serilog/2.12.0",
       "hashPath": "serilog.2.12.0.nupkg.sha512"
+    },
+    "Serilog.Expressions/3.4.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-0gcR+7/0g4WYQlbxWWuTNYdUkrwHdnD60it4kY9yX3Djm1DFcrHRO6gynYaxPb8vcPFuGRZwpA2mowCFRm6MYg==",
+      "path": "serilog.expressions/3.4.1",
+      "hashPath": "serilog.expressions.3.4.1.nupkg.sha512"
     },
     "Swashbuckle.AspNetCore/6.2.3": {
       "type": "package",

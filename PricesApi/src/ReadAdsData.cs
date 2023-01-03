@@ -9,19 +9,19 @@ namespace DataScrapper.src
     public class ReadAdsData : IReadAdsData
     {
         private readonly AdsModel _ads = new();
-        private readonly XpathConfig _xpathConfig;
+        private readonly ConfigModel _modelConfig;
         private readonly HttpClient client = new();
         private readonly SqlConnection connection = new(InsertData.ConnectionString);
 
-        public ReadAdsData(IOptions<XpathConfig> xpathConfig)
+        public ReadAdsData(IOptions<ConfigModel> modelConfig)
         {
-            _xpathConfig = xpathConfig.Value;
+            _modelConfig = modelConfig.Value;
         }
         #region ReadEmagComponentsAds
 
-        public void ReadComponentsTitles(HtmlDocument document, string componentTable, string webSiteAdsList, string? websitePrefix, string webSiteName)
+        public void ReadComponentsTitles(HtmlDocument document, string componentTable, string adsTitlesXpath, string webSiteName, string? websitePrefix)
         {
-            var componentsTitles = document.DocumentNode.SelectNodes(webSiteAdsList);
+            var componentsTitles = document.DocumentNode.SelectNodes(adsTitlesXpath);
 
             foreach (var componentTitle in componentsTitles)
             {
@@ -38,11 +38,9 @@ namespace DataScrapper.src
                 connection.Close();
             }
 
-
-
         }
 
-        public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string secondXpathPrices)
+        public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string xpathPricesForDeals)
         {
             connection.Open();
 
@@ -65,7 +63,7 @@ namespace DataScrapper.src
 
                     Thread.Sleep(5000);
 
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd(_xpathConfig.UserAgent);
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd(_modelConfig.UserAgent);
 
                     var componentsPages = client.GetStringAsync(hyperlink.ToString()).Result;
 
@@ -73,7 +71,7 @@ namespace DataScrapper.src
 
                     var componentsPrices = document.DocumentNode.SelectNodes(firstPricesXpath);
 
-                    componentsPrices ??= document.DocumentNode.SelectNodes(secondXpathPrices);
+                    componentsPrices ??= document.DocumentNode.SelectNodes(xpathPricesForDeals);
 
                     foreach (var componentPrice in componentsPrices)
                     {
