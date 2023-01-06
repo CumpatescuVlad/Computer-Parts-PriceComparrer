@@ -9,24 +9,26 @@ namespace DataScrapper.src
     public class ReadAdsData : IReadAdsData
     {
         private readonly AdsModel _ads = new();
-        private readonly ConfigModel _modelConfig;
+        private readonly ConfigModel _configModel;
         private readonly HttpClient client = new();
-        private readonly SqlConnection connection = new(InsertData.ConnectionString);
 
         public ReadAdsData(IOptions<ConfigModel> modelConfig)
         {
-            _modelConfig = modelConfig.Value;
+            _configModel = modelConfig.Value;
         }
-        #region ReadEmagComponentsAds
+
+        #region ReadComponentsAds
 
         public void ReadComponentsTitles(HtmlDocument document, string componentTable, string adsTitlesXpath, string webSiteName, string? websitePrefix)
         {
+            var connection = new SqlConnection(_configModel.ConnectionString);
+
             var componentsTitles = document.DocumentNode.SelectNodes(adsTitlesXpath);
+
+            connection.Open();
 
             foreach (var componentTitle in componentsTitles)
             {
-                connection.Open();
-
                 var insertTitlesCommand = new SqlCommand(InsertData.InsertComponentData(componentTable, webSiteName, componentTitle.InnerText, $"{websitePrefix}{componentTitle.Attributes["href"].Value}"), connection);
 
                 var adapter = new SqlDataAdapter(insertTitlesCommand);
@@ -35,13 +37,16 @@ namespace DataScrapper.src
 
                 adapter.InsertCommand.ExecuteNonQuery();
 
-                connection.Close();
             }
 
+            connection.Close();
+            connection.Dispose();
         }
 
         public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string xpathPricesForDeals)
         {
+            var connection = new SqlConnection(_configModel.ConnectionString);
+
             connection.Open();
 
             var command = new SqlCommand(querryString, connection);
@@ -61,9 +66,9 @@ namespace DataScrapper.src
                 {
                     _ads.AdHyperlink += hyperlink.ToString();
 
-                    Thread.Sleep(5000);
+                    Thread.Sleep(3000);
 
-                    client.DefaultRequestHeaders.UserAgent.ParseAdd(_modelConfig.UserAgent);
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd(_configModel.UserAgent);
 
                     var componentsPages = client.GetStringAsync(hyperlink.ToString()).Result;
 

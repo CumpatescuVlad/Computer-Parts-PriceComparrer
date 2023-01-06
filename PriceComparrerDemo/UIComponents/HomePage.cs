@@ -10,7 +10,7 @@ namespace PriceComparrerDemo
     {
         private readonly WebClient client = new();
         private readonly AdsModel _ads = new();
-        private readonly SqlConnection connection = new SqlConnection(Data.ConnectionString);
+        private readonly SqlConnection connection = new(Data.ConnectionString);
 
         public HomePage()
         {
@@ -18,7 +18,7 @@ namespace PriceComparrerDemo
             searchBox.KeyDown += SearchBox_KeyDown;
             richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
             searchBox.GotFocus += SearchBox_GotFocus;
-            evomagHypelinksBox.LinkClicked += EvomagHypelinksBox_LinkClicked;
+            
         }
 
         private void EvomagHypelinksBox_LinkClicked(object? sender, LinkClickedEventArgs e)
@@ -44,10 +44,7 @@ namespace PriceComparrerDemo
             componentNameLbl.Hide();
             searchingLbl.Hide();
             emagLbl.Hide();
-            evomagLbl.Hide();
-            evomagHypelinksBox.Hide();
-            homeBtn.Location = new Point(0, 580);
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -607,9 +604,6 @@ namespace PriceComparrerDemo
                     DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}"
                         , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
 
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0])}"
-                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
-
                     searchingLbl.Hide();
 
                     break;
@@ -620,20 +614,12 @@ namespace PriceComparrerDemo
                        , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
 
 
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1])}"
-                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
-
-                    searchingLbl.Hide();
-
                     break;
 
                 case 3:
 
                     DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}"
                         , componentNameLbl, componentPriceLbl, richTextBox1, emagLbl, homeBtn, 580);
-
-                    DisplayResults($"https://localhost:7210/api/ReadEvomag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1], searchItem[2])}"
-                        , evomagTitlesLbl, evomagPriceLbl, evomagHypelinksBox, evomagLbl, homeBtn, 1020);
 
                     searchingLbl.Hide();
 

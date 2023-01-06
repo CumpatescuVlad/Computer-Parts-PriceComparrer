@@ -47,11 +47,9 @@
             this.searchingLbl = new System.Windows.Forms.Label();
             this.evomagPriceLbl = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.evomagHypelinksBox = new System.Windows.Forms.RichTextBox();
             this.evomagTitlesLbl = new System.Windows.Forms.Label();
             this.componentPriceLbl = new System.Windows.Forms.Label();
             this.emagLbl = new System.Windows.Forms.Label();
-            this.evomagLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chooseComponentLbl
@@ -238,7 +236,7 @@
             // homeBtn
             // 
             this.homeBtn.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.homeBtn.Location = new System.Drawing.Point(0, 1020);
+            this.homeBtn.Location = new System.Drawing.Point(0, 578);
             this.homeBtn.Name = "homeBtn";
             this.homeBtn.Size = new System.Drawing.Size(111, 38);
             this.homeBtn.TabIndex = 21;
@@ -283,16 +281,6 @@
             this.richTextBox1.TabIndex = 26;
             this.richTextBox1.Text = "";
             // 
-            // evomagHypelinksBox
-            // 
-            this.evomagHypelinksBox.Font = new System.Drawing.Font("Sitka Heading", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.evomagHypelinksBox.Location = new System.Drawing.Point(57, 896);
-            this.evomagHypelinksBox.Name = "evomagHypelinksBox";
-            this.evomagHypelinksBox.ReadOnly = true;
-            this.evomagHypelinksBox.Size = new System.Drawing.Size(951, 118);
-            this.evomagHypelinksBox.TabIndex = 30;
-            this.evomagHypelinksBox.Text = "";
-            // 
             // evomagTitlesLbl
             // 
             this.evomagTitlesLbl.AutoSize = true;
@@ -319,26 +307,13 @@
             this.emagLbl.TabIndex = 33;
             this.emagLbl.Text = "Emag";
             // 
-            // evomagLbl
-            // 
-            this.evomagLbl.AutoSize = true;
-            this.evomagLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.evomagLbl.Location = new System.Drawing.Point(474, 581);
-            this.evomagLbl.Name = "evomagLbl";
-            this.evomagLbl.Size = new System.Drawing.Size(66, 21);
-            this.evomagLbl.TabIndex = 34;
-            this.evomagLbl.Text = "Evomag";
-            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoScroll = true;
-            this.Controls.Add(this.evomagLbl);
             this.Controls.Add(this.emagLbl);
             this.Controls.Add(this.evomagTitlesLbl);
             this.Controls.Add(this.componentPriceLbl);
-            this.Controls.Add(this.evomagHypelinksBox);
             this.Controls.Add(this.evomagPriceLbl);
             this.Controls.Add(this.searchingLbl);
             this.Controls.Add(this.richTextBox1);
@@ -358,7 +333,7 @@
             this.Controls.Add(this.processorBtnTab);
             this.Controls.Add(this.chooseComponentLbl);
             this.Name = "HomePage";
-            this.Size = new System.Drawing.Size(1006, 616);
+            this.Size = new System.Drawing.Size(1055, 633);
             this.Load += new System.EventHandler(this.HomePage_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -385,10 +360,8 @@
         private Label searchingLbl;
         private Label evomagPriceLbl;
         private RichTextBox richTextBox1;
-        private RichTextBox evomagHypelinksBox;
         private Label evomagTitlesLbl;
         private Label componentPriceLbl;
         private Label emagLbl;
-        private Label evomagLbl;
     }
 }
