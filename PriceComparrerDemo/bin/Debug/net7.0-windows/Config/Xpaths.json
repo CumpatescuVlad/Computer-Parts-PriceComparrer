@@ -1,0 +1,17 @@
+{
+"EmagTitlesXpath": "//div[@class='pad-hrz-xs']/a[@data-zone='title']",
+    "EmagPricesXpath": "//div[@class='pricing-block  has-installments']/p[@class='product-new-price']",
+    "EmagPricesXpathForDeals": "//div[@class='pricing-block  has-installments']/p[@class=' product-new-price has-deal']",
+    "EvomagTitlesXpath": "//div[@class='npi_name']/h2/a ",
+    "EvomagPricesXpath": "//div[@class='pret_ron']/div[@class='pret_rons']",
+    "PCGarageTitlesXpath": "//div[@class='product_box_name']/h2[@class='my-0']/a ",
+    "PCGaragePricesXpath": "//p[@class='ps_sell_price']/span[@class='price_num']",
+    "CelROTitlesXpath": "//h2[@class='productTitle']/a[@class='productListing-data-b product_link product_name']/span",
+    "CelROPricesXpath": "//div[@class='pret']/span[@id='product-price']",
+    "ForITTitlesXpath": "//h5[@class='name']/a[data-ecproduct='true']",
+    "ForITPricesXpath": "//div[@class='price-box margin-bottom-md']/h3[@class='price-value']",
+    "VexioTitlesXpath": "//h2[@class='name']/a[@data-ecproduct='true']",
+    "VexioPricesXpath": "//div[@class='h3 price-value']/span[@id='price-value']",
+    "IponTitlesXpath": "//a[@class='shop-card__overlay-link']",
+    "IponPricesXpath": "//div[@class='product__price']/div[@class='shop-card__price']"
+}

@@ -129,6 +129,41 @@
           }
         }
       },
+      "Microsoft.Extensions.DependencyInjection/7.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "Microsoft.Identity.Client/4.45.0": {
         "type": "package",
         "dependencies": {
@@ -583,6 +618,19 @@
           }
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "System.Security.AccessControl/5.0.0": {
         "type": "package",
         "dependencies": {
@@ -789,6 +837,28 @@
           "runtimes/win/lib/netcoreapp3.0/System.Windows.Extensions.dll": {
             "assetType": "runtime",
             "rid": "win"
+          }
+        }
+      },
+      "Unity/5.11.10": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "compile": {
+          "lib/netcoreapp3.0/Unity.Abstractions.dll": {
+            "related": ".pdb"
+          },
+          "lib/netcoreapp3.0/Unity.Container.dll": {
+            "related": ".pdb"
+          }
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Unity.Abstractions.dll": {
+            "related": ".pdb"
+          },
+          "lib/netcoreapp3.0/Unity.Container.dll": {
+            "related": ".pdb"
           }
         }
       }
@@ -1001,6 +1071,64 @@
         "runtimes/win-arm64/native/Microsoft.Data.SqlClient.SNI.dll",
         "runtimes/win-x64/native/Microsoft.Data.SqlClient.SNI.dll",
         "runtimes/win-x86/native/Microsoft.Data.SqlClient.SNI.dll"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection/7.0.0": {
+      "sha512": "elNeOmkeX3eDVG6pYVeV82p29hr+UKDaBhrZyWvWLw/EVZSYEkZlQdkp0V39k/Xehs2Qa0mvoCvkVj3eQxNQ1Q==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
+      "sha512": "h3j/QfmFN4S0w4C2A6X7arXij/M/OVw3uQHSOFxnND4DyAzO1F9eMX7Eti7lU/OkSthEE0WzRsfT/Dmx86jzCw==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
       ]
     },
     "Microsoft.Identity.Client/4.45.0": {
@@ -2058,6 +2186,31 @@
         "version.txt"
       ]
     },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "sha512": "wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "type": "package",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netcoreapp2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "lib/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard1.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.dll",
+        "ref/netstandard2.0/System.Runtime.CompilerServices.Unsafe.xml",
+        "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512",
+        "system.runtime.compilerservices.unsafe.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
     "System.Security.AccessControl/5.0.0": {
       "sha512": "dagJ1mHZO3Ani8GH0PHpPEe/oYO+rVdbQjvjJkBRNQkX4t0r1iaeGn8+/ybkSLEan3/slM0t59SVdHzuHf2jmw==",
       "type": "package",
@@ -2600,12 +2753,65 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Unity/5.11.10": {
+      "sha512": "B4+Ps3oqI78hJ+dAFsJhPkJT6qycsNExgLbtw7CEHSzKc2ac3YyUR8SHQ+ZyTwld/y5IbDx/aNOHnKE9Em1zWA==",
+      "type": "package",
+      "path": "unity/5.11.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net40/Unity.Abstractions.dll",
+        "lib/net40/Unity.Abstractions.pdb",
+        "lib/net40/Unity.Container.dll",
+        "lib/net40/Unity.Container.pdb",
+        "lib/net45/Unity.Abstractions.dll",
+        "lib/net45/Unity.Abstractions.pdb",
+        "lib/net45/Unity.Container.dll",
+        "lib/net45/Unity.Container.pdb",
+        "lib/net46/Unity.Abstractions.dll",
+        "lib/net46/Unity.Abstractions.pdb",
+        "lib/net46/Unity.Container.dll",
+        "lib/net46/Unity.Container.pdb",
+        "lib/net47/Unity.Abstractions.dll",
+        "lib/net47/Unity.Abstractions.pdb",
+        "lib/net47/Unity.Container.dll",
+        "lib/net47/Unity.Container.pdb",
+        "lib/net48/Unity.Abstractions.dll",
+        "lib/net48/Unity.Abstractions.pdb",
+        "lib/net48/Unity.Container.dll",
+        "lib/net48/Unity.Container.pdb",
+        "lib/netcoreapp1.0/Unity.Abstractions.dll",
+        "lib/netcoreapp1.0/Unity.Abstractions.pdb",
+        "lib/netcoreapp1.0/Unity.Container.dll",
+        "lib/netcoreapp1.0/Unity.Container.pdb",
+        "lib/netcoreapp2.0/Unity.Abstractions.dll",
+        "lib/netcoreapp2.0/Unity.Abstractions.pdb",
+        "lib/netcoreapp2.0/Unity.Container.dll",
+        "lib/netcoreapp2.0/Unity.Container.pdb",
+        "lib/netcoreapp3.0/Unity.Abstractions.dll",
+        "lib/netcoreapp3.0/Unity.Abstractions.pdb",
+        "lib/netcoreapp3.0/Unity.Container.dll",
+        "lib/netcoreapp3.0/Unity.Container.pdb",
+        "lib/netstandard1.0/Unity.Abstractions.dll",
+        "lib/netstandard1.0/Unity.Abstractions.pdb",
+        "lib/netstandard1.0/Unity.Container.dll",
+        "lib/netstandard1.0/Unity.Container.pdb",
+        "lib/netstandard2.0/Unity.Abstractions.dll",
+        "lib/netstandard2.0/Unity.Abstractions.pdb",
+        "lib/netstandard2.0/Unity.Container.dll",
+        "lib/netstandard2.0/Unity.Container.pdb",
+        "unity.5.11.10.nupkg.sha512",
+        "unity.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
     "net7.0-windows7.0": [
       "Microsoft.Data.SqlClient >= 5.0.1",
-      "Newtonsoft.Json >= 13.0.2"
+      "Microsoft.Extensions.DependencyInjection >= 7.0.0",
+      "Newtonsoft.Json >= 13.0.2",
+      "Unity >= 5.11.10"
     ]
   },
   "packageFolders": {
@@ -2656,9 +2862,17 @@
             "target": "Package",
             "version": "[5.0.1, )"
           },
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[7.0.0, )"
+          },
           "Newtonsoft.Json": {
             "target": "Package",
             "version": "[13.0.2, )"
+          },
+          "Unity": {
+            "target": "Package",
+            "version": "[5.11.10, )"
           }
         },
         "imports": [

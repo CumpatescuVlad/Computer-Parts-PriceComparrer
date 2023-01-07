@@ -23,8 +23,8 @@ namespace DataScrapper.Controllers
 
         [Route("api/GetAdsTitles/{websiteUrl}/{xpath}/{tableName}/{webSiteName}/{websitePrefix?}")]
 
-        [HttpGet]
-        public void GetWebsiteTitles(string websiteUrl, string xpath, string tableName, string webSiteName, string? websitePrefix)
+        [HttpPost]
+        public string GetWebsiteTitles(string websiteUrl, string xpath, string tableName, string webSiteName, string? websitePrefix)
         {
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_configModel.UserAgent);
 
@@ -34,6 +34,7 @@ namespace DataScrapper.Controllers
 
             _ads.ReadComponentsTitles(document, tableName, HttpUtility.UrlDecode(xpath), webSiteName, HttpUtility.UrlDecode(websitePrefix));
 
+            return "200 OK";
         }
 
         [Route("api/GetProductsPrices/{querryString}/{priceXpath}/{priceXpathForDeals}")]

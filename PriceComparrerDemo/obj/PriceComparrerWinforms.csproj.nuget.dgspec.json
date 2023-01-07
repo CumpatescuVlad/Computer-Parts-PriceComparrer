@@ -48,9 +48,17 @@
               "target": "Package",
               "version": "[5.0.1, )"
             },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.2, )"
+            },
+            "Unity": {
+              "target": "Package",
+              "version": "[5.11.10, )"
             }
           },
           "imports": [

@@ -63,3 +63,7 @@ E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows
 E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\runtimes\win-x64\native\Microsoft.Data.SqlClient.SNI.dll
 E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
+E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\Unity.Abstractions.dll
+E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\Unity.Container.dll
+E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\Microsoft.Extensions.DependencyInjection.dll
+E:\CODE REPOS\PriceComparrerWinforms\PriceComparrerDemo\bin\Debug\net7.0-windows\Microsoft.Extensions.DependencyInjection.Abstractions.dll

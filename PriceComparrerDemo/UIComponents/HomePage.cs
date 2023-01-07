@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using PriceComparrerWinforms.src;
 using System.Diagnostics;
 using System.Net;
+using Unity;
 
 namespace PriceComparrerDemo
 {
@@ -11,16 +12,16 @@ namespace PriceComparrerDemo
         private readonly WebClient client = new();
         private readonly AdsModel _ads = new();
         private readonly SqlConnection connection = new(Data.ConnectionString);
-
+        private readonly DataAdministration dataAdministration = new();
         public HomePage()
         {
             InitializeComponent();
             searchBox.KeyDown += SearchBox_KeyDown;
             richTextBox1.LinkClicked += RichTextBox1_LinkClicked;
             searchBox.GotFocus += SearchBox_GotFocus;
-            
-        }
 
+        }
+        
         private void EvomagHypelinksBox_LinkClicked(object? sender, LinkClickedEventArgs e)
         {
             ProcessStartInfo processInfo = new()
@@ -44,7 +45,7 @@ namespace PriceComparrerDemo
             componentNameLbl.Hide();
             searchingLbl.Hide();
             emagLbl.Hide();
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -246,15 +247,17 @@ namespace PriceComparrerDemo
 
         private void processorBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Emag")) || String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Evomag")))
-            {
-                client.OpenRead("https://localhost:7210/api/EmagProcessors/1");
+            //if (String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Emag")) || String.IsNullOrEmpty(CheckForExistingAds("ProcessorTable", "Procesor", "Evomag")))
+            //{
+            //    client.OpenRead("https://localhost:7210/api/EmagProcessors/1");
 
-                Thread.Sleep(3000);
+            //    Thread.Sleep(3000);
 
-                client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
+            //    client.OpenRead("https://localhost:7210/api/EvomagProcessors/1");
 
-            }
+            //}
+
+            dataAdministration.FillProcessorTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -281,10 +284,12 @@ namespace PriceComparrerDemo
 
         private void videoCardsBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("VideoCardTable", "Placa", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagVideoCards/1");
-            }
+            //if (String.IsNullOrEmpty(CheckForExistingAds("VideoCardTable", "Placa", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagVideoCards/1");
+            //}
+
+            dataAdministration.FillVideoCardTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -314,10 +319,12 @@ namespace PriceComparrerDemo
 
         private void motherboardBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("MotherboardTable", "Placa de baza", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagMotherboards/1");
-            }
+            //if (String.IsNullOrEmpty(CheckForExistingAds("MotherboardTable", "Placa de baza", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagMotherboards/1");
+            //}
+
+            dataAdministration.FillMotherboardTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -346,11 +353,12 @@ namespace PriceComparrerDemo
 
         private void ramBtnTab_Click(object sender, EventArgs e)
         {
+            //if (String.IsNullOrEmpty(CheckForExistingAds("RamMemoryTable", "Memorie Ram", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagRamMemory/1");
+            //}
 
-            if (String.IsNullOrEmpty(CheckForExistingAds("RamMemoryTable", "Memorie Ram", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagRamMemory/1");
-            }
+            dataAdministration.FillRamMemoryTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -379,10 +387,12 @@ namespace PriceComparrerDemo
 
         private void powerSupplyBtnTab_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds("PowerSupplyTable", "Sursa", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagPowerSupply/1");
-            }
+            //if (String.IsNullOrEmpty(CheckForExistingAds("PowerSupplyTable", "Sursa", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagPowerSupply/1");
+            //}
+
+            dataAdministration.FillPowerSupplyTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -408,14 +418,15 @@ namespace PriceComparrerDemo
             #endregion
 
         }
-
+            
         private void coolerBtnTab_Click(object sender, EventArgs e)
         {
 
-            if (String.IsNullOrEmpty(CheckForExistingAds("CoolerTable", "Cooler", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagCooler/1");
-            }
+            //if (String.IsNullOrEmpty(CheckForExistingAds("CoolerTable", "Cooler", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagCooler/1");
+            //}
+            dataAdministration.FillCoolerTable();
 
 
             #region HideElements
@@ -445,11 +456,12 @@ namespace PriceComparrerDemo
 
         private void caseBtnTab_Click(object sender, EventArgs e)
         {
+            //if (String.IsNullOrEmpty(CheckForExistingAds("ComputerCaseTable", "Carcasa", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagComputerCase/1");
+            //}
 
-            if (String.IsNullOrEmpty(CheckForExistingAds("ComputerCaseTable", "Carcasa", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagComputerCase/1");
-            }
+            dataAdministration.FillComputerCaseTable();
 
 
             #region HideElements
@@ -479,11 +491,12 @@ namespace PriceComparrerDemo
 
         private void ssdBtnTab_Click(object sender, EventArgs e)
         {
+            //if (String.IsNullOrEmpty(CheckForExistingAds("SSDTable", "Solid State Drive", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagSSD/1");
+            //}
 
-            if (String.IsNullOrEmpty(CheckForExistingAds("SSDTable", "Solid State Drive", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagSSD/1");
-            }
+            dataAdministration.FillSSDTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -512,11 +525,12 @@ namespace PriceComparrerDemo
 
         private void hddBtnTab_Click(object sender, EventArgs e)
         {
+            //if (String.IsNullOrEmpty(CheckForExistingAds("HDDTable", "HDD", "Emag")))
+            //{
+            //    client.OpenRead($"https://localhost:7210/api/EmagHDD/1");
+            //}
 
-            if (String.IsNullOrEmpty(CheckForExistingAds("HDDTable", "HDD", "Emag")))
-            {
-                client.OpenRead($"https://localhost:7210/api/EmagHDD/1");
-            }
+            dataAdministration.FillHDDTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -545,23 +559,23 @@ namespace PriceComparrerDemo
 
         #endregion
 
-        private string CheckForExistingAds(string tableName, string column, string webSiteName)
-        {
-            connection.Open();
+        //private string CheckForExistingAds(string tableName, string column, string webSiteName)
+        //{
+        //    connection.Open();
 
-            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, column, webSiteName), connection);
+        //    var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, column, webSiteName), connection);
 
-            var reader = readProcessorDataCommand.ExecuteReader();
+        //    var reader = readProcessorDataCommand.ExecuteReader();
 
-            while (reader.Read())
-            {
-                _ads.AdTitle += reader.GetString(0);
-            }
+        //    while (reader.Read())
+        //    {
+        //        _ads.AdTitle += reader.GetString(0);
+        //    }
 
-            connection.Close();
+        //    connection.Close();
 
-            return _ads.AdTitle;
-        }
+        //    return _ads.AdTitle;
+        //}
 
         public void DisplayResults(string apiURl, Label componentNameLbl, Label componentPriceLbl, RichTextBox hyperlinkBox, Label webSiteNameLbl, Button? homeBtn, int buttonYPosition)
         {

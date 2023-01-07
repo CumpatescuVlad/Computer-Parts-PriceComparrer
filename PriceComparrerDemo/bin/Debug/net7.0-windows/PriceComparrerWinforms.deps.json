@@ -9,7 +9,9 @@
       "PriceComparrerWinforms/1.0.0": {
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.0.1",
-          "Newtonsoft.Json": "13.0.2"
+          "Microsoft.Extensions.DependencyInjection": "7.0.0",
+          "Newtonsoft.Json": "13.0.2",
+          "Unity": "5.11.10"
         },
         "runtime": {
           "PriceComparrerWinforms.dll": {}
@@ -120,6 +122,25 @@
             "rid": "win-x86",
             "assetType": "native",
             "fileVersion": "5.0.1.0"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/7.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
+          }
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
+        "runtime": {
+          "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "assemblyVersion": "7.0.0.0",
+            "fileVersion": "7.0.22.51805"
           }
         }
       },
@@ -348,6 +369,7 @@
           }
         }
       },
+      "System.Runtime.CompilerServices.Unsafe/4.5.2": {},
       "System.Security.AccessControl/5.0.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "5.0.0",
@@ -392,6 +414,21 @@
       "System.Windows.Extensions/5.0.0": {
         "dependencies": {
           "System.Drawing.Common": "5.0.0"
+        }
+      },
+      "Unity/5.11.10": {
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.5.2"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/Unity.Abstractions.dll": {
+            "assemblyVersion": "5.11.7.0",
+            "fileVersion": "5.11.7.0"
+          },
+          "lib/netcoreapp3.0/Unity.Container.dll": {
+            "assemblyVersion": "5.11.11.0",
+            "fileVersion": "5.11.11.0"
+          }
         }
       }
     }
@@ -443,6 +480,20 @@
       "sha512": "sha512-y0X5MxiNdbITJYoafJ2ruaX6hqO0twpCGR/ipiDOe85JKLU8WL4TuAQfDe5qtt3bND5Je26HnrarLSAMMnVTNg==",
       "path": "microsoft.data.sqlclient.sni.runtime/5.0.1",
       "hashPath": "microsoft.data.sqlclient.sni.runtime.5.0.1.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-elNeOmkeX3eDVG6pYVeV82p29hr+UKDaBhrZyWvWLw/EVZSYEkZlQdkp0V39k/Xehs2Qa0mvoCvkVj3eQxNQ1Q==",
+      "path": "microsoft.extensions.dependencyinjection/7.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.7.0.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/7.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-h3j/QfmFN4S0w4C2A6X7arXij/M/OVw3uQHSOFxnND4DyAzO1F9eMX7Eti7lU/OkSthEE0WzRsfT/Dmx86jzCw==",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/7.0.0",
+      "hashPath": "microsoft.extensions.dependencyinjection.abstractions.7.0.0.nupkg.sha512"
     },
     "Microsoft.Identity.Client/4.45.0": {
       "type": "package",
@@ -654,6 +705,13 @@
       "path": "system.runtime.caching/5.0.0",
       "hashPath": "system.runtime.caching.5.0.0.nupkg.sha512"
     },
+    "System.Runtime.CompilerServices.Unsafe/4.5.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-wprSFgext8cwqymChhrBLu62LMg/1u92bU+VOwyfBimSPVFXtsNqEWC92Pf9ofzJFlk4IHmJA75EDJn1b2goAQ==",
+      "path": "system.runtime.compilerservices.unsafe/4.5.2",
+      "hashPath": "system.runtime.compilerservices.unsafe.4.5.2.nupkg.sha512"
+    },
     "System.Security.AccessControl/5.0.0": {
       "type": "package",
       "serviceable": true,
@@ -737,6 +795,13 @@
       "sha512": "sha512-c1ho9WU9ZxMZawML+ssPKZfdnrg/OjR3pe0m9v8230z3acqphwvPJqzAkH54xRYm5ntZHGG1EPP3sux9H3qSPg==",
       "path": "system.windows.extensions/5.0.0",
       "hashPath": "system.windows.extensions.5.0.0.nupkg.sha512"
+    },
+    "Unity/5.11.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-B4+Ps3oqI78hJ+dAFsJhPkJT6qycsNExgLbtw7CEHSzKc2ac3YyUR8SHQ+ZyTwld/y5IbDx/aNOHnKE9Em1zWA==",
+      "path": "unity/5.11.10",
+      "hashPath": "unity.5.11.10.nupkg.sha512"
     }
   }
 }
