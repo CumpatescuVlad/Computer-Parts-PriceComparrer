@@ -10,6 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<ConfigModel>(builder.Configuration.GetSection("ScrapperConfig"));
 builder.Services.AddScoped<IReadAdsData, ReadAdsData>();
+
 //builder.Host.UseSerilog();
 var app = builder.Build();
 

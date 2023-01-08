@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
-using System.Net;
+using System.Text;
 
 namespace PriceComparrerWinforms.src
 {
@@ -8,386 +8,432 @@ namespace PriceComparrerWinforms.src
     {
         private readonly SqlConnection connection = new(Data.ConnectionString);
         private readonly XpathsModels? _xpath = JsonConvert.DeserializeObject<XpathsModels>(File.ReadAllText($@"{Environment.CurrentDirectory}\Config\Xpaths.json"));
-        private readonly WebClient client = new();
+        private readonly HttpClient client = new();
         private readonly AdsModel _ads = new();
 
         public void FillProcessorTable()
         {
             FillColumn("ProcessorTable", "Procesor", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/procesoare/p1/c/{_xpath.EmagTitlesXpath}/ProcessorTable/Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/procesoare/p2/c/{_xpath.EmagTitlesXpath}/ProcessorTable/Emag", null);
+                "https://www.emag.ro/procesoare/p1/c", "https://www.emag.ro/procesoare/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
-            //FillColumn("ProcessorTable", "Procesor", "Evomag",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro");
+            FillColumn("ProcessorTable", "Procesor", "Evomag",
+                "https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-procesoare/filtru/pagina:3",
+                _xpath.EmagTitlesXpath, string.Empty);
 
+            FillColumn("ProcessorTable", "Procesor", "PCGarage",
+               "https://www.pcgarage.ro/procesoare/pagina1",
+               "https://www.pcgarage.ro/procesoare/pagina2",
+               "https://www.pcgarage.ro/procesoare/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
-            //FillColumn("ProcessorTable", "Procesor", "PCGarage",
-            //    $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/procesoare/pagina1/{_xpath.PCGarageTitlesXpath}/ProcessorTable/PCGarage/",
-            //    $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/procesoare/pagina2/{_xpath.PCGarageTitlesXpath}/ProcessorTable/PCGarage/",
-            //    $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/procesoare/pagina3/{_xpath.PCGarageTitlesXpath}/ProcessorTable/PCGarage/");
+            FillColumn("ProcessorTable", "Procesor", "CelRO",
+               "https://www.cel.ro/procesoare/0a-1",
+               "https://www.cel.ro/procesoare/0a-2",
+               "https://www.cel.ro/procesoare/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
+            FillColumn("ProcessorTable", "Procesor", "ForIT",
+               "https://www.forit.ro/procesoare/pagina1",
+               "https://www.forit.ro/procesoare/pagina2",
+               "https://www.forit.ro/procesoare/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
+ 
+            FillColumn("ProcessorTable", "Procesor", "Vexio",
+               "https://www.vexio.ro/procesoare/pagina1",
+               "https://www.vexio.ro/procesoare/pagina2",
+               "https://www.vexio.ro/procesoare/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
-            //FillColumn("ProcessorTable", "Procesor", "CelRO",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/procesoare/0a-1/{_xpath.CelROTitlesXpath}/ProcessorTable/CelRO/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/procesoare/0a-2/{_xpath.CelROTitlesXpath}/ProcessorTable/CelRO/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/procesoare/0a-3/{_xpath.CelROTitlesXpath}/ProcessorTable/CelRO/");
-
-            //FillColumn("ProcessorTable", "Procesor", "ForIT",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/procesoare/pagina1/{_xpath.ForITTitlesXpath}/ProcessorTable/ForIT/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/procesoare/pagina2/{_xpath.ForITTitlesXpath}/ProcessorTable/ForIT/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/procesoare/pagina3/{_xpath.ForITTitlesXpath}/ProcessorTable/ForIT/");
-
-            //FillColumn("ProcessorTable", "Procesor", "Vexio",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/procesoare/pagina1/{_xpath.VexioTitlesXpath}/ProcessorTable/Vexio/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/procesoare/pagina2/{_xpath.VexioTitlesXpath}/ProcessorTable/Vexio/",
-            //   $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/procesoare/pagina3/{_xpath.VexioTitlesXpath}/ProcessorTable/Vexio/");
-
-            //FillColumn("ProcessorTable", "Procesor", "Ipon",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/procesor/78?page=1/{_xpath.IponTitlesXpath}/ProcessorTable/Ipon/",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/procesor/78?page=2/{_xpath.IponTitlesXpath}/ProcessorTable/Ipon/",
-            //  $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/procesor/78?page=3/{_xpath.IponTitlesXpath}/ProcessorTable/Ipon/");
-
+            FillColumn("ProcessorTable", "Procesor", "Ipon",
+               "https://ipon.ro/shop/grup/componente-pc/procesor/78?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/procesor/78?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/procesor/78?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
         public void FillVideoCardTable()
         {
             FillColumn("VideoCardTable", "Placa video", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/placi_video/p1/c/{_xpath.EmagTitlesXpath}/VideoCardTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/placi_video/p2/c/{_xpath.EmagTitlesXpath}/VideoCardTable/Emag/", null);
+                "https://www.emag.ro/placi_video/p1/c", "https://www.emag.ro/placi_video/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/VideoCardTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/VideoCardTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/VideoCardTable/Evomag/https://www.evomag.ro");
-
+                "https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-placi-video/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-video/pagina1/{_xpath.PCGarageTitlesXpath}/VideoCardTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-video/pagina2/{_xpath.PCGarageTitlesXpath}/VideoCardTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-video/pagina3/{_xpath.PCGarageTitlesXpath}/VideoCardTable/PCGarage/");
-
+               "https://www.pcgarage.ro/placi-video/pagina1",
+               "https://www.pcgarage.ro/placi-video/pagina2",
+               "https://www.pcgarage.ro/placi-video/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-video/0a-1/{_xpath.CelROTitlesXpath}/VideoCardTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-video/0a-2/{_xpath.CelROTitlesXpath}/VideoCardTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-video/0a-3/{_xpath.CelROTitlesXpath}/VideoCardTable/CelRO/");
+               "https://www.cel.ro/placi-video/0a-1",
+               "https://www.cel.ro/placi-video/0a-2",
+               "https://www.cel.ro/placi-video/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-video/pagina1/{_xpath.ForITTitlesXpath}/VideoCardTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-video/pagina2/{_xpath.ForITTitlesXpath}/VideoCardTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-video/pagina3/{_xpath.ForITTitlesXpath}/VideoCardTable/ForIT/");
+               "https://www.forit.ro/placi-video/pagina1",
+               "https://www.forit.ro/placi-video/pagina2",
+               "https://www.forit.ro/placi-video/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-video/pagina1/{_xpath.VexioTitlesXpath}/VideoCardTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-video/pagina2/{_xpath.VexioTitlesXpath}/VideoCardTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-video/pagina3/{_xpath.VexioTitlesXpath}/VideoCardTable/Vexio/");
+               "https://www.vexio.ro/placi-video/pagina1",
+               "https://www.vexio.ro/placi-video/pagina2",
+               "https://www.vexio.ro/placi-video/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
             FillColumn("VideoCardTable", "Placa video", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=1/{_xpath.IponTitlesXpath}/VideoCardTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=2/{_xpath.IponTitlesXpath}/VideoCardTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=3/{_xpath.IponTitlesXpath}/VideoCardTable/Ipon/");
-
-
+               "https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/placa-video/463?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
         public void FillMotherboardTable()
         {
             FillColumn("MotherboardTable", "Placa de baza", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/placi_baza/p1/c/{_xpath.EmagTitlesXpath}/MotherboardTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/placi_baza/p2/c/{_xpath.EmagTitlesXpath}/MotherboardTable/Emag/", null);
+                "https://www.emag.ro/placi_baza/p1/c", "https://www.emag.ro/placi_baza/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/ProcessorTable/Evomag/https://www.evomag.ro");
-
+                "https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-placi-de-baza/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-de-baza/pagina1/{_xpath.PCGarageTitlesXpath}/MotherboardTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-de-baza/pagina2/{_xpath.PCGarageTitlesXpath}/MotherboardTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/placi-de-baza/pagina3/{_xpath.PCGarageTitlesXpath}/MotherboardTable/PCGarage/");
-
+               "https://www.pcgarage.ro/placi-de-baza/pagina1",
+               "https://www.pcgarage.ro/placi-de-baza/pagina2",
+               "https://www.pcgarage.ro/placi-de-baza/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-de-baza/0a-1/{_xpath.CelROTitlesXpath}/MotherboardTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-de-baza/0a-2/{_xpath.CelROTitlesXpath}/MotherboardTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/placi-de-baza/0a-3/{_xpath.CelROTitlesXpath}/MotherboardTable/CelRO/");
+               "https://www.cel.ro/placi-de-baza/0a-1",
+               "https://www.cel.ro/placi-de-baza/0a-2",
+               "https://www.cel.ro/placi-de-baza/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-de-baza/pagina1/{_xpath.ForITTitlesXpath}/MotherboardTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-de-baza/pagina2/{_xpath.ForITTitlesXpath}/MotherboardTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/placi-de-baza/pagina3/{_xpath.ForITTitlesXpath}/MotherboardTable/ForIT/");
+               "https://www.forit.ro/placi-de-baza/pagina1",
+               "https://www.forit.ro/placi-de-baza/pagina2",
+               "https://www.forit.ro/placi-de-baza/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-de-baza/pagina1/{_xpath.VexioTitlesXpath}/MotherboardTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-de-baza/pagina2/{_xpath.VexioTitlesXpath}/MotherboardTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/placi-de-baza/pagina3/{_xpath.VexioTitlesXpath}/MotherboardTable/Vexio/");
+               "https://www.vexio.ro/placi-de-baza/pagina1",
+               "https://www.vexio.ro/placi-de-baza/pagina2",
+               "https://www.vexio.ro/placi-de-baza/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
             FillColumn("MotherboardTable", "Placa de baza", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=1/{_xpath.IponTitlesXpath}/MotherboardTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=2/{_xpath.IponTitlesXpath}/MotherboardTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=3/{_xpath.IponTitlesXpath}/MotherboardTable/Ipon/");
-
-        }
-
-        public void FillRamMemoryTable()
-        {
-            FillColumn("RamMemoryTable", "Memorie", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/memorii/p1/c/{_xpath.EmagTitlesXpath}/RamMemoryTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/memorii/p2/c/{_xpath.EmagTitlesXpath}/RamMemoryTable/Emag/", null);
-
-            FillColumn("RamMemoryTable", "Memorie", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/RamMemoryTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/RamMemoryTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/RamMemoryTable/Evomag/https://www.evomag.ro");
-
-
-            FillColumn("RamMemoryTable", "Memorie", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/memorii/pagina1/{_xpath.PCGarageTitlesXpath}/RamMemoryTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/memorii/pagina2/{_xpath.PCGarageTitlesXpath}/RamMemoryTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/memorii/pagina3/{_xpath.PCGarageTitlesXpath}/RamMemoryTable/PCGarage/");
-
-
-            FillColumn("RamMemoryTable", "Memorie", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/memorii/0a-1/{_xpath.CelROTitlesXpath}/RamMemoryTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/memorii/0a-2/{_xpath.CelROTitlesXpath}/RamMemoryTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/memorii/0a-3/{_xpath.CelROTitlesXpath}/RamMemoryTable/CelRO/");
-
-            FillColumn("RamMemoryTable", "Memorie", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/memorii/pagina1/{_xpath.ForITTitlesXpath}/RamMemoryTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/memorii/pagina2/{_xpath.ForITTitlesXpath}/RamMemoryTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/memorii/pagina3/{_xpath.ForITTitlesXpath}/RamMemoryTable/ForIT/");
-
-            FillColumn("RamMemoryTable", "Memorie", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/memorii-ram/pagina1/{_xpath.VexioTitlesXpath}/RamMemoryTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/memorii-ram/pagina2/{_xpath.VexioTitlesXpath}/RamMemoryTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/memorii-ram/pagina3/{_xpath.VexioTitlesXpath}/RamMemoryTable/Vexio/");
-
-            FillColumn("RamMemoryTable", "Memorie", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/memorie/488?page=1/{_xpath.IponTitlesXpath}/RamMemoryTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/memorie/488?page=2/{_xpath.IponTitlesXpath}/RamMemoryTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/memorie/488?page=3/{_xpath.IponTitlesXpath}/RamMemoryTable/Ipon/");
+               "https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/placa-de-baza/40?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
         public void FillCoolerTable()
         {
             FillColumn("CoolerTable", "Cooler", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/coolere_procesor/p1/c/{_xpath.EmagTitlesXpath}/CoolerTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/coolere_procesor/p2/c/{_xpath.EmagTitlesXpath}/CoolerTable/Emag/", null);
+                "https://www.emag.ro/coolere_procesor/p1/c", "https://www.emag.ro/coolere_procesor/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/CoolerTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/CoolerTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/CoolerTable/Evomag/https://www.evomag.ro");
-
+                "https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-coolere-coolere-cpu/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/coolere/pagina1/{_xpath.PCGarageTitlesXpath}/CoolerTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/coolere/pagina2/{_xpath.PCGarageTitlesXpath}/CoolerTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/coolere/pagina3/{_xpath.PCGarageTitlesXpath}/CoolerTable/PCGarage/");
-
+               "https://www.pcgarage.ro/coolere/pagina1",
+               "https://www.pcgarage.ro/coolere/pagina2",
+               "https://www.pcgarage.ro/coolere/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/coolere-componente/0a-1/{_xpath.CelROTitlesXpath}/CoolerTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/coolere-componente/0a-2/{_xpath.CelROTitlesXpath}/CoolerTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/coolere-componente/0a-3/{_xpath.CelROTitlesXpath}/CoolerTable/CelRO/");
+               "https://www.cel.ro/coolere-componente/0a-1",
+               "https://www.cel.ro/coolere-componente/0a-2",
+               "https://www.cel.ro/coolere-componente/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/coolere/pagina1/{_xpath.ForITTitlesXpath}/CoolerTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/coolere/pagina2/{_xpath.ForITTitlesXpath}/CoolerTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/coolere/pagina3/{_xpath.ForITTitlesXpath}/CoolerTable/ForIT/");
+               "https://www.forit.ro/coolere/pagina1",
+               "https://www.forit.ro/coolere/pagina2",
+               "https://www.forit.ro/coolere/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/coolere-si-ventilatoare/pagina1/{_xpath.VexioTitlesXpath}/CoolerTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/coolere-si-ventilatoare/pagina2/{_xpath.VexioTitlesXpath}/CoolerTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/coolere-si-ventilatoare/pagina3/{_xpath.VexioTitlesXpath}/CoolerTable/Vexio/");
+               "https://www.vexio.ro/coolere-si-ventilatoare/pagina1",
+               "https://www.vexio.ro/coolere-si-ventilatoare/pagina2",
+               "https://www.vexio.ro/coolere-si-ventilatoare/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
             FillColumn("CoolerTable", "Cooler", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=1/{_xpath.IponTitlesXpath}/CoolerTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=2/{_xpath.IponTitlesXpath}/CoolerTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=3/{_xpath.IponTitlesXpath}/CoolerTable/Ipon/");
+               "https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/racire-cpu/389?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
-        public void FillComputerCaseTable()
+        public void FillRamMemoryTable()
         {
-            FillColumn("ComputerCaseTable", "Carcasa", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/carcase/p1/c/{_xpath.EmagTitlesXpath}/ComputerCaseTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/carcase/p2/c/{_xpath.EmagTitlesXpath}/ComputerCaseTable/Emag/", null);
+            FillColumn("RamMemoryTable", "Memorie", "Emag",
+                "https://www.emag.ro/memorii/p1/c", "https://www.emag.ro/memorii/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
-            FillColumn("ComputerCaseTable", "Carcasa", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/ComputerCaseTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/ComputerCaseTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/ComputerCaseTable/Evomag/https://www.evomag.ro");
+            FillColumn("RamMemoryTable", "Memorie", "Evomag",
+                "https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-memorii/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
+            FillColumn("RamMemoryTable", "Memorie", "PCGarage",
+               "https://www.pcgarage.ro/memorii/pagina1",
+               "https://www.pcgarage.ro/memorii/pagina2",
+               "https://www.pcgarage.ro/memorii/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
-            FillColumn("ComputerCaseTable", "Carcasa", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/carcase/pagina1/{_xpath.PCGarageTitlesXpath}/ComputerCaseTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/carcase/pagina2/{_xpath.PCGarageTitlesXpath}/ComputerCaseTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/carcase/pagina3/{_xpath.PCGarageTitlesXpath}/ComputerCaseTable/PCGarage/");
+            FillColumn("RamMemoryTable", "Memorie", "CelRO",
+               "https://www.cel.ro/memorii/0a-1",
+               "https://www.cel.ro/memorii/0a-2",
+               "https://www.cel.ro/memorii/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
+            FillColumn("RamMemoryTable", "Memorie", "ForIT",
+               "https://www.forit.ro/memorii/pagina1",
+               "https://www.forit.ro/memorii/pagina2",
+               "https://www.forit.ro/memorii/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
-            FillColumn("ComputerCaseTable", "Carcasa", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/carcase/0a-1/{_xpath.CelROTitlesXpath}/ComputerCaseTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/carcase/0a-2/{_xpath.CelROTitlesXpath}/ComputerCaseTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/carcase/0a-3/{_xpath.CelROTitlesXpath}/ComputerCaseTable/CelRO/");
+            FillColumn("RamMemoryTable", "Memorie", "Vexio",
+               "https://www.vexio.ro/memorii-ram/pagina1",
+               "https://www.vexio.ro/memorii-ram/pagina2",
+               "https://www.vexio.ro/memorii-ram/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
-            FillColumn("ComputerCaseTable", "Carcasa", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/carcase/pagina1/{_xpath.ForITTitlesXpath}/ComputerCaseTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/carcase/pagina2/{_xpath.ForITTitlesXpath}/ComputerCaseTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/carcase/pagina3/{_xpath.ForITTitlesXpath}/ComputerCaseTable/ForIT/");
-
-            FillColumn("ComputerCaseTable", "Carcasa", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/carcase-pc/pagina1/{_xpath.VexioTitlesXpath}/ComputerCaseTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/carcase-pc/pagina2/{_xpath.VexioTitlesXpath}/ComputerCaseTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/carcase-pc/pagina3/{_xpath.VexioTitlesXpath}/ComputerCaseTable/Vexio/");
-
-            FillColumn("ComputerCaseTable", "Carcasa", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=1/{_xpath.IponTitlesXpath}/ComputerCaseTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=2/{_xpath.IponTitlesXpath}/ComputerCaseTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=3/{_xpath.IponTitlesXpath}/ComputerCaseTable/Ipon/");
+            FillColumn("RamMemoryTable", "Memorie", "Ipon",
+               "https://ipon.ro/shop/grup/componente-pc/memorie/488?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/memorie/488?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/memorie/488?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
         public void FillPowerSupplyTable()
         {
             FillColumn("PowerSupplyTable", "Sursa", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/surse-pc/p1/c/{_xpath.EmagTitlesXpath}/PowerSupplyTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/surse-pc/p2/c/{_xpath.EmagTitlesXpath}/PowerSupplyTable/Emag/", null);
+                "https://www.emag.ro/surse-pc/p1/c", "https://www.emag.ro/surse-pc/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/PowerSupplyTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/PowerSupplyTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/PowerSupplyTable/Evomag/https://www.evomag.ro");
-
+                "https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-surse/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/surse/pagina1/{_xpath.PCGarageTitlesXpath}/PowerSupplyTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/surse/pagina2/{_xpath.PCGarageTitlesXpath}/PowerSupplyTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/surse/pagina3/{_xpath.PCGarageTitlesXpath}/PowerSupplyTable/PCGarage/");
-
+               "https://www.pcgarage.ro/surse/pagina1",
+               "https://www.pcgarage.ro/surse/pagina2",
+               "https://www.pcgarage.ro/surse/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/surse/0a-1/{_xpath.CelROTitlesXpath}/PowerSupplyTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/surse/0a-2/{_xpath.CelROTitlesXpath}/PowerSupplyTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/surse/0a-3/{_xpath.CelROTitlesXpath}/PowerSupplyTable/CelRO/");
+               "https://www.cel.ro/surse/0a-1",
+               "https://www.cel.ro/surse/0a-2",
+               "https://www.cel.ro/surse/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/surse/pagina1/{_xpath.ForITTitlesXpath}/PowerSupplyTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/surse/pagina2/{_xpath.ForITTitlesXpath}/PowerSupplyTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/surse/pagina3/{_xpath.ForITTitlesXpath}/PowerSupplyTable/ForIT/");
+               "https://www.forit.ro/surse/pagina1",
+               "https://www.forit.ro/surse/pagina2",
+               "https://www.forit.ro/surse/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/surse/pagina1/{_xpath.VexioTitlesXpath}/PowerSupplyTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/surse/pagina2/{_xpath.VexioTitlesXpath}/PowerSupplyTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/surse/pagina3/{_xpath.VexioTitlesXpath}/PowerSupplyTable/Vexio/");
+               "https://www.vexio.ro/surse/pagina1",
+               "https://www.vexio.ro/surse/pagina2",
+               "https://www.vexio.ro/surse/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
             FillColumn("PowerSupplyTable", "Sursa", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=1/{_xpath.IponTitlesXpath}/PowerSupplyTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=2/{_xpath.IponTitlesXpath}/PowerSupplyTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=3/{_xpath.IponTitlesXpath}/PowerSupplyTable/Ipon/");
+               "https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/sursa-de-alimentare/449?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
-        public void FillSSDTable()
+        public void FillComputerCaseTable()
         {
-            FillColumn("SSDTable", "Solid", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/solid-state_drive_ssd_/p1/c/{_xpath.EmagTitlesXpath}/SSDTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/solid-state_drive_ssd_/p2/c/{_xpath.EmagTitlesXpath}/SSDTable/Emag/", null);
+            FillColumn("ComputerCaseTable", "Carcasa", "Emag",
+                "https://www.emag.ro/carcase/p1/c", "https://www.emag.ro/carcase/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
-            FillColumn("SSDTable", "SSD", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/SSDTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/SSDTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/SSDTable/Evomag/https://www.evomag.ro");
+            FillColumn("ComputerCaseTable", "Carcasa", "Evomag",
+                "https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-carcase/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
+            FillColumn("ComputerCaseTable", "Carcasa", "PCGarage",
+               "https://www.pcgarage.ro/carcase/pagina1",
+               "https://www.pcgarage.ro/carcase/pagina2",
+               "https://www.pcgarage.ro/carcase/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
-            FillColumn("SSDTable", "SSD", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/ssd/pagina1/{_xpath.PCGarageTitlesXpath}/SSDTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/ssd/pagina2/{_xpath.PCGarageTitlesXpath}/SSDTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/ssd/pagina3/{_xpath.PCGarageTitlesXpath}/SSDTable/PCGarage/");
+            FillColumn("ComputerCaseTable", "Carcasa", "CelRO",
+               "https://www.cel.ro/carcase/0a-1",
+               "https://www.cel.ro/carcase/0a-2",
+               "https://www.cel.ro/carcase/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
+            FillColumn("ComputerCaseTable", "Carcasa", "ForIT",
+               "https://www.forit.ro/carcase/pagina1",
+               "https://www.forit.ro/carcase/pagina2",
+               "https://www.forit.ro/carcase/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
-            FillColumn("SSDTable", "SSD", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/ssd-uri/0a-1/{_xpath.CelROTitlesXpath}/SSDTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/ssd-uri/0a-2/{_xpath.CelROTitlesXpath}/SSDTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/ssd-uri/0a-3/{_xpath.CelROTitlesXpath}/SSDTable/CelRO/");
+            FillColumn("ComputerCaseTable", "Carcasa", "Vexio",
+               "https://www.vexio.ro/carcase-pc/pagina1",
+               "https://www.vexio.ro/carcase-pc/pagina2",
+               "https://www.vexio.ro/carcase-pc/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
-            FillColumn("SSDTable", "SSD", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/ssd-uri/pagina1/{_xpath.ForITTitlesXpath}/SSDTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/ssd-uri/pagina2/{_xpath.ForITTitlesXpath}/SSDTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/ssd-uri/pagina3/{_xpath.ForITTitlesXpath}/SSDTable/ForIT/");
-
-            FillColumn("SSDTable", "SSD", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/ssd-uri/pagina1/{_xpath.VexioTitlesXpath}/SSDTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/ssd-uri/pagina2/{_xpath.VexioTitlesXpath}/SSDTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/ssd-uri/pagina3/{_xpath.VexioTitlesXpath}/SSDTable/Vexio/");
-
-            FillColumn("SSDTable", "Solid", "Ipon",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/ssd-intern/4055?page=1/{_xpath.IponTitlesXpath}/SSDTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/ssd-intern/4055?page=2/{_xpath.IponTitlesXpath}/SSDTable/Ipon/",
-              $"https://localhost:7210/api/GetAdsTitles/https://ipon.ro/shop/grup/componente-pc/ssd-intern/4055?page=3/{_xpath.IponTitlesXpath}/SSDTable/Ipon/");
+            FillColumn("ComputerCaseTable", "Carcasa", "Ipon",
+               "https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=1",
+               "https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=2",
+               "https://ipon.ro/shop/grup/componente-pc/carcasa/356?page=3",
+               _xpath.IponTitlesXpath, string.Empty);
 
         }
 
         public void FillHDDTable()
         {
             FillColumn("HDDTable", "HDD", "Emag",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/hard_disk-uri/p1/c/{_xpath.EmagTitlesXpath}/HDDTable/Emag/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.emag.ro/hard_disk-uri/p2/c/{_xpath.EmagTitlesXpath}/HDDTable/Emag/", null);
+                "https://www.emag.ro/hard_disk-uri/p1/c", "https://www.emag.ro/hard_disk-uri/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
 
             FillColumn("HDDTable", "HDD", "Evomag",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:1/{_xpath.EvomagTitlesXpath}/HDDTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:2/{_xpath.EvomagTitlesXpath}/HDDTable/Evomag/https://www.evomag.ro",
-              $"https://localhost:7210/api/GetAdsTitles/https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:3/{_xpath.EvomagTitlesXpath}/HDDTable/Evomag/https://www.evomag.ro");
+                "https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-hard-disk-drive-hard-disk-uri-hdd-desktop/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
 
+            FillColumn("HDDTable", "Hard Disk", "PCGarage",
+               "https://www.pcgarage.ro/hard-disk-uri/pagina1",
+               "https://www.pcgarage.ro/hard-disk-uri/pagina2",
+               "https://www.pcgarage.ro/hard-disk-uri/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
 
-            FillColumn("HDDTable", "Hard", "PCGarage",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/hard-disk-uri/pagina1/{_xpath.PCGarageTitlesXpath}/HDDTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/hard-disk-uri/pagina2/{_xpath.PCGarageTitlesXpath}/HDDTable/PCGarage/",
-                $"https://localhost:7210/api/GetAdsTitles/https://www.pcgarage.ro/hard-disk-uri/pagina3/{_xpath.PCGarageTitlesXpath}/HDDTable/PCGarage/");
+            FillColumn("HDDTable", "HDD", "CelRO",
+               "https://www.cel.ro/hard-disk-uri/0a-1",
+               "https://www.cel.ro/hard-disk-uri/0a-2",
+               "https://www.cel.ro/hard-disk-uri/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
 
+            FillColumn("HDDTable", "Hard Disk", "ForIT",
+               "https://www.forit.ro/hard-disk-uri/pagina1",
+               "https://www.forit.ro/hard-disk-uri/pagina2",
+               "https://www.forit.ro/hard-disk-uri/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
 
-            FillColumn("HDDTable", "Hard", "CelRO",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/hard-disk-uri/0a-1/{_xpath.CelROTitlesXpath}/HDDTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/hard-disk-uri/0a-2/{_xpath.CelROTitlesXpath}/HDDTable/CelRO/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.cel.ro/hard-disk-uri/0a-3/{_xpath.CelROTitlesXpath}/HDDTable/CelRO/");
-
-            FillColumn("HDDTable", "Hard", "ForIT",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/hard-disk-uri/pagina1/{_xpath.ForITTitlesXpath}/HDDTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/hard-disk-uri/pagina2/{_xpath.ForITTitlesXpath}/HDDTable/ForIT/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.forit.ro/hard-disk-uri/pagina3/{_xpath.ForITTitlesXpath}/HDDTable/ForIT/");
-
-            FillColumn("HDDTable", "Hard", "Vexio",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/hard-disk-uri/pagina1/{_xpath.VexioTitlesXpath}/HDDTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/hard-disk-uri/pagina2/{_xpath.VexioTitlesXpath}/HDDTable/Vexio/",
-               $"https://localhost:7210/api/GetAdsTitles/https://www.vexio.ro/hard-disk-uri/pagina3/{_xpath.VexioTitlesXpath}/HDDTable/Vexio/");
+            FillColumn("HDDTable", "Hard Disk", "Vexio",
+               "https://www.vexio.ro/hard-disk-uri/pagina1",
+               "https://www.vexio.ro/hard-disk-uri/pagina2",
+               "https://www.vexio.ro/hard-disk-uri/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
 
         }
 
-        private void FillColumn(string tableName, string columnName, string websiteName, string firstUrl, string secondUrl, string? thirdUrl)
+        public void FillSSDTable()
+        {
+            FillColumn("SSDTable", "Solid State Drive", "Emag",
+                "https://www.emag.ro/solid-state_drive_ssd_/p1/c", "https://www.emag.ro/solid-state_drive_ssd_/p2/c", null, _xpath.EmagTitlesXpath, string.Empty);
+
+            FillColumn("SSDTable", "SSD", "Evomag",
+                "https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:1",
+                "https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:2",
+                "https://www.evomag.ro/componente-pc-gaming-solid-state-drive-ssd/filtru/pagina:3",
+                _xpath.EvomagTitlesXpath, string.Empty);
+
+            FillColumn("SSDTable", "SSD", "PCGarage",
+               "https://www.pcgarage.ro/ssd/pagina1",
+               "https://www.pcgarage.ro/ssd/pagina2",
+               "https://www.pcgarage.ro/ssd/pagina3",
+               _xpath.PCGarageTitlesXpath, string.Empty);
+
+            FillColumn("SSDTable", "SSD", "CelRO",
+               "https://www.cel.ro/ssd-uri/0a-1",
+               "https://www.cel.ro/ssd-uri/0a-2",
+               "https://www.cel.ro/ssd-uri/0a-3",
+               _xpath.CelROTitlesXpath, string.Empty);
+
+            FillColumn("SSDTable", "SSD", "ForIT",
+               "https://www.forit.ro/ssd-uri/pagina1",
+               "https://www.forit.ro/ssd-uri/pagina2",
+               "https://www.forit.ro/ssd-uri/pagina3",
+               _xpath.ForITTitlesXpath, string.Empty);
+
+            FillColumn("SSDTable", "SSD", "Vexio",
+               "https://www.vexio.ro/ssd-uri/pagina1",
+               "https://www.vexio.ro/ssd-uri/pagina2",
+               "https://www.vexio.ro/ssd-uri/pagina3",
+               _xpath.VexioTitlesXpath, string.Empty);
+
+        }
+
+
+
+        private void FillColumn(string tableName, string columnName, string websiteName, string firstUrl, string secondUrl, string? thirdUrl, string xpath, string? websitePrefix)
         {
             if (String.IsNullOrEmpty(CheckForExistingAds(tableName, columnName, websiteName)))
             {
-                client.OpenRead(firstUrl);
+                object websiteModel = new WebsiteModel()
+                {
+                    WebsiteUrl = firstUrl,
+                    Xpath = xpath,
+                    TableName = tableName,
+                    WebsiteName = websiteName,
+                    WebsitePrefix = websitePrefix,
+                };
+
+                client.PostAsync($"https://localhost:7210/api/InsertAdsTitles", new StringContent(JsonConvert.SerializeObject(websiteModel), Encoding.UTF8, "application/json"));
 
                 Thread.Sleep(1000);
 
-                client.OpenRead(secondUrl);
+                object secondWebsiteModel = new WebsiteModel()
+                {
+                    WebsiteUrl = secondUrl,
+                    Xpath = xpath,
+                    TableName = tableName,
+                    WebsiteName = websiteName,
+                    WebsitePrefix = websitePrefix,
+                };
+
+                client.PostAsync($"https://localhost:7210/api/InsertAdsTitles", new StringContent(JsonConvert.SerializeObject(secondWebsiteModel), Encoding.UTF8, "application/json"));
 
                 if (thirdUrl is not null)
                 {
                     Thread.Sleep(1000);
 
-                    client.OpenRead(thirdUrl);
+                    object thirdWebsiteModel = new WebsiteModel()
+                    {
+                        WebsiteUrl = thirdUrl,
+                        Xpath = xpath,
+                        TableName = tableName,
+                        WebsiteName = websiteName,
+                        WebsitePrefix = websitePrefix,
+                    };
+
+                    client.PostAsync($"https://localhost:7210/api/InsertAdsTitles", new StringContent(JsonConvert.SerializeObject(thirdWebsiteModel), Encoding.UTF8, "application/json"));
                 }
 
             }
-            
+
         }
 
         private string CheckForExistingAds(string tableName, string column, string webSiteName)

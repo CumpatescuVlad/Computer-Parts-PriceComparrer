@@ -3,7 +3,6 @@ using Newtonsoft.Json;
 using PriceComparrerWinforms.src;
 using System.Diagnostics;
 using System.Net;
-using Unity;
 
 namespace PriceComparrerDemo
 {
@@ -21,7 +20,7 @@ namespace PriceComparrerDemo
             searchBox.GotFocus += SearchBox_GotFocus;
 
         }
-        
+
         private void EvomagHypelinksBox_LinkClicked(object? sender, LinkClickedEventArgs e)
         {
             ProcessStartInfo processInfo = new()
@@ -289,7 +288,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagVideoCards/1");
             //}
 
-            dataAdministration.FillVideoCardTable();
+            // dataAdministration.FillVideoCardTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -324,7 +323,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagMotherboards/1");
             //}
 
-            dataAdministration.FillMotherboardTable();
+            //dataAdministration.FillMotherboardTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -358,7 +357,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagRamMemory/1");
             //}
 
-            dataAdministration.FillRamMemoryTable();
+            // dataAdministration.FillRamMemoryTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -392,7 +391,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagPowerSupply/1");
             //}
 
-            dataAdministration.FillPowerSupplyTable();
+            //dataAdministration.FillPowerSupplyTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -418,7 +417,7 @@ namespace PriceComparrerDemo
             #endregion
 
         }
-            
+
         private void coolerBtnTab_Click(object sender, EventArgs e)
         {
 
@@ -426,7 +425,7 @@ namespace PriceComparrerDemo
             //{
             //    client.OpenRead($"https://localhost:7210/api/EmagCooler/1");
             //}
-            dataAdministration.FillCoolerTable();
+            //dataAdministration.FillCoolerTable();
 
 
             #region HideElements
@@ -461,7 +460,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagComputerCase/1");
             //}
 
-            dataAdministration.FillComputerCaseTable();
+            //dataAdministration.FillComputerCaseTable();
 
 
             #region HideElements
@@ -496,7 +495,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagSSD/1");
             //}
 
-            dataAdministration.FillSSDTable();
+            //dataAdministration.FillSSDTable();
 
             #region HideElements
             searchLbl.Hide();
@@ -530,7 +529,7 @@ namespace PriceComparrerDemo
             //    client.OpenRead($"https://localhost:7210/api/EmagHDD/1");
             //}
 
-            dataAdministration.FillHDDTable();
+            //dataAdministration.FillHDDTable();
 
             #region HideElements
             searchLbl.Hide();

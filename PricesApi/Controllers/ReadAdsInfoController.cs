@@ -19,22 +19,25 @@ namespace DataScrapper.Controllers
         {
             _ads = ads;
             _configModel = configModel.Value;
+
         }
 
-        [Route("api/GetAdsTitles/{websiteUrl}/{xpath}/{tableName}/{webSiteName}/{websitePrefix?}")]
+        [Route("api/InsertAdsTitles")]
 
         [HttpPost]
-        public string GetWebsiteTitles(string websiteUrl, string xpath, string tableName, string webSiteName, string? websitePrefix)
+        public void InsertAdsTitles(WebsiteModel websiteModel)
         {
             client.DefaultRequestHeaders.UserAgent.ParseAdd(_configModel.UserAgent);
 
-            var HtmlPage = client.GetStringAsync(HttpUtility.UrlDecode(websiteUrl)).Result;
+            if (websiteModel.WebsiteUrl is not null)
+            {
+                var HtmlPage = client.GetStringAsync(websiteModel.WebsiteUrl).Result;
 
-            document.LoadHtml(HtmlPage);
+                document.LoadHtml(HtmlPage);
 
-            _ads.ReadComponentsTitles(document, tableName, HttpUtility.UrlDecode(xpath), webSiteName, HttpUtility.UrlDecode(websitePrefix));
+                _ads.ReadComponentsTitles(document, websiteModel.TableName, websiteModel.Xpath, websiteModel.WebsiteName, websiteModel.WebsitePrefix);
+            }
 
-            return "200 OK";
         }
 
         [Route("api/GetProductsPrices/{querryString}/{priceXpath}/{priceXpathForDeals}")]
