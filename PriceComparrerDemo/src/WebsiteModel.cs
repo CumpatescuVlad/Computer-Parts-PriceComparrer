@@ -1,4 +1,4 @@
-﻿namespace PriceComparrerWinforms.src
+﻿namespace PriceComparrerDemo
 {
     public class WebsiteModel
     {

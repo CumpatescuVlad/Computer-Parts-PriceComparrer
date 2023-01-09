@@ -66,7 +66,7 @@ namespace DataScrapper.src
                 {
                     _ads.AdHyperlink += hyperlink.ToString();
 
-                    Thread.Sleep(3000);
+                    Thread.Sleep(2000);
 
                     client.DefaultRequestHeaders.UserAgent.ParseAdd(_configModel.UserAgent);
 

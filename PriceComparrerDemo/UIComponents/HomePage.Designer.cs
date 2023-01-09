@@ -43,13 +43,10 @@
             this.searchBtn = new System.Windows.Forms.Button();
             this.searchLbl = new System.Windows.Forms.Label();
             this.homeBtn = new System.Windows.Forms.Button();
-            this.componentNameLbl = new System.Windows.Forms.Label();
             this.searchingLbl = new System.Windows.Forms.Label();
             this.evomagPriceLbl = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.evomagTitlesLbl = new System.Windows.Forms.Label();
-            this.componentPriceLbl = new System.Windows.Forms.Label();
-            this.emagLbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // chooseComponentLbl
@@ -244,20 +241,12 @@
             this.homeBtn.UseVisualStyleBackColor = true;
             this.homeBtn.Click += new System.EventHandler(this.button1_Click);
             // 
-            // componentNameLbl
-            // 
-            this.componentNameLbl.AutoSize = true;
-            this.componentNameLbl.Location = new System.Drawing.Point(81, 193);
-            this.componentNameLbl.Name = "componentNameLbl";
-            this.componentNameLbl.Size = new System.Drawing.Size(0, 15);
-            this.componentNameLbl.TabIndex = 22;
-            // 
             // searchingLbl
             // 
             this.searchingLbl.AutoSize = true;
             this.searchingLbl.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.searchingLbl.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.searchingLbl.Location = new System.Drawing.Point(412, 425);
+            this.searchingLbl.Location = new System.Drawing.Point(377, 211);
             this.searchingLbl.Name = "searchingLbl";
             this.searchingLbl.Size = new System.Drawing.Size(154, 32);
             this.searchingLbl.TabIndex = 27;
@@ -274,10 +263,10 @@
             // richTextBox1
             // 
             this.richTextBox1.Font = new System.Drawing.Font("Sitka Heading", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.richTextBox1.Location = new System.Drawing.Point(57, 460);
+            this.richTextBox1.Location = new System.Drawing.Point(57, 246);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(951, 118);
+            this.richTextBox1.Size = new System.Drawing.Size(951, 261);
             this.richTextBox1.TabIndex = 26;
             this.richTextBox1.Text = "";
             // 
@@ -289,35 +278,14 @@
             this.evomagTitlesLbl.Size = new System.Drawing.Size(0, 15);
             this.evomagTitlesLbl.TabIndex = 32;
             // 
-            // componentPriceLbl
-            // 
-            this.componentPriceLbl.AutoSize = true;
-            this.componentPriceLbl.Location = new System.Drawing.Point(874, 193);
-            this.componentPriceLbl.Name = "componentPriceLbl";
-            this.componentPriceLbl.Size = new System.Drawing.Size(0, 15);
-            this.componentPriceLbl.TabIndex = 31;
-            // 
-            // emagLbl
-            // 
-            this.emagLbl.AutoSize = true;
-            this.emagLbl.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.emagLbl.Location = new System.Drawing.Point(440, 155);
-            this.emagLbl.Name = "emagLbl";
-            this.emagLbl.Size = new System.Drawing.Size(49, 21);
-            this.emagLbl.TabIndex = 33;
-            this.emagLbl.Text = "Emag";
-            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.emagLbl);
             this.Controls.Add(this.evomagTitlesLbl);
-            this.Controls.Add(this.componentPriceLbl);
             this.Controls.Add(this.evomagPriceLbl);
             this.Controls.Add(this.searchingLbl);
             this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.componentNameLbl);
             this.Controls.Add(this.homeBtn);
             this.Controls.Add(this.searchBox);
             this.Controls.Add(this.searchBtn);
@@ -356,12 +324,9 @@
         private Button searchBtn;
         private Label searchLbl;
         private Button homeBtn;
-        private Label componentNameLbl;
         private Label searchingLbl;
         private Label evomagPriceLbl;
         private RichTextBox richTextBox1;
         private Label evomagTitlesLbl;
-        private Label componentPriceLbl;
-        private Label emagLbl;
     }
 }

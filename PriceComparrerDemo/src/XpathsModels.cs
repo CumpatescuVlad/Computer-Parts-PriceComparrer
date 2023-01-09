@@ -1,6 +1,6 @@
-﻿namespace PriceComparrerWinforms.src
+﻿namespace PriceComparrerDemo
 {
-    public class XpathsModels
+    public class XpathModel
     {
         public string? EmagTitlesXpath { get; set; }
         public string? EmagPricesXpath { get; set; }

@@ -40,7 +40,7 @@ namespace DataScrapper.Controllers
 
         }
 
-        [Route("api/GetProductsPrices/{querryString}/{priceXpath}/{priceXpathForDeals}")]
+        [Route("api/GetProductsPrices/{querryString}/{priceXpath}/{priceXpathForDeals}/")]
 
         [HttpGet]
 
