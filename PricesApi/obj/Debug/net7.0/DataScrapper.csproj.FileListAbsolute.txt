@@ -78,6 +78,8 @@ E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Microsoft.Identi
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Microsoft.OpenApi.dll
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Microsoft.SqlServer.Server.dll
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Newtonsoft.Json.dll
+E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Serilog.dll
+E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Serilog.Expressions.dll
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.Swagger.dll
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerGen.dll
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Swashbuckle.AspNetCore.SwaggerUI.dll
@@ -112,5 +114,3 @@ E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\refint\DataScrap
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\DataScrapper.pdb
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\DataScrapper.genruntimeconfig.cache
 E:\CODE REPOS\PriceComparrerWinforms\PricesApi\obj\Debug\net7.0\ref\DataScrapper.dll
-E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Serilog.dll
-E:\CODE REPOS\PriceComparrerWinforms\PricesApi\bin\Debug\net7.0\Serilog.Expressions.dll

@@ -9,6 +9,7 @@ namespace PriceComparrerDemo
     public partial class HomePage : UserControl
     {
         private readonly WebClient client = new();
+        private readonly HttpClient _client = new();
         private readonly XpathModel? _xpath = JsonConvert.DeserializeObject<XpathModel>(File.ReadAllText($@"{Environment.CurrentDirectory}\Config\Xpaths.json"));
         private readonly DataAdministration dataAdministration = new();
         public HomePage()
@@ -41,6 +42,7 @@ namespace PriceComparrerDemo
             searchLbl.Hide();
             homeBtn.Hide();
             richTextBox1.Hide();
+            pricesBox.Hide();
             searchingLbl.Hide();
             
         }
@@ -65,11 +67,11 @@ namespace PriceComparrerDemo
             searchLbl.Hide();
             homeBtn.Show();
             homeBtn.Hide();
-            richTextBox1.Show();
             richTextBox1.Hide();
             searchBox.Clear();
             richTextBox1.Clear();
             searchLbl.Text = string.Empty;
+            pricesBox.Hide();
             #endregion
 
 
@@ -284,7 +286,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Video Card Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
 
@@ -312,7 +313,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Motherboard Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -339,7 +339,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Ram Memory Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -366,7 +365,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Power Supply Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -393,7 +391,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Cooler Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -420,7 +417,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search Computer Case Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -447,7 +443,6 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search SSD Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
@@ -474,34 +469,64 @@ namespace PriceComparrerDemo
             searchLbl.Show();
             searchLbl.Text = "Search HDD Model";
             homeBtn.Show();
-            richTextBox1.Show();
             #endregion
 
         }
 
         #endregion
 
-        public void DisplayResults(string apiURl,  RichTextBox hyperlinkBox,Label searchingLbl)
+        //public void DisplayResults(string apiURl, RichTextBox hyperlinkBox, RichTextBox pricesBox,Label searchingLbl)
+        //{
+        //    Stream stream = client.OpenRead(apiURl);
+
+        //    var reader = new StreamReader(stream);
+
+        //    AdsModel? _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
+
+        //    if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
+        //    {
+        //        pricesBox.Show();
+        //        hyperlinkBox.Show();
+        //        hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
+        //        pricesBox.Text = _ads.AdPrice;
+
+        //        return;
+
+        //    }
+
+        //    searchingLbl.ForeColor = Color.Red;
+
+        //    searchingLbl.Text = "No Results please be more Explicit";
+
+        //}
+
+        public void DisplayResults(string apiURl, RichTextBox hyperlinkBox,RichTextBox pricesBox, Label searchingLbl)
         {
-            Stream stream = client.OpenRead(HttpUtility.UrlEncode(apiURl));
+            Stream stream = client.OpenRead(apiURl);
 
             var reader = new StreamReader(stream);
 
-            AdsModel _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
+            var request = _client.GetAsync(apiURl).Result;
+
+            var response = request.Content.ReadAsStringAsync().Result;
+
+            AdsModel? _ads = JsonConvert.DeserializeObject<AdsModel>(response);
 
             if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
             {
+                pricesBox.Show();
                 hyperlinkBox.Show();
-                hyperlinkBox.Text = $"{_ads.AdTitle}-----------------------------{_ads.AdPrice}\n{_ads.AdHyperlink}";
+                hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
+                pricesBox.Text = _ads.AdPrice;
 
                 return;
 
             }
 
-           
-           searchingLbl.ForeColor = Color.Red;
 
-           searchingLbl.Text = "No Results please be more Explicit";
+            searchingLbl.ForeColor = Color.Red;
+
+            searchingLbl.Text = "No Results please be more Explicit";
 
         }
 
@@ -513,38 +538,33 @@ namespace PriceComparrerDemo
             {
                 case 1:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0])}"
-                    //    , richTextBox1, searchingLbl);
-                    
+                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
+                        , richTextBox1, pricesBox, searchingLbl);
+
                     ////searchingLbl.Hide();
 
                     break;
 
                 case 2:
 
-                    string querryString = SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1]);
-
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{querryString}/{_xpath.EmagPricesXpath}/{_xpath.EmagPricesXpath}/"
-                        ,richTextBox1,searchingLbl);
+                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
+                        ,richTextBox1,pricesBox,searchingLbl);
 
 
                     break;
 
                 case 3:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2])}"
-                    // , richTextBox1, searchingLbl);
-
-                    ////searchingLbl.Hide();
-
+                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
+                        , richTextBox1, pricesBox, searchingLbl);
+                   
                     break;
 
                 case >= 4:
 
-                    //DisplayResults($"https://localhost:7210/api/ReadEmag{product}Prices/{SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3])}"
-                    //   , richTextBox1, searchingLbl);
+                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
+                       , richTextBox1, pricesBox, searchingLbl);
 
-                    //searchingLbl.Hide();
 
                     break;
             }

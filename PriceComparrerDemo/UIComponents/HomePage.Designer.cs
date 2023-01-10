@@ -47,6 +47,7 @@
             this.evomagPriceLbl = new System.Windows.Forms.Label();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.evomagTitlesLbl = new System.Windows.Forms.Label();
+            this.pricesBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // chooseComponentLbl
@@ -263,7 +264,7 @@
             // richTextBox1
             // 
             this.richTextBox1.Font = new System.Drawing.Font("Sitka Heading", 9.749999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.richTextBox1.Location = new System.Drawing.Point(57, 246);
+            this.richTextBox1.Location = new System.Drawing.Point(6, 246);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.ReadOnly = true;
             this.richTextBox1.Size = new System.Drawing.Size(951, 261);
@@ -278,10 +279,20 @@
             this.evomagTitlesLbl.Size = new System.Drawing.Size(0, 15);
             this.evomagTitlesLbl.TabIndex = 32;
             // 
+            // pricesBox
+            // 
+            this.pricesBox.Location = new System.Drawing.Point(957, 246);
+            this.pricesBox.Name = "pricesBox";
+            this.pricesBox.ReadOnly = true;
+            this.pricesBox.Size = new System.Drawing.Size(95, 261);
+            this.pricesBox.TabIndex = 33;
+            this.pricesBox.Text = "";
+            // 
             // HomePage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.pricesBox);
             this.Controls.Add(this.evomagTitlesLbl);
             this.Controls.Add(this.evomagPriceLbl);
             this.Controls.Add(this.searchingLbl);
@@ -328,5 +339,6 @@
         private Label evomagPriceLbl;
         private RichTextBox richTextBox1;
         private Label evomagTitlesLbl;
+        private RichTextBox pricesBox;
     }
 }
