@@ -1,8 +1,7 @@
 ﻿using DataScrapper.src;
-using Microsoft.AspNetCore.Http;
+using HtmlAgilityPack;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using HtmlAgilityPack;
 using System.Web;
 
 namespace DataScrapper.Controllers
@@ -44,6 +43,6 @@ namespace DataScrapper.Controllers
 
         [HttpGet]
 
-        public string GetProductsPrices(string querryString, string priceXpath, string priceXpathForDeals) => _ads.ReadComponentsPrices(document, HttpUtility.UrlDecode(querryString), HttpUtility.UrlDecode(priceXpath), HttpUtility.UrlDecode(priceXpathForDeals));
+        public string GetProductsPrices(string querryString, string priceXpath, string? priceXpathForDeals) => _ads.ReadComponentsPrices(document, HttpUtility.UrlDecode(querryString), HttpUtility.UrlDecode(priceXpath), HttpUtility.UrlDecode(priceXpathForDeals));
     }
 }

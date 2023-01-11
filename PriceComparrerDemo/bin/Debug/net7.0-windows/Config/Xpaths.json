@@ -8,7 +8,7 @@
     "PCGaragePricesXpath": "//p[@class='ps_sell_price']/span[@class='price_num']",
     "CelROTitlesXpath": "//h2[@class='productTitle']/a[@class='productListing-data-b product_link product_name']/span",
     "CelROPricesXpath": "//div[@class='pret']/span[@id='product-price']",
-    "ForITTitlesXpath": "//h5[@class='name']/a[data-ecproduct='true']",
+    "ForITTitlesXpath": "//div[@class='grid-full col-xs-12 col-sm-7 col-md-6']/h5[@class='name']/a[data-ecproduct='true']",
     "ForITPricesXpath": "//div[@class='price-box margin-bottom-md']/h3[@class='price-value']",
     "VexioTitlesXpath": "//h2[@class='name']/a[@data-ecproduct='true']",
     "VexioPricesXpath": "//div[@class='h3 price-value']/span[@id='price-value']",

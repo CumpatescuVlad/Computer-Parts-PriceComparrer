@@ -43,7 +43,7 @@ namespace DataScrapper.src
             connection.Dispose();
         }
 
-        public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string xpathPricesForDeals)
+        public string ReadComponentsPrices(HtmlDocument document, string querryString, string firstPricesXpath, string? xpathPricesForDeals)
         {
             var connection = new SqlConnection(_configModel.ConnectionString);
 

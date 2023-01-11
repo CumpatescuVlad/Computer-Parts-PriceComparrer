@@ -6,7 +6,7 @@
 
         public static string ConnectionString { get => _connectionString; }
 
-        public static string ReadExistingComponentData(string tableName, string likeKeyword, string webSiteName) => $"Select ComponentTitle from {tableName} where WebSiteName='{webSiteName}' and ComponentTitle Like '{likeKeyword}%' ";
+        public static string ReadExistingComponentData(string tableName, string webSiteName) => $"Select ComponentTitle from {tableName} where WebSiteName='{webSiteName}'";
 
     }
 }

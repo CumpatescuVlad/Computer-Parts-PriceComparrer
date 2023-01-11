@@ -1,16 +1,14 @@
-﻿using Microsoft.Data.SqlClient;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using PriceComparrerWinforms.src;
 using System.Diagnostics;
 using System.Net;
-using System.Web;
 
 namespace PriceComparrerDemo
 {
     public partial class HomePage : UserControl
     {
-        private readonly WebClient client = new();
-        private readonly HttpClient _client = new();
-        private readonly XpathModel? _xpath = JsonConvert.DeserializeObject<XpathModel>(File.ReadAllText($@"{Environment.CurrentDirectory}\Config\Xpaths.json"));
+       
+        private readonly SearchEngine _searchEngine = new();
         private readonly DataAdministration dataAdministration = new();
         public HomePage()
         {
@@ -44,7 +42,7 @@ namespace PriceComparrerDemo
             richTextBox1.Hide();
             pricesBox.Hide();
             searchingLbl.Hide();
-            
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -81,8 +79,8 @@ namespace PriceComparrerDemo
         {
             if (searchingLbl.Visible is true)
             {
-               searchingLbl.ForeColor= Color.Green;
-               searchingLbl.Hide();
+                searchingLbl.ForeColor = Color.Green;
+                searchingLbl.Hide();
             }
 
         }
@@ -111,53 +109,53 @@ namespace PriceComparrerDemo
 
                 if (searchLbl.Text.Contains("Processor"))
                 {
-                    SearchProduct("Processor");
+                    _searchEngine.SearchProduct("Processor", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
 
                 else if (searchLbl.Text.Contains("Video Card"))
                 {
-                    SearchProduct("VideoCard");
+                    _searchEngine.SearchProduct("VideoCard", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
 
                 else if (searchLbl.Text.Contains("Motherboard"))
                 {
 
-                    SearchProduct("Motherboard");
+                    _searchEngine.SearchProduct("Motherboard", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
                 else if (searchLbl.Text.Contains("Ram Memory"))
                 {
-                    SearchProduct("RamMemory");
+                    _searchEngine.SearchProduct("RamMemory", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
 
                 else if (searchLbl.Text.Contains("Power Supply"))
                 {
-                    SearchProduct("PowerSupply");
+                    _searchEngine.SearchProduct("PowerSupply", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
                 else if (searchLbl.Text.Contains("Cooler"))
                 {
-                    SearchProduct("Cooler");
+                    _searchEngine.SearchProduct("Cooler", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
                 else if (searchLbl.Text.Contains("Computer Case"))
                 {
-                    SearchProduct("ComputerCase");
+                    _searchEngine.SearchProduct("ComputerCase", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
                 else if (searchLbl.Text.Contains("SSD"))
                 {
 
-                    SearchProduct("SSD");
+                    _searchEngine.SearchProduct("SSD", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
 
                 else if (searchLbl.Text.Contains("HDD"))
                 {
-                    SearchProduct("HDD");
+                    _searchEngine.SearchProduct("HDD", searchBox, richTextBox1, pricesBox, searchingLbl);
 
                 }
 
@@ -181,53 +179,53 @@ namespace PriceComparrerDemo
 
             if (searchLbl.Text.Contains("Processor"))
             {
-                SearchProduct("Processor");
+                _searchEngine.SearchProduct("Processor", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
 
             else if (searchLbl.Text.Contains("Video Card"))
             {
-                SearchProduct("VideoCard");
-
+                _searchEngine.SearchProduct("VideoCard", searchBox, richTextBox1, pricesBox, searchingLbl);
             }
 
             else if (searchLbl.Text.Contains("Motherboard"))
             {
+                _searchEngine.SearchProduct("Motherboard", searchBox, richTextBox1, pricesBox, searchingLbl);
 
-                SearchProduct("Motherboard");
 
             }
             else if (searchLbl.Text.Contains("Ram Memory"))
             {
-                SearchProduct("RamMemory");
+                _searchEngine.SearchProduct("RamMemory", searchBox, richTextBox1, pricesBox, searchingLbl);
+
 
             }
 
             else if (searchLbl.Text.Contains("Power Supply"))
             {
-                SearchProduct("PowerSupply");
+                _searchEngine.SearchProduct("PowerSupply", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
             else if (searchLbl.Text.Contains("Cooler"))
             {
-                SearchProduct("Cooler");
+                _searchEngine.SearchProduct("Cooler", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
             else if (searchLbl.Text.Contains("Computer Case"))
             {
-                SearchProduct("ComputerCase");
+                _searchEngine.SearchProduct("ComputerCase", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
             else if (searchLbl.Text.Contains("SSD"))
             {
 
-                SearchProduct("SSD");
+                _searchEngine.SearchProduct("SSD", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
 
             else if (searchLbl.Text.Contains("HDD"))
             {
-                SearchProduct("HDD");
+                _searchEngine.SearchProduct("HDD", searchBox, richTextBox1, pricesBox, searchingLbl);
 
             }
 
@@ -475,101 +473,7 @@ namespace PriceComparrerDemo
 
         #endregion
 
-        //public void DisplayResults(string apiURl, RichTextBox hyperlinkBox, RichTextBox pricesBox,Label searchingLbl)
-        //{
-        //    Stream stream = client.OpenRead(apiURl);
 
-        //    var reader = new StreamReader(stream);
-
-        //    AdsModel? _ads = JsonConvert.DeserializeObject<AdsModel>(reader.ReadToEnd());
-
-        //    if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
-        //    {
-        //        pricesBox.Show();
-        //        hyperlinkBox.Show();
-        //        hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
-        //        pricesBox.Text = _ads.AdPrice;
-
-        //        return;
-
-        //    }
-
-        //    searchingLbl.ForeColor = Color.Red;
-
-        //    searchingLbl.Text = "No Results please be more Explicit";
-
-        //}
-
-        public void DisplayResults(string apiURl, RichTextBox hyperlinkBox,RichTextBox pricesBox, Label searchingLbl)
-        {
-            Stream stream = client.OpenRead(apiURl);
-
-            var reader = new StreamReader(stream);
-
-            var request = _client.GetAsync(apiURl).Result;
-
-            var response = request.Content.ReadAsStringAsync().Result;
-
-            AdsModel? _ads = JsonConvert.DeserializeObject<AdsModel>(response);
-
-            if (_ads.AdTitle is not null || _ads.AdHyperlink is not null || _ads.AdPrice is not null)
-            {
-                pricesBox.Show();
-                hyperlinkBox.Show();
-                hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
-                pricesBox.Text = _ads.AdPrice;
-
-                return;
-
-            }
-
-
-            searchingLbl.ForeColor = Color.Red;
-
-            searchingLbl.Text = "No Results please be more Explicit";
-
-        }
-
-        private void SearchProduct(string product)
-        {
-            string[] searchItem = searchBox.Text.Split(' ');
-
-            switch (searchItem.Length)
-            {
-                case 1:
-
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
-                        , richTextBox1, pricesBox, searchingLbl);
-
-                    ////searchingLbl.Hide();
-
-                    break;
-
-                case 2:
-
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
-                        ,richTextBox1,pricesBox,searchingLbl);
-
-
-                    break;
-
-                case 3:
-
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
-                        , richTextBox1, pricesBox, searchingLbl);
-                   
-                    break;
-
-                case >= 4:
-
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelFourSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2], searchItem[3]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/"
-                       , richTextBox1, pricesBox, searchingLbl);
-
-
-                    break;
-            }
-
-        }
 
     }
 }
