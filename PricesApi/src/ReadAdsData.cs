@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 using System.Web;
 
 namespace DataScrapper.src
@@ -89,7 +90,26 @@ namespace DataScrapper.src
             }
             connection.Close();
 
-            return JsonConvert.SerializeObject(_ads);
+            string result;
+
+            if (_ads.AdTitle is null || _ads.AdPrice is null || _ads.AdHyperlink is null)
+            {
+                object noResult = new AdsModel()
+                {
+                    AdTitle = "No Results Were Found",
+                    AdPrice = "No Results Were Found",
+                    AdHyperlink = "No Results Were Found",
+                   
+                };
+
+                result = JsonConvert.SerializeObject(noResult);
+            }
+            else
+            {
+                result = JsonConvert.SerializeObject(_ads);
+            }
+
+            return result;
 
         }
 

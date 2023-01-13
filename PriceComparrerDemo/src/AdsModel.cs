@@ -8,7 +8,5 @@
 
         public string? AdHyperlink { get; set; }
 
-        public List<string>? AdHyperlinks { get; set; }
-
     }
 }

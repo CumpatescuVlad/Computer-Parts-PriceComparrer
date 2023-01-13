@@ -1,13 +1,10 @@
-﻿using Newtonsoft.Json;
-using PriceComparrerWinforms.src;
+﻿using PriceComparrerWinforms.src;
 using System.Diagnostics;
-using System.Net;
 
 namespace PriceComparrerDemo
 {
     public partial class HomePage : UserControl
     {
-       
         private readonly SearchEngine _searchEngine = new();
         private readonly DataAdministration dataAdministration = new();
         public HomePage()
@@ -19,19 +16,7 @@ namespace PriceComparrerDemo
 
         }
 
-        private void EvomagHypelinksBox_LinkClicked(object? sender, LinkClickedEventArgs e)
-        {
-            ProcessStartInfo processInfo = new()
-            {
-                FileName = e.LinkText,
-                UseShellExecute = true
-            };
-
-            Process.Start(processInfo);
-
-        }
-
-        #region UIButtons
+        #region UIChanges
         private void HomePage_Load(object sender, EventArgs e)
         {
             searchingLbl.ForeColor = Color.Black;
@@ -72,7 +57,6 @@ namespace PriceComparrerDemo
             pricesBox.Hide();
             #endregion
 
-
         }
 
         private void SearchBox_GotFocus(object? sender, EventArgs e)
@@ -86,153 +70,6 @@ namespace PriceComparrerDemo
         }
 
         #endregion
-
-
-        private void RichTextBox1_LinkClicked(object? sender, LinkClickedEventArgs e)
-        {
-            ProcessStartInfo processInfo = new()
-            {
-                FileName = e.LinkText,
-                UseShellExecute = true
-            };
-
-            Process.Start(processInfo);
-
-
-        }
-
-        private void SearchBox_KeyDown(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode is Keys.Enter)
-            {
-                #region SearchEngine
-
-                if (searchLbl.Text.Contains("Processor"))
-                {
-                    _searchEngine.SearchProduct("Processor", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-
-                else if (searchLbl.Text.Contains("Video Card"))
-                {
-                    _searchEngine.SearchProduct("VideoCard", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-
-                else if (searchLbl.Text.Contains("Motherboard"))
-                {
-
-                    _searchEngine.SearchProduct("Motherboard", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-                else if (searchLbl.Text.Contains("Ram Memory"))
-                {
-                    _searchEngine.SearchProduct("RamMemory", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-
-                else if (searchLbl.Text.Contains("Power Supply"))
-                {
-                    _searchEngine.SearchProduct("PowerSupply", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-                else if (searchLbl.Text.Contains("Cooler"))
-                {
-                    _searchEngine.SearchProduct("Cooler", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-                else if (searchLbl.Text.Contains("Computer Case"))
-                {
-                    _searchEngine.SearchProduct("ComputerCase", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-                else if (searchLbl.Text.Contains("SSD"))
-                {
-
-                    _searchEngine.SearchProduct("SSD", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-
-                else if (searchLbl.Text.Contains("HDD"))
-                {
-                    _searchEngine.SearchProduct("HDD", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-                }
-
-                #endregion
-
-            }
-        }
-
-        private void searchBtn_Click(object sender, EventArgs e)
-        {
-            searchingLbl.Show();
-
-            if (String.IsNullOrEmpty(searchBox.Text))
-            {
-                MessageBox.Show("value Cannot be null ");
-
-                return;
-            }
-
-            #region SearchEngine
-
-            if (searchLbl.Text.Contains("Processor"))
-            {
-                _searchEngine.SearchProduct("Processor", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-
-            else if (searchLbl.Text.Contains("Video Card"))
-            {
-                _searchEngine.SearchProduct("VideoCard", searchBox, richTextBox1, pricesBox, searchingLbl);
-            }
-
-            else if (searchLbl.Text.Contains("Motherboard"))
-            {
-                _searchEngine.SearchProduct("Motherboard", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-
-            }
-            else if (searchLbl.Text.Contains("Ram Memory"))
-            {
-                _searchEngine.SearchProduct("RamMemory", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-
-            }
-
-            else if (searchLbl.Text.Contains("Power Supply"))
-            {
-                _searchEngine.SearchProduct("PowerSupply", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-            else if (searchLbl.Text.Contains("Cooler"))
-            {
-                _searchEngine.SearchProduct("Cooler", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-            else if (searchLbl.Text.Contains("Computer Case"))
-            {
-                _searchEngine.SearchProduct("ComputerCase", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-            else if (searchLbl.Text.Contains("SSD"))
-            {
-
-                _searchEngine.SearchProduct("SSD", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-
-            else if (searchLbl.Text.Contains("HDD"))
-            {
-                _searchEngine.SearchProduct("HDD", searchBox, richTextBox1, pricesBox, searchingLbl);
-
-            }
-
-            #endregion
-
-        }
-
 
         #region MainButtons
 
@@ -472,6 +309,49 @@ namespace PriceComparrerDemo
         }
 
         #endregion
+
+        #region SearchingAndDisplayingResults
+        private void RichTextBox1_LinkClicked(object? sender, LinkClickedEventArgs e)
+        {
+            ProcessStartInfo processInfo = new()
+            {
+                FileName = e.LinkText,
+                UseShellExecute = true
+            };
+
+            Process.Start(processInfo);
+
+
+        }
+
+        private void SearchBox_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode is Keys.Enter&&!string.IsNullOrEmpty(searchBox.Text))
+            {
+                _searchEngine.StartSearch(searchLbl, searchBox, richTextBox1, pricesBox);
+
+            }
+        }
+
+        private void searchBtn_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(searchBox.Text))
+            {
+                MessageBox.Show("value Cannot be null ");
+
+                return;
+            }
+
+            searchingLbl.Show();
+
+            _searchEngine.StartSearch(searchLbl, searchBox, richTextBox1, pricesBox);
+
+        }
+        #endregion
+
+
+
+
 
 
 

@@ -6,14 +6,14 @@ namespace PriceComparrerDemo
 {
     public class DataAdministration
     {
-        private readonly SqlConnection connection = new(Data.ConnectionString);
+        private readonly SqlConnection connection = new(DatabaseInfo.ConnectionString);
         private readonly XpathModel? _xpath = JsonConvert.DeserializeObject<XpathModel>(File.ReadAllText($@"{Environment.CurrentDirectory}\Config\Xpaths.json"));
         private readonly HttpClient client = new();
         private readonly AdsModel _ads = new();
 
         private void FillColumn(string tableName, string websiteName, string firstUrl, string secondUrl, string? thirdUrl, string xpath, string? websitePrefix)
         {
-            if (String.IsNullOrEmpty(CheckForExistingAds(tableName, websiteName)))
+            if (CheckForExistingData(tableName, websiteName) is false)
             {
                 object websiteModel = new WebsiteModel()
                 {
@@ -59,22 +59,25 @@ namespace PriceComparrerDemo
 
         }
 
-        private string CheckForExistingAds(string tableName, string webSiteName)
+        private bool CheckForExistingData(string tableName, string webSiteName)
         {
             connection.Open();
 
-            var readProcessorDataCommand = new SqlCommand(Data.ReadExistingComponentData(tableName, webSiteName), connection);
+            var readExistingDataCommand = new SqlCommand(DatabaseInfo.ReadExistingData(tableName, webSiteName), connection);
 
-            var reader = readProcessorDataCommand.ExecuteReader();
+            var reader = readExistingDataCommand.ExecuteReader();
 
             while (reader.Read())
             {
                 _ads.AdTitle += reader.GetString(0);
+                _ads.AdHyperlink += reader.GetString(1);
             }
 
             connection.Close();
 
-            return _ads.AdTitle;
+            bool dataExists = _ads.AdTitle is not null && _ads.AdHyperlink is not null;
+
+            return dataExists;
         }
 
 
