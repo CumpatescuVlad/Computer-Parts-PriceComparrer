@@ -8,6 +8,7 @@ namespace PriceComparrerWinforms.src
     {
         private readonly HttpClient _client = new();
         private readonly XpathModel? _xpath = JsonConvert.DeserializeObject<XpathModel>(File.ReadAllText($@"{Environment.CurrentDirectory}\Config\Xpaths.json"));
+        
 
         public void StartSearch(Label searchLbl, TextBox searchBox, RichTextBox richTextBox1, RichTextBox pricesBox)
         {
@@ -15,6 +16,7 @@ namespace PriceComparrerWinforms.src
             {
                 SearchProduct("Processor", searchBox, richTextBox1, pricesBox);
 
+               
             }
 
             else if (searchLbl.Text.Contains("Video Card"))
@@ -73,39 +75,61 @@ namespace PriceComparrerWinforms.src
             switch (searchItem.Length)
             {
                 case 1:
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
-                    , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
 
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "PcGarage", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.PCGaragePricesXpath)}/"
-                    , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
+                    Thread firstThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
+                    , richTextBox1, pricesBox));
+                    firstThread.Start();
+                    //DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Emag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
+                    //, richTextBox1, pricesBox);
+                    //Thread.Sleep(2000);
 
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EvomagPricesXpath)}/"
-                    , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
+                    Thread secondThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "PcGarage", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.PCGaragePricesXpath)}/"
+                    , richTextBox1, pricesBox));
+                    secondThread.Start();
+                    //DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "PcGarage", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.PCGaragePricesXpath)}/"
+                    //, richTextBox1, pricesBox);
+                    //Thread.Sleep(2000);
 
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "Vexio", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.VexioPricesXpath)}/"
-                      , richTextBox1, pricesBox);
+                    Thread thirdThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EvomagPricesXpath)}/"
+                    , richTextBox1, pricesBox));
+                    thirdThread.Start();
+                    //DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"{product}Table", "Evomag", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.EvomagPricesXpath)}/"
+                    //, richTextBox1, pricesBox);
+                    //Thread.Sleep(2000);
+
+                    Thread fourthThread = new(()=> DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "Vexio", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.VexioPricesXpath)}/"
+                      , richTextBox1, pricesBox));
+                    fourthThread.Start();
+                    //DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelOneSearchItem($"Second{product}Table", "Vexio", searchItem[0]))}/{HttpUtility.UrlEncode(_xpath.VexioPricesXpath)}/"
+                    //  , richTextBox1, pricesBox);
 
                     ////searchingLbl.Hide();
 
                     break;
                 case 2:
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
-                    , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
+                    Thread fifthThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
+                    , richTextBox1, pricesBox));
+                   
+                    fifthThread.Start();
 
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"Second{product}Table", "PcGarage", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.PCGaragePricesXpath)}/"
-                    , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
+                    Thread sixthThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"Second{product}Table", "PcGarage", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.PCGaragePricesXpath)}/"
+                    , richTextBox1, pricesBox));
+                    MessageBox.Show("Searching Pc garage");
+                    sixthThread.Start();    
+                   
 
+                    Thread seventhThread = new(() =>
                     DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"{product}Table", "Evomag", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.EvomagPricesXpath)}/"
-                       , richTextBox1, pricesBox);
-                    Thread.Sleep(2000);
+                       , richTextBox1, pricesBox));
+                    MessageBox.Show("Searching Evomag");
+                    seventhThread.Start();
+                    
 
-                    DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"Second{product}Table", "Vexio", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.VexioPricesXpath)}/"
-                       , richTextBox1, pricesBox);
+                    Thread eighthThread = new(() => DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelTwoSearchItems($"Second{product}Table", "Vexio", searchItem[0], searchItem[1]))}/{HttpUtility.UrlEncode(_xpath.VexioPricesXpath)}/"
+                       , richTextBox1, pricesBox));
+                    MessageBox.Show("Vexio");
+                    eighthThread.Start();
+                    
                     break;
                 case 3:
                     DisplayResults($"https://localhost:7210/api/GetProductsPrices/{HttpUtility.UrlEncode(SearchQuerries.ReadComponentModelThreeSearchItems($"{product}Table", "Emag", searchItem[0], searchItem[1], searchItem[2]))}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpath)}/{HttpUtility.UrlEncode(_xpath.EmagPricesXpathForDeals)}/"
@@ -154,13 +178,18 @@ namespace PriceComparrerWinforms.src
 
             if (_ads is not null)
             {
-                pricesBox.Show();
-                hyperlinkBox.Show();
-                hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
-                pricesBox.Text = _ads.AdPrice;
+                
+                hyperlinkBox.Invoke((MethodInvoker)(() => hyperlinkBox.Text += $"{_ads.AdTitle}{_ads.AdHyperlink}"));
+                pricesBox.Invoke((MethodInvoker)(() => pricesBox.Text += _ads.AdPrice));
+                pricesBox.Invoke(new MethodInvoker(pricesBox.Show));
+                hyperlinkBox.Invoke(new MethodInvoker(hyperlinkBox.Show));
+                //pricesBox.Show();
+                //hyperlinkBox.Show();
+                //hyperlinkBox.Text = $"{_ads.AdTitle}{_ads.AdHyperlink}";
+                //pricesBox.Text = _ads.AdPrice;
 
             }
-
+           
         }
 
 
